@@ -1,0 +1,383 @@
+/* ===== CALENDAR PAGE — Dark sports theme ===== */
+
+/* Filters */
+.cal-filter {
+  padding: 10px 24px;
+  background: transparent;
+  border: 1px solid #1a2a40;
+  border-radius: 8px;
+  color: rgba(255,255,255,0.5);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cal-filter:hover {
+  border-color: rgba(78,170,212,0.4);
+  color: #fff;
+}
+
+.cal-filter.active {
+  background: rgba(78,170,212,0.1);
+  border-color: rgba(78,170,212,0.3);
+  color: #4EAAD4;
+  font-weight: 600;
+}
+
+/* Month cards */
+.cal-month {
+  background: #0d1a2e;
+  border: 1px solid #1a2a40;
+  border-radius: 14px;
+  padding: 28px;
+  transition: border-color 0.3s;
+}
+
+.cal-month:hover {
+  border-color: rgba(78,170,212,0.2);
+}
+
+.cal-month__title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+
+.cal-month__count {
+  font-size: 13px;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 20px;
+}
+
+/* Calendar grid inside month */
+.cal-days-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 6px;
+}
+
+.cal-days-header span {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  padding: 6px 0;
+}
+
+.cal-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.2);
+  border-radius: 8px;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.cal-day.empty {
+  pointer-events: none;
+}
+
+/* Practice day — Senior */
+.cal-day.practice-senior {
+  background: rgba(78,170,212,0.12);
+  border: 1px solid rgba(78,170,212,0.3);
+  color: #4EAAD4;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.cal-day.practice-senior:hover {
+  background: rgba(78,170,212,0.25);
+  border-color: #4EAAD4;
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(78,170,212,0.2);
+}
+
+/* Practice day — Junior */
+.cal-day.practice-junior {
+  background: rgba(245,158,11,0.12);
+  border: 1px solid rgba(245,158,11,0.3);
+  color: #f59e0b;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.cal-day.practice-junior:hover {
+  background: rgba(245,158,11,0.25);
+  border-color: #f59e0b;
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(245,158,11,0.2);
+}
+
+/* Practice day — Both */
+.cal-day.practice-both {
+  background: rgba(139,92,246,0.12);
+  border: 1px solid rgba(139,92,246,0.3);
+  color: #8b5cf6;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.cal-day.practice-both:hover {
+  background: rgba(139,92,246,0.25);
+  border-color: #8b5cf6;
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(139,92,246,0.2);
+}
+
+/* Confirmed attendance marker */
+.cal-day.confirmed::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.cal-day.absent-marked::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ef4444;
+}
+
+/* Today marker */
+.cal-day.today {
+  box-shadow: inset 0 0 0 2px #fff;
+}
+
+/* Past day dimmer */
+.cal-day.past {
+  opacity: 0.4;
+}
+
+/* Hidden by filter */
+.cal-day.hidden {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: rgba(255,255,255,0.08) !important;
+  pointer-events: none !important;
+}
+
+/* ===== MODAL ===== */
+.cal-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.cal-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+}
+
+.cal-modal__content {
+  position: relative;
+  background: #0d1a2e;
+  border: 1px solid #1a2a40;
+  border-radius: 16px;
+  padding: 36px;
+  max-width: 520px;
+  width: 100%;
+  animation: slideDown 0.3s ease;
+}
+
+.cal-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  font-size: 28px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.cal-modal__close:hover { color: #fff; }
+
+.cal-modal__title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.cal-modal__date {
+  font-size: 16px;
+  color: #4EAAD4;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.cal-modal__info {
+  font-size: 13px;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 28px;
+}
+
+/* Form inside modal */
+.cal-form-group {
+  margin-bottom: 18px;
+  flex: 1;
+}
+
+.cal-form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 6px;
+}
+
+.cal-form-group input,
+.cal-form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  background: #0a1222;
+  border: 1px solid #1a2a40;
+  border-radius: 8px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+
+.cal-form-group input::placeholder {
+  color: rgba(255,255,255,0.2);
+}
+
+.cal-form-group input:focus,
+.cal-form-group select:focus {
+  border-color: #4EAAD4;
+  box-shadow: 0 0 0 3px rgba(78,170,212,0.15);
+}
+
+.cal-form-group select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%234a5c70' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.cal-form-group select option {
+  background: #0a1222;
+  color: #fff;
+}
+
+.cal-form-row {
+  display: flex;
+  gap: 12px;
+}
+
+/* Buttons */
+.cal-btn {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.cal-btn--confirm {
+  background: #4EAAD4;
+  color: #fff;
+}
+
+.cal-btn--confirm:hover {
+  background: #3a95bf;
+  box-shadow: 0 4px 14px rgba(78,170,212,0.3);
+}
+
+.cal-btn--absent {
+  background: transparent;
+  color: rgba(255,255,255,0.4);
+  border: 1px solid #1a2a40;
+}
+
+.cal-btn--absent:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  #calendar-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  #calendar-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .cal-month {
+    padding: 20px;
+  }
+
+  .cal-day {
+    font-size: 13px;
+  }
+
+  .cal-form-row {
+    flex-direction: column;
+  }
+
+  .cal-modal__content {
+    padding: 24px;
+  }
+}
+
+/* Keyframes (reuse from main) */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

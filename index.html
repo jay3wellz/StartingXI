@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starting XI — L'académie de football d'excellence à Montréal</title>
+  <meta name="description" content="Starting XI est une académie privée de football d'excellence basée à Montréal. Programmes Masculin, Féminin, Pro et Junior.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar__inner">
+
+      <!-- LEFT LINKS -->
+      <div class="navbar__links-left">
+        <div class="navbar__item">
+          <a href="index.html" class="navbar__link">Accueil</a>
+        </div>
+        <div class="navbar__item">
+          <a href="pages/a-propos.html" class="navbar__link">À propos</a>
+          <div class="navbar__dropdown">
+            <button class="navbar__dropdown-close">&times;</button>
+            <div class="navbar__dropdown-inner">
+              <div class="navbar__dropdown-title">À propos</div>
+              <a href="pages/a-propos.html#mission">Mission</a>
+              <a href="pages/a-propos.html#staff">Staff & Entraîneurs</a>
+              <a href="pages/a-propos.html#valeurs">Valeurs</a>
+            </div>
+          </div>
+        </div>
+        <div class="navbar__item">
+          <a href="pages/equipes.html" class="navbar__link">Équipes</a>
+          <div class="navbar__dropdown">
+            <button class="navbar__dropdown-close">&times;</button>
+            <div class="navbar__dropdown-inner">
+              <div class="navbar__dropdown-title">Équipes</div>
+              <a href="pages/equipes-feminin.html">Féminin PRO</a>
+              <a href="pages/equipes-junior.html">U12</a>
+              <a href="pages/equipes-junior.html">U15</a>
+              <a href="pages/equipes-junior.html">U18</a>
+              <a href="pages/equipes-masculin.html">Senior</a>
+              <a href="pages/equipes-pro.html">Semi-professionnel</a>
+              <a href="pages/equipes-pro.html">Professionnel</a>
+            </div>
+          </div>
+        </div>
+        <div class="navbar__item">
+          <a href="pages/medias.html" class="navbar__link">Médias</a>
+          <div class="navbar__dropdown">
+            <button class="navbar__dropdown-close">&times;</button>
+            <div class="navbar__dropdown-inner">
+              <div class="navbar__dropdown-title">Médias</div>
+              <a href="pages/medias.html#galerie">Galerie photos</a>
+              <a href="pages/medias.html#videos">Vidéos</a>
+              <a href="pages/medias.html#actualites">Actualités</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER LOGO -->
+      <a href="index.html" class="navbar__logo">
+        <svg width="48" height="48" viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="60" r="58" stroke="white" stroke-width="2.5" fill="#000"/>
+          <text x="28" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">S</text>
+          <text x="55" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">T</text>
+          <text x="82" y="78" font-family="Inter,sans-serif" font-weight="300" font-size="20" fill="white" letter-spacing="2">XI</text>
+        </svg>
+      </a>
+
+      <!-- RIGHT LINKS -->
+      <div class="navbar__links-right">
+        <div class="navbar__item">
+          <a href="pages/calendrier.html" class="navbar__link" style="color:#4EAAD4;">Calendrier</a>
+        </div>
+        <div class="navbar__item">
+          <a href="pages/partenaires.html" class="navbar__link">Partenaires</a>
+          <div class="navbar__dropdown">
+            <button class="navbar__dropdown-close">&times;</button>
+            <div class="navbar__dropdown-inner">
+              <div class="navbar__dropdown-title">Partenaires</div>
+              <a href="pages/partenaires.html#sponsors">Nos sponsors</a>
+              <a href="pages/partenaires.html#devenir">Devenir partenaire</a>
+            </div>
+          </div>
+        </div>
+        <div class="navbar__item">
+          <a href="pages/contact.html" class="navbar__link">Contact</a>
+        </div>
+        <button class="navbar__lang">FR / EN</button>
+        <a href="pages/contact.html" class="navbar__cta">S'inscrire</a>
+      </div>
+
+      <button class="navbar__burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu">
+    <div class="mobile-menu__item">
+      <a href="index.html" class="mobile-menu__link">Accueil</a>
+    </div>
+    <div class="mobile-menu__item">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <a href="pages/a-propos.html" class="mobile-menu__link">À propos</a>
+        <button class="mobile-menu__toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg></button>
+      </div>
+      <div class="mobile-menu__sub">
+        <a href="pages/a-propos.html#mission">Mission</a>
+        <a href="pages/a-propos.html#staff">Staff & Entraîneurs</a>
+        <a href="pages/a-propos.html#valeurs">Valeurs</a>
+      </div>
+    </div>
+    <div class="mobile-menu__item">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <a href="pages/equipes.html" class="mobile-menu__link">Équipes</a>
+        <button class="mobile-menu__toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg></button>
+      </div>
+      <div class="mobile-menu__sub">
+        <a href="pages/equipes-feminin.html">Féminin PRO</a>
+        <a href="pages/equipes-junior.html">U12</a>
+        <a href="pages/equipes-junior.html">U15</a>
+        <a href="pages/equipes-junior.html">U18</a>
+        <a href="pages/equipes-masculin.html">Senior</a>
+        <a href="pages/equipes-pro.html">Semi-professionnel</a>
+        <a href="pages/equipes-pro.html">Professionnel</a>
+      </div>
+    </div>
+    <div class="mobile-menu__item">
+      <a href="pages/medias.html" class="mobile-menu__link">Médias</a>
+    </div>
+    <div class="mobile-menu__item">
+      <a href="pages/partenaires.html" class="mobile-menu__link">Partenaires</a>
+    </div>
+    <div class="mobile-menu__item">
+      <a href="pages/contact.html" class="mobile-menu__link">Contact</a>
+    </div>
+    <a href="pages/contact.html" class="mobile-menu__cta">S'inscrire</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg">
+      <div class="hero__grid"></div>
+    </div>
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <!-- Logo -->
+      <div class="hero__logo" style="margin-bottom:32px;opacity:0;animation:fadeInUp 0.8s ease forwards;">
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="60" r="58" stroke="white" stroke-width="2.5" fill="rgba(0,0,0,0.3)"/>
+          <text x="28" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">S</text>
+          <text x="55" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">T</text>
+          <text x="82" y="78" font-family="Inter,sans-serif" font-weight="300" font-size="20" fill="white" letter-spacing="2">XI</text>
+        </svg>
+      </div>
+      <p class="hero__label" style="font-family:'Montserrat',sans-serif;font-weight:500;font-size:16px;letter-spacing:0.35em;text-transform:uppercase;color:#FFFFFF;margin-bottom:16px;opacity:0;animation:fadeInUp 0.8s ease 0.15s forwards;">Bienvenue chez</p>
+      <h1 class="hero__title" style="font-family:'Montserrat',sans-serif;font-weight:900;color:#FFFFFF;">
+        STARTING XI
+      </h1>
+      <p class="hero__subtitle" style="font-family:'Montserrat',sans-serif;font-weight:400;font-style:italic;color:#FFFFFF;opacity:0.85;font-size:16px;">L'école de foot où chaque séance<br>te rapproche du sommet.</p>
+      <div class="hero__buttons">
+        <a href="#about" class="btn btn--outline" style="color:#fff;border-color:rgba(255,255,255,0.4);">Découvrir STXI</a>
+        <a href="pages/contact.html" class="btn btn--primary" style="background:#fff;color:#111;border-color:#fff;">S'inscrire</a>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <span class="hero__scroll-text">Défiler</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="stats__grid">
+      <div class="stats__item">
+        <div class="stats__number" data-target="5" data-suffix="">0</div>
+        <div class="stats__label">Catégories</div>
+      </div>
+      <div class="stats__item">
+        <div class="stats__number" data-target="200" data-suffix="+">0</div>
+        <div class="stats__label">Joueurs</div>
+      </div>
+      <div class="stats__item">
+        <div class="stats__number" data-target="2020" data-suffix="">0</div>
+        <div class="stats__label">Depuis</div>
+      </div>
+      <div class="stats__item">
+        <div class="stats__number">MTL</div>
+        <div class="stats__label">Montréal, QC</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT PREVIEW -->
+  <section id="about" class="section section--alt">
+    <div class="about-preview">
+      <div class="reveal">
+        <p class="label">Qui sommes-nous</p>
+        <h2 class="section-title">Une académie bâtie pour former l'élite</h2>
+        <p>Starting XI est une académie privée de football d'excellence basée à Montréal. Notre mission est de développer les talents de demain à travers un encadrement professionnel, une méthodologie rigoureuse et un environnement qui pousse chaque joueur à se dépasser.</p>
+        <p>Du U10 au programme Pro, nous offrons un parcours complet adapté à chaque niveau et chaque ambition. Discipline, excellence, esprit d'équipe — ce sont les piliers qui définissent Starting XI.</p>
+        <a href="pages/a-propos.html" class="btn btn--outline" style="margin-top:32px;">En savoir plus</a>
+      </div>
+      <div class="about-preview__image reveal">
+        <div class="about-preview__image-placeholder">
+          <span>STXI</span>
+          <p>Photo d'action</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAMS -->
+  <section class="section">
+    <div style="text-align:center;margin-bottom:64px;" class="reveal">
+      <p class="label">Nos équipes</p>
+      <h2 class="section-title">Trouve ta catégorie</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="teams-grid reveal">
+      <a href="pages/equipes-masculin.html" class="team-card">
+        <div class="team-card__bg"></div>
+        <div class="team-card__gradient"></div>
+        <div class="team-card__watermark">MASCULIN</div>
+        <div class="team-card__content">
+          <h3 class="team-card__title">Masculin</h3>
+          <p class="team-card__subtitle">U10 · U12 · U14 · U16 · Senior</p>
+          <div class="team-card__arrow">Voir l'équipe <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h8M8 3l3 4-3 4"/></svg></div>
+        </div>
+      </a>
+      <a href="pages/equipes-feminin.html" class="team-card">
+        <div class="team-card__bg"></div>
+        <div class="team-card__gradient"></div>
+        <div class="team-card__watermark">FÉMININ</div>
+        <div class="team-card__content">
+          <h3 class="team-card__title">Féminin</h3>
+          <p class="team-card__subtitle">U10 · U12 · U14 · U16 · Senior</p>
+          <div class="team-card__arrow">Voir l'équipe <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h8M8 3l3 4-3 4"/></svg></div>
+        </div>
+      </a>
+      <a href="pages/equipes-pro.html" class="team-card">
+        <div class="team-card__bg"></div>
+        <div class="team-card__gradient"></div>
+        <div class="team-card__watermark">PRO</div>
+        <div class="team-card__content">
+          <h3 class="team-card__title">Pro</h3>
+          <p class="team-card__subtitle">Élite & Professionnel</p>
+          <div class="team-card__arrow">Voir l'équipe <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h8M8 3l3 4-3 4"/></svg></div>
+        </div>
+      </a>
+      <a href="pages/equipes-junior.html" class="team-card">
+        <div class="team-card__bg"></div>
+        <div class="team-card__gradient"></div>
+        <div class="team-card__watermark">JUNIOR</div>
+        <div class="team-card__content">
+          <h3 class="team-card__title">Junior</h3>
+          <p class="team-card__subtitle">À partir de 7 ans</p>
+          <div class="team-card__arrow">Voir l'équipe <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h8M8 3l3 4-3 4"/></svg></div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section class="section section--alt">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;" class="reveal">
+        <div>
+          <p class="label">Actualités</p>
+          <h2 class="section-title">Dernières nouvelles</h2>
+        </div>
+        <a href="pages/medias.html#actualites" style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(0,0,0,0.5);border-bottom:1px solid rgba(0,0,0,0.25);padding-bottom:4px;transition:color 0.2s;">Tout voir</a>
+      </div>
+    </div>
+    <div class="news-grid reveal">
+      <div class="news-card">
+        <div class="news-card__image"><div class="news-card__image-inner"><span>STXI</span></div></div>
+        <div class="news-card__meta">Actualité — 15 mars 2026</div>
+        <h3 class="news-card__title">Début de la saison 2025/26 — Les inscriptions sont ouvertes</h3>
+      </div>
+      <div class="news-card">
+        <div class="news-card__image"><div class="news-card__image-inner"><span>STXI</span></div></div>
+        <div class="news-card__meta">Club — 1 mars 2026</div>
+        <h3 class="news-card__title">Starting XI accueille un nouveau directeur technique</h3>
+      </div>
+      <div class="news-card">
+        <div class="news-card__image"><div class="news-card__image-inner"><span>STXI</span></div></div>
+        <div class="news-card__meta">Événement — 20 fév. 2026</div>
+        <h3 class="news-card__title">Récap du tournoi intersquad de février</h3>
+      </div>
+      <div class="news-card">
+        <div class="news-card__image"><div class="news-card__image-inner"><span>STXI</span></div></div>
+        <div class="news-card__meta">Partenaire — 5 fév. 2026</div>
+        <h3 class="news-card__title">Partenariat avec Clinique Haute Performance</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPONSORS -->
+  <section class="sponsors">
+    <p class="label sponsors__label">Nos partenaires</p>
+    <div class="sponsors__track">
+      <span class="sponsors__item">CLINIQUE HAUTE PERFORMANCE</span>
+      <span class="sponsors__item">SEVER</span>
+      <span class="sponsors__item">PARTENAIRE 3</span>
+      <span class="sponsors__item">PARTENAIRE 4</span>
+      <span class="sponsors__item">PARTENAIRE 5</span>
+      <span class="sponsors__item">PARTENAIRE 6</span>
+      <span class="sponsors__item">CLINIQUE HAUTE PERFORMANCE</span>
+      <span class="sponsors__item">SEVER</span>
+      <span class="sponsors__item">PARTENAIRE 3</span>
+      <span class="sponsors__item">PARTENAIRE 4</span>
+      <span class="sponsors__item">PARTENAIRE 5</span>
+      <span class="sponsors__item">PARTENAIRE 6</span>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--alt">
+    <div class="cta-section reveal">
+      <h2 class="section-title">Prêt à rejoindre l'académie ?</h2>
+      <p>Rejoins Starting XI et développe ton plein potentiel avec un encadrement d'élite.</p>
+      <a href="pages/contact.html" class="btn btn--primary">S'inscrire maintenant</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg width="36" height="36" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="58" stroke="white" stroke-width="2.5" fill="#000"/>
+            <text x="28" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">S</text>
+            <text x="55" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">T</text>
+            <text x="82" y="78" font-family="Inter,sans-serif" font-weight="300" font-size="20" fill="white" letter-spacing="2">XI</text>
+          </svg>
+          <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:18px;letter-spacing:0.15em;">STARTING XI</span>
+        </div>
+        <p>L'académie de football d'excellence à Montréal. Programmes pour tous les niveaux, du junior au professionnel.</p>
+        <a href="mailto:contact@starting11.ca">contact@starting11.ca</a>
+        <div class="footer__socials">
+          <a href="https://instagram.com/star.tingxi" target="_blank" rel="noopener" class="footer__social" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://tiktok.com/@star.tingxi" target="_blank" rel="noopener" class="footer__social" aria-label="TikTok">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+          </a>
+          <a href="https://facebook.com/StartingXI" target="_blank" rel="noopener" class="footer__social" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Liens rapides</h4>
+        <a href="index.html">Accueil</a>
+        <a href="pages/a-propos.html">À propos</a>
+        <a href="pages/contact.html">Contact</a>
+        <a href="pages/contact.html">S'inscrire</a>
+      </div>
+      <div class="footer__col">
+        <h4>Équipes</h4>
+        <a href="pages/equipes-masculin.html">Masculin</a>
+        <a href="pages/equipes-feminin.html">Féminin</a>
+        <a href="pages/equipes-pro.html">Pro</a>
+        <a href="pages/equipes-junior.html">Junior</a>
+      </div>
+      <div class="footer__col">
+        <h4>Médias</h4>
+        <a href="pages/medias.html#galerie">Galerie photos</a>
+        <a href="pages/medias.html#videos">Vidéos</a>
+        <a href="pages/medias.html#actualites">Actualités</a>
+        <a href="pages/partenaires.html">Partenaires</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 Starting XI. Tous droits réservés.</p>
+      <button>FR / EN</button>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
