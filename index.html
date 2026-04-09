@@ -363,7 +363,28 @@
     }
 
     /* ===== STAFF HORIZONTAL SCROLL ===== */
+    /* Pattern */
+    .staff-pattern {
+      position: absolute;
+      inset: -120px;
+      z-index: 0;
+      opacity: 0.055;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='240' viewBox='0 0 360 240'%3E%3Ccircle cx='60' cy='60' r='48' stroke='white' stroke-width='2' fill='none'/%3E%3Ctext x='32' y='70' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ES%3C/text%3E%3Ctext x='55' y='70' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ET%3C/text%3E%3Ctext x='78' y='74' font-family='sans-serif' font-weight='300' font-size='16' fill='white'%3EXI%3C/text%3E%3Ccircle cx='240' cy='60' r='48' stroke='white' stroke-width='2' fill='none'/%3E%3Ctext x='212' y='70' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ES%3C/text%3E%3Ctext x='235' y='70' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ET%3C/text%3E%3Ctext x='258' y='74' font-family='sans-serif' font-weight='300' font-size='16' fill='white'%3EXI%3C/text%3E%3Ccircle cx='150' cy='180' r='48' stroke='white' stroke-width='2' fill='none'/%3E%3Ctext x='122' y='190' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ES%3C/text%3E%3Ctext x='145' y='190' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ET%3C/text%3E%3Ctext x='168' y='194' font-family='sans-serif' font-weight='300' font-size='16' fill='white'%3EXI%3C/text%3E%3Ccircle cx='330' cy='180' r='48' stroke='white' stroke-width='2' fill='none'/%3E%3Ctext x='302' y='190' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ES%3C/text%3E%3Ctext x='325' y='190' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ET%3C/text%3E%3Ctext x='348' y='194' font-family='sans-serif' font-weight='300' font-size='16' fill='white'%3EXI%3C/text%3E%3C/svg%3E");
+      background-size: 360px 240px;
+      animation: patternDrift 80s linear infinite;
+    }
+    @keyframes patternDrift {
+      0% { background-position: 0 0; }
+      100% { background-position: -360px -240px; }
+    }
+    @media (max-width: 768px) {
+      .staff-pattern { background-size: 80px 80px; opacity: 0.08; }
+    }
+
     .staff-scroll {
+      position: relative;
+      z-index: 2;
       overflow-x: auto;
       overflow-y: hidden;
       scroll-snap-type: x mandatory;
@@ -382,8 +403,8 @@
     }
     .staff-card {
       position: relative;
-      width: 340px;
-      height: 480px;
+      width: 380px;
+      height: 530px;
       border-radius: 12px;
       overflow: hidden;
       flex-shrink: 0;
@@ -426,7 +447,7 @@
       font-family: 'Montserrat', sans-serif;
       font-size: 13px;
       font-weight: 700;
-      color: #4EAAD4;
+      color: #fff;
       letter-spacing: 0.1em;
       display: block;
       margin-bottom: 8px;
@@ -490,7 +511,7 @@
     }
     .staff-indicator.active {
       width: 40px;
-      background: #4EAAD4;
+      background: #fff;
     }
     /* Arrow buttons */
     .staff-arrow {
@@ -507,8 +528,8 @@
       transition: border-color 0.3s, color 0.3s, background 0.3s;
     }
     .staff-arrow:hover {
-      border-color: #4EAAD4;
-      color: #4EAAD4;
+      border-color: #fff;
+      color: #fff;
       background: rgba(78,170,212,0.08);
     }
     @media (max-width: 768px) {
@@ -520,8 +541,8 @@
     }
 
     /* ===== ACTIVE NAV LINK ===== */
-    .navbar__link.active-section { color: #4EAAD4 !important; }
-    .mobile-menu__link.active-section { color: #4EAAD4 !important; }
+    .navbar__link.active-section { color: #fff !important; }
+    .mobile-menu__link.active-section { color: #fff !important; }
   </style>
 </head>
 <body>
@@ -562,7 +583,7 @@
       <!-- RIGHT LINKS -->
       <div class="navbar__links-right">
         <div class="navbar__item">
-          <a href="pages/calendrier.html" class="navbar__link" style="color:#4EAAD4;">Calendrier</a>
+          <a href="pages/calendrier.html" class="navbar__link" style="color:#fff;">Calendrier</a>
         </div>
         <div class="navbar__item">
           <a href="#partenaires" class="navbar__link">Partenaires</a>
@@ -597,7 +618,7 @@
       <a href="#medias" class="mobile-menu__link">Médias</a>
     </div>
     <div class="mobile-menu__item">
-      <a href="pages/calendrier.html" class="mobile-menu__link" style="color:#4EAAD4;">Calendrier</a>
+      <a href="pages/calendrier.html" class="mobile-menu__link" style="color:#fff;">Calendrier</a>
     </div>
     <div class="mobile-menu__item">
       <a href="#partenaires" class="mobile-menu__link">Partenaires</a>
@@ -688,10 +709,15 @@
   <!-- ============================================================ -->
   <!-- STAFF — Horizontal Scroll Cards                               -->
   <!-- ============================================================ -->
-  <section id="staff" style="background:#090909;padding:100px 0 80px;overflow:hidden;">
+  <section id="staff" style="background:#050507;padding:100px 0 80px;overflow:hidden;position:relative;">
+
+    <!-- Step-and-repeat logo pattern -->
+    <div class="staff-pattern" aria-hidden="true"></div>
+    <!-- Vignette overlay -->
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center, transparent 30%, rgba(5,5,7,0.7) 100%);"></div>
 
     <!-- Header -->
-    <div style="max-width:1400px;margin:0 auto;padding:0 24px 48px;">
+    <div style="max-width:1400px;margin:0 auto;padding:0 24px 48px;position:relative;z-index:2;">
       <p class="label">L'équipe</p>
       <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,3.5rem);color:#fff;letter-spacing:0.04em;">Derrière l'académie</h2>
       <div style="width:60px;height:3px;background:#fff;margin:16px 0 0;"></div>
@@ -699,7 +725,7 @@
     </div>
 
     <!-- Scroll hint -->
-    <div class="staff-hint" style="max-width:1400px;margin:0 auto;padding:0 24px 20px;display:flex;align-items:center;gap:8px;">
+    <div class="staff-hint" style="max-width:1400px;margin:0 auto;padding:0 24px 20px;display:flex;align-items:center;gap:8px;position:relative;z-index:2;">
       <span style="font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.25);">Glisse pour explorer</span>
       <svg class="staff-hint__arrow" width="20" height="12" viewBox="0 0 20 12" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"><path d="M0 6h16M12 1l5 5-5 5"/></svg>
     </div>
@@ -760,7 +786,7 @@
     </div>
 
     <!-- Navigation -->
-    <div style="max-width:1400px;margin:0 auto;padding:32px 24px 0;display:flex;align-items:center;justify-content:space-between;">
+    <div style="max-width:1400px;margin:0 auto;padding:32px 24px 0;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2;">
       <!-- Indicators -->
       <div class="staff-indicators" id="staff-indicators">
         <span class="staff-indicator active" data-i="0"></span>
