@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Read(//c/Users/Jayle/Desktop/STXI-source/**)",
+      "Bash(mkdir -p \"other\")",
+      "Bash(find . -maxdepth 1 -name \"*.jpg\" -exec mv {} other/ \\\\;)",
+      "Bash(ls other/*.jpg)"
     ]
   }
 }

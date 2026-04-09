@@ -6,3 +6,6 @@ Thumbs.db
 *.log
 .env
 .env.local
+
+# Photos workflow — local only, never commit
+_photos-workflow/

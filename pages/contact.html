@@ -6,8 +6,58 @@
   <title>Contact — Starting XI</title>
   <meta name="description" content="Contactez Starting XI pour toute question sur nos programmes ou pour vous inscrire.">
   <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    .contact-page { background: #E8E4DF; color: #111; }
+    .contact-page h1, .contact-page h2, .contact-page h3 { color: #111; }
+    .ct-section { max-width: 1200px; margin: 0 auto; padding: 80px 24px; }
+    .ct-hero { position: relative; padding: 160px 24px 80px; text-align: center; background: #111; }
+    .ct-title { font-family: 'Bebas Neue','Montserrat',sans-serif; font-size: clamp(3rem,8vw,5.5rem); line-height: 0.95; letter-spacing: 0.02em; text-transform: uppercase; color: #fff; margin-bottom: 16px; }
+    .ct-subtitle { font-size: 16px; color: rgba(255,255,255,0.5); max-width: 500px; margin: 0 auto; }
+    .ct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .ct-label { font-family: 'Montserrat',sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #999; margin-bottom: 10px; }
+    .ct-form-title { font-family: 'Bebas Neue',sans-serif; font-size: 2.5rem; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 32px; }
+    .ct-group { margin-bottom: 20px; }
+    .ct-group label { display: block; font-family: 'Montserrat',sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #666; margin-bottom: 8px; }
+    .ct-group input, .ct-group select, .ct-group textarea {
+      width: 100%; padding: 14px 16px; background: #fff; border: 1px solid #D5D3CE;
+      border-radius: 8px; font-family: 'Montserrat',sans-serif; font-size: 15px; color: #111;
+      outline: none; transition: border-color 0.2s; box-sizing: border-box;
+    }
+    .ct-group input::placeholder, .ct-group textarea::placeholder { color: #bbb; }
+    .ct-group input:focus, .ct-group select:focus, .ct-group textarea:focus { border-color: #111; }
+    .ct-group textarea { resize: vertical; min-height: 130px; }
+    .ct-group select { appearance: none; cursor: pointer; }
+    .ct-submit {
+      width: 100%; padding: 16px; background: #111; color: #fff; border: none; border-radius: 8px;
+      font-family: 'Montserrat',sans-serif; font-size: 15px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; cursor: pointer; transition: background 0.2s;
+    }
+    .ct-submit:hover { background: #333; }
+    .ct-info-item { margin-bottom: 28px; }
+    .ct-info-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #999; margin-bottom: 6px; }
+    .ct-info-value { font-size: 16px; color: #333; }
+    .ct-info-value a { color: #111; text-decoration: none; border-bottom: 1px solid #D5D3CE; transition: border-color 0.2s; }
+    .ct-info-value a:hover { border-color: #111; }
+    .ct-social { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+    .ct-social a {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 16px; background: #fff; border: 1px solid #D5D3CE; border-radius: 8px;
+      text-decoration: none; transition: border-color 0.2s;
+    }
+    .ct-social a:hover { border-color: #111; }
+    .ct-social-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #999; }
+    .ct-social-handle { font-size: 15px; color: #111; font-weight: 500; }
+    .ct-map { margin-top: 20px; border-radius: 12px; overflow: hidden; border: 1px solid #D5D3CE; }
+    .ct-map iframe { width: 100%; height: 280px; border: 0; display: block; }
+    .ct-directions { display: inline-block; margin-top: 10px; font-size: 13px; color: #999; text-decoration: none; border-bottom: 1px solid #D5D3CE; transition: color 0.2s; }
+    .ct-directions:hover { color: #111; }
+    @media (max-width: 768px) {
+      .ct-grid { grid-template-columns: 1fr; gap: 48px; }
+      .ct-hero { padding: 140px 24px 60px; }
+    }
+  </style>
 </head>
-<body>
+<body class="contact-page">
 
   <!-- NAVBAR -->
   <nav class="navbar">
@@ -142,33 +192,31 @@
     <a href="contact.html" class="mobile-menu__cta">S'inscrire</a>
   </div>
 
-  <!-- PAGE HEADER -->
-  <section class="page-header">
-    <p class="label">Nous joindre</p>
-    <h1 class="section-title">Contact</h1>
-    <p class="page-header__subtitle">Une question ? Une inscription ? Écrivez-nous et nous vous répondrons rapidement.</p>
-  </section>
+  <!-- HERO -->
+  <div class="ct-hero">
+    <h1 class="ct-title">Contactez-nous</h1>
+    <p class="ct-subtitle">Une question ? Une inscription ? On est là pour vous.</p>
+  </div>
 
-  <!-- CONTACT FORM + INFO -->
-  <section class="section section--alt">
-    <div class="contact-grid reveal">
+  <!-- CONTACT CONTENT -->
+  <div class="ct-section">
+    <div class="ct-grid">
 
       <!-- LEFT: FORM -->
       <div>
-        <p class="label">Formulaire</p>
-        <h2 class="section-title" style="font-size:2rem;margin-bottom:32px;">Écrivez-nous</h2>
-        <form>
-          <div class="form-group">
-            <label for="nom">Nom complet</label>
-            <input type="text" id="nom" name="nom" placeholder="Votre nom complet" required>
+        <h2 class="ct-form-title">Envoyer un message</h2>
+        <form id="contact-form">
+          <div class="ct-group">
+            <label>Nom complet</label>
+            <input type="text" placeholder="Prénom Nom" required>
           </div>
-          <div class="form-group">
-            <label for="courriel">Courriel</label>
-            <input type="email" id="courriel" name="courriel" placeholder="votre@courriel.com" required>
+          <div class="ct-group">
+            <label>Courriel</label>
+            <input type="email" placeholder="votre@courriel.com" required>
           </div>
-          <div class="form-group">
-            <label for="sujet">Sujet</label>
-            <select id="sujet" name="sujet" required>
+          <div class="ct-group">
+            <label>Sujet</label>
+            <select required>
               <option value="" disabled selected>Choisir un sujet</option>
               <option value="inscription">Inscription</option>
               <option value="information">Demande d'information</option>
@@ -176,66 +224,61 @@
               <option value="autre">Autre</option>
             </select>
           </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Votre message..." rows="5" required></textarea>
+          <div class="ct-group">
+            <label>Message</label>
+            <textarea placeholder="Votre message..." required></textarea>
           </div>
-          <button type="submit" class="btn btn--primary" style="width:100%;text-align:center;cursor:pointer;">Envoyer</button>
+          <button type="submit" class="ct-submit">Envoyer</button>
         </form>
       </div>
 
       <!-- RIGHT: INFO -->
       <div>
-        <p class="label">Informations</p>
-        <h2 class="section-title" style="font-size:2rem;margin-bottom:32px;">Coordonnées</h2>
+        <h2 class="ct-form-title">Informations</h2>
 
-        <div class="contact-info__item">
-          <p class="contact-info__label">Courriel</p>
-          <p class="contact-info__value"><a href="mailto:contact@starting11.ca">contact@starting11.ca</a></p>
-        </div>
-        <div class="contact-info__item">
-          <p class="contact-info__label">Téléphone</p>
-          <p class="contact-info__value"><a href="tel:+15141234567">(514) 123-4567</a></p>
+        <div class="ct-info-item">
+          <p class="ct-info-label">Courriel</p>
+          <p class="ct-info-value"><a href="mailto:contact@starting11.ca">contact@starting11.ca</a></p>
         </div>
 
-        <div class="contact-info__item">
-          <p class="contact-info__label">Adresse</p>
-          <p class="contact-info__value">Terrain de soccer du complexe sportif de Saint-Laurent<br>2385, boulevard Thimens<br>Montréal (Québec) H4R 1T4</p>
+        <div class="ct-info-item">
+          <p class="ct-info-label">Adresse</p>
+          <p class="ct-info-value">Terrain de soccer du complexe sportif de Saint-Laurent<br>2385, boulevard Thimens<br>Montréal (Québec) H4R 1T4</p>
         </div>
-        <div class="contact-map" style="padding:0;overflow:hidden;margin-top:16px;">
+
+        <div class="ct-map">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2794.8!2d-73.7234!3d45.5087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc918b65b0a1b1d%3A0x7a3e3e3e3e3e3e3e!2s2385%20Bd%20Thimens%2C%20Saint-Laurent%2C%20QC%20H4R%201T4!5e0!3m2!1sfr!2sca!4v1"
-            width="100%"
-            height="100%"
-            style="border:0;min-height:300px;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
           </iframe>
         </div>
-        <a href="https://www.google.com/maps/dir//2385+Bd+Thimens,+Saint-Laurent,+QC+H4R+1T4" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;margin-bottom:32px;font-size:12px;color:rgba(0,0,0,0.5);border-bottom:1px solid rgba(0,0,0,0.25);padding-bottom:2px;transition:color 0.2s;">Obtenir un itinéraire →</a>
+        <a href="https://www.google.com/maps/dir//2385+Bd+Thimens,+Saint-Laurent,+QC+H4R+1T4" target="_blank" rel="noopener" class="ct-directions">Obtenir un itinéraire →</a>
 
-        <div class="contact-info__item">
-          <p class="contact-info__label">Réseaux sociaux</p>
-          <div class="social-links">
-            <a href="https://instagram.com/star.tingxi" target="_blank" rel="noopener" class="social-link">
-              <span class="social-link__label">Instagram</span>
-              <span class="social-link__handle">@star.tingxi</span>
+        <div class="ct-info-item" style="margin-top:32px;">
+          <p class="ct-info-label">Réseaux sociaux</p>
+          <div class="ct-social">
+            <a href="https://instagram.com/star.tingxi" target="_blank" rel="noopener">
+              <span class="ct-social-label">Instagram</span>
+              <span class="ct-social-handle">@star.tingxi</span>
             </a>
-            <a href="https://tiktok.com/@star.tingxi" target="_blank" rel="noopener" class="social-link">
-              <span class="social-link__label">TikTok</span>
-              <span class="social-link__handle">@star.tingxi</span>
+            <a href="https://instagram.com/star.tingxijr" target="_blank" rel="noopener">
+              <span class="ct-social-label">Instagram Jr</span>
+              <span class="ct-social-handle">@star.tingxijr</span>
             </a>
-            <a href="https://facebook.com/StartingXI" target="_blank" rel="noopener" class="social-link">
-              <span class="social-link__label">Facebook</span>
-              <span class="social-link__handle">Starting XI</span>
+            <a href="https://tiktok.com/@star.tingxi" target="_blank" rel="noopener">
+              <span class="ct-social-label">TikTok</span>
+              <span class="ct-social-handle">@star.tingxi</span>
+            </a>
+            <a href="https://facebook.com/StartingXI" target="_blank" rel="noopener">
+              <span class="ct-social-label">Facebook</span>
+              <span class="ct-social-handle">Starting XI</span>
             </a>
           </div>
         </div>
       </div>
 
     </div>
-  </section>
+  </div>
 
   <!-- FOOTER -->
   <footer class="footer">
@@ -248,7 +291,7 @@
             <text x="55" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">T</text>
             <text x="82" y="78" font-family="Inter,sans-serif" font-weight="300" font-size="20" fill="white" letter-spacing="2">XI</text>
           </svg>
-          <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:18px;letter-spacing:0.15em;">STARTING XI</span>
+          <span style="font-family:'Bebas Neue','Montserrat',sans-serif;font-weight:900;font-size:18px;letter-spacing:0.15em;">STARTING XI</span>
         </div>
         <p>L'académie de football d'excellence à Montréal. Programmes pour tous les niveaux, du junior au professionnel.</p>
         <a href="mailto:contact@starting11.ca">contact@starting11.ca</a>
