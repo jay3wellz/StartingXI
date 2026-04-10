@@ -276,6 +276,111 @@
       .part-hero__content { padding: 60px 24px; }
     }
 
+    /* ===== PROGRAMME CARDS ===== */
+    .prog-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .prog-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      height: 560px;
+      cursor: default;
+    }
+    .prog-card__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.4) grayscale(30%);
+      transition: filter 0.5s ease, transform 0.5s ease;
+    }
+    .prog-card:hover .prog-card__img {
+      filter: brightness(0.5) grayscale(0%);
+      transform: scale(1.05);
+    }
+    .prog-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 35%, rgba(0,0,0,0.2) 100%);
+      z-index: 1;
+    }
+    .prog-card__accent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      z-index: 3;
+    }
+    .prog-card__content {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+    }
+    .prog-card__title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.4rem, 2vw, 1.8rem);
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1.05;
+      margin-bottom: 4px;
+    }
+    .prog-card__sub {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+    }
+    .prog-card__level {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      margin-top: auto;
+      margin-bottom: 12px;
+    }
+    .prog-card__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .prog-card__list li {
+      font-size: 12px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.5);
+      padding: 3px 0 3px 14px;
+      position: relative;
+    }
+    .prog-card__list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    @media (max-width: 1024px) {
+      .prog-grid { grid-template-columns: repeat(2, 1fr); }
+      .prog-card { height: 500px; }
+    }
+    @media (max-width: 768px) {
+      .prog-grid { grid-template-columns: 1fr; }
+      .prog-card { height: 450px; }
+    }
+
     /* ===== CONTACT DARK MODE ===== */
     .ct-section { max-width: 1200px; margin: 0 auto; padding: 80px 24px; }
     .ct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
@@ -372,11 +477,6 @@
       background-image:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='240' viewBox='0 0 360 240'%3E%3Ccircle cx='60' cy='60' r='48' stroke='white' stroke-width='2' fill='none'/%3E%3Ctext x='32' y='70' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ES%3C/text%3E%3Ctext x='55' y='70' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ET%3C/text%3E%3Ctext x='78' y='74' font-family='sans-serif' font-weight='300' font-size='16' fill='white'%3EXI%3C/text%3E%3Ccircle cx='240' cy='60' r='48' stroke='white' stroke-width='2' fill='none'/%3E%3Ctext x='212' y='70' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ES%3C/text%3E%3Ctext x='235' y='70' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ET%3C/text%3E%3Ctext x='258' y='74' font-family='sans-serif' font-weight='300' font-size='16' fill='white'%3EXI%3C/text%3E%3Ccircle cx='150' cy='180' r='48' stroke='white' stroke-width='2' fill='none'/%3E%3Ctext x='122' y='190' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ES%3C/text%3E%3Ctext x='145' y='190' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ET%3C/text%3E%3Ctext x='168' y='194' font-family='sans-serif' font-weight='300' font-size='16' fill='white'%3EXI%3C/text%3E%3Ccircle cx='330' cy='180' r='48' stroke='white' stroke-width='2' fill='none'/%3E%3Ctext x='302' y='190' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ES%3C/text%3E%3Ctext x='325' y='190' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ET%3C/text%3E%3Ctext x='348' y='194' font-family='sans-serif' font-weight='300' font-size='16' fill='white'%3EXI%3C/text%3E%3C/svg%3E");
       background-size: 360px 240px;
-      animation: patternDrift 80s linear infinite;
-    }
-    @keyframes patternDrift {
-      0% { background-position: 0 0; }
-      100% { background-position: -360px -240px; }
     }
     @media (max-width: 768px) {
       .staff-pattern { background-size: 80px 80px; opacity: 0.08; }
@@ -736,7 +836,7 @@
 
         <!-- 01 Chakib — Featured (larger) -->
         <div class="staff-card staff-card--featured" data-index="0">
-          <img src="images/staff/Lacamz-261.jpg" alt="Chakib Hocine" loading="lazy" class="staff-card__img">
+          <img src="images/staff/Lacamz-4081.jpg" alt="Chakib Hocine" loading="lazy" class="staff-card__img" style="object-position:center 20%;">
           <div class="staff-card__overlay"></div>
           <div class="staff-card__content">
             <span class="staff-card__num">01</span>
@@ -840,7 +940,7 @@
         </div>
       </div>
       <div class="cat-card">
-        <img src="images/galerie/Lacamz-195.jpg" alt="Féminin" class="cat-card__img" loading="lazy">
+        <img src="images/equipes-feminin/Lacamz-4073.jpg" alt="Féminin" class="cat-card__img" loading="lazy" style="object-position:center 25%;">
         <div class="cat-card__overlay"></div>
         <div class="cat-card__arrow">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
@@ -1082,39 +1182,105 @@
       </div>
     </div>
 
-    <!-- Apport -->
-    <div class="part-section">
-      <p class="part-label">Notre apport</p>
-      <h2 class="part-title" style="font-size:clamp(2rem,5vw,3.5rem);margin-bottom:24px;">Apport de Starting XI<br>au CS St-Laurent</h2>
-      <p class="part-body" style="margin-bottom:32px;">Starting XI offre un encadrement spécialisé et personnalisé aux joueurs souhaitant progresser davantage grâce à des séances axées sur :</p>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
-        <div class="part-card">
-          <h3>Développement technique</h3>
-          <p>Travail technique individualisé pour améliorer les fondamentaux de chaque joueur.</p>
+    <!-- Programmes -->
+    <div style="background:#111;padding:80px 24px;">
+      <div style="max-width:1400px;margin:0 auto;">
+        <div style="margin-bottom:48px;">
+          <p class="part-label" style="color:rgba(255,255,255,0.4);">Nos programmes</p>
+          <h2 style="font-family:'Bebas Neue','Montserrat',sans-serif;font-size:clamp(2rem,5vw,3.5rem);color:#fff;letter-spacing:0.02em;text-transform:uppercase;line-height:0.95;margin-bottom:16px;">Un parcours adapté<br>à chaque niveau</h2>
+          <p style="font-size:15px;color:rgba(255,255,255,0.5);max-width:600px;">Starting XI offre un encadrement spécialisé et personnalisé aux joueurs souhaitant progresser.</p>
         </div>
-        <div class="part-card">
-          <h3>Compréhension tactique</h3>
-          <p>Lecture du jeu, positionnement et prise de décision sur le terrain.</p>
-        </div>
-        <div class="part-card">
-          <h3>Développement individuel</h3>
-          <p>Suivi personnalisé pour maximiser le potentiel de chaque athlète.</p>
-        </div>
-        <div class="part-card">
-          <h3>Préparation mentale</h3>
-          <p>Renforcement de la discipline, la confiance et la mentalité de compétition.</p>
-        </div>
-      </div>
-      <div style="margin-top:48px;">
-        <p class="part-label">Structure sportive</p>
-        <div class="part-tags">
-          <span class="part-tag">Féminin PRO</span>
-          <span class="part-tag">U12</span>
-          <span class="part-tag">U15</span>
-          <span class="part-tag">U18</span>
-          <span class="part-tag">Senior</span>
-          <span class="part-tag">Semi-professionnel</span>
-          <span class="part-tag">Professionnel</span>
+
+        <div class="prog-grid">
+
+          <!-- PRO -->
+          <div class="prog-card">
+            <img src="images/equipes-pro/Lacamz-577.jpg" alt="Starting XI Pro" loading="lazy" class="prog-card__img">
+            <div class="prog-card__overlay"></div>
+            <div class="prog-card__accent" style="background:#c9a84c;"></div>
+            <div class="prog-card__content">
+              <h3 class="prog-card__title">Starting XI<br>Pro</h3>
+              <p class="prog-card__sub">Masculin / Féminin</p>
+              <p class="prog-card__level">Niveau élite et professionnel</p>
+              <ul class="prog-card__list">
+                <li>Travail technique de haut niveau</li>
+                <li>Optimisation de la performance et gestion de la charge d'entraînement</li>
+                <li>Développement de la rapidité d'exécution et de la prise de décision</li>
+                <li>Intensité ++ dans les entraînements</li>
+                <li>Travail de renforcement musculaire</li>
+                <li>Maintenir le rythme des joueurs pros avant la pré-saison</li>
+                <li>Matchs intersquad de haut niveau</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- SR -->
+          <div class="prog-card">
+            <img src="images/equipes-masculin/Lacamz-171.jpg" alt="Starting XI Senior" loading="lazy" class="prog-card__img">
+            <div class="prog-card__overlay"></div>
+            <div class="prog-card__accent" style="background:#fff;"></div>
+            <div class="prog-card__content">
+              <h3 class="prog-card__title">Starting XI<br>SR</h3>
+              <p class="prog-card__sub">Masculin / Féminin</p>
+              <p class="prog-card__level">Pour les joueurs et joueuses adultes engagés</p>
+              <ul class="prog-card__list">
+                <li>Travail technique</li>
+                <li>Développement de la force, de la vitesse et de la capacité à maintenir un haut niveau de performance</li>
+                <li>Travail sur la cohésion d'équipe et la compréhension tactique avancée</li>
+                <li>Amélioration de la constance et du professionnalisme dans l'approche du jeu</li>
+                <li>Intensité dans les entraînements</li>
+                <li>Test physique</li>
+                <li>Travail de renforcement musculaire</li>
+                <li>Matchs intersquad</li>
+                <li>Possibilité de surclassement au Groupe PRO</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- JR U15 -->
+          <div class="prog-card">
+            <img src="images/galerie/Lacamz-253.jpg" alt="Starting XI Junior U15" loading="lazy" class="prog-card__img">
+            <div class="prog-card__overlay"></div>
+            <div class="prog-card__accent" style="background:#10b981;"></div>
+            <div class="prog-card__content">
+              <h3 class="prog-card__title">Starting XI<br>JR</h3>
+              <p class="prog-card__sub">Catégorie U15</p>
+              <p class="prog-card__level">Niveau intermédiaire à avancé</p>
+              <ul class="prog-card__list">
+                <li>Travail technique</li>
+                <li>Perfectionnement tactique et lecture du jeu</li>
+                <li>Développement physique : vitesse, endurance et explosivité</li>
+                <li>Travail sur la discipline et la mentalité de compétition</li>
+                <li>Intensité dans les entraînements</li>
+                <li>Test physique</li>
+                <li>Travail de renforcement musculaire</li>
+                <li>Mixte (masculin et féminin)</li>
+                <li>Possibilité de surclassement au U18</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- JR U12 -->
+          <div class="prog-card">
+            <img src="images/galerie/Lacamz-672.jpg" alt="Starting XI Junior U12" loading="lazy" class="prog-card__img">
+            <div class="prog-card__overlay"></div>
+            <div class="prog-card__accent" style="background:#f59e0b;"></div>
+            <div class="prog-card__content">
+              <h3 class="prog-card__title">Starting XI<br>JR</h3>
+              <p class="prog-card__sub">Catégorie U12</p>
+              <p class="prog-card__level">Groupe en pleine progression</p>
+              <ul class="prog-card__list">
+                <li>Travail technique</li>
+                <li>Développement de la vision de jeu et de la prise de décision</li>
+                <li>Introduction aux principes tactiques (positions, transitions, lecture du jeu)</li>
+                <li>Consolidation des habiletés individuelles sous pression</li>
+                <li>Intensité dans les entraînements</li>
+                <li>Mixte (masculin et féminin)</li>
+                <li>Possibilité de surclassement au U15</li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
