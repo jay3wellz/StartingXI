@@ -4,23 +4,102 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendrier des pratiques — Starting XI</title>
-  <meta name="description" content="Calendrier officiel des pratiques Starting XI — Saison Printemps-Été 2026. Confirme ta présence.">
+  <meta name="description" content="Calendrier officiel des pratiques Starting XI — Saison Printemps-Été 2026.">
+  <link rel="stylesheet" href="../css/styles.css">
   <style>
-    /* Redirect to React app — this page just redirects */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #060b18; color: #fff; font-family: 'Inter', -apple-system, system-ui, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; text-align: center; }
-    a { color: #4EAAD4; text-decoration: none; }
+    .cal-iframe-wrap {
+      margin-top: 80px;
+      width: 100%;
+      height: calc(100vh - 80px);
+      background: #111;
+    }
+    .cal-iframe-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
   </style>
-  <script>
-    // Auto-redirect to React calendar app
-    // When deployed: change this URL to your deployed calendar URL
-    window.location.href = 'http://localhost:5173';
-  </script>
 </head>
-<body>
-  <div>
-    <p style="font-size:18px;margin-bottom:12px;">Redirection vers le calendrier...</p>
-    <a href="http://localhost:5173">Cliquer ici si la page ne redirige pas</a>
+<body style="background:#111;">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <div class="navbar__links-left">
+        <div class="navbar__item">
+          <a href="../index.html#hero" class="navbar__link">Accueil</a>
+        </div>
+        <div class="navbar__item">
+          <a href="../index.html#a-propos" class="navbar__link">À propos</a>
+        </div>
+        <div class="navbar__item">
+          <a href="../index.html#equipes" class="navbar__link">Équipes</a>
+        </div>
+        <div class="navbar__item">
+          <a href="../index.html#medias" class="navbar__link">Médias</a>
+        </div>
+      </div>
+
+      <a href="../index.html" class="navbar__logo">
+        <svg width="48" height="48" viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="60" r="58" stroke="white" stroke-width="2.5" fill="#000"/>
+          <text x="28" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">S</text>
+          <text x="55" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">T</text>
+          <text x="82" y="78" font-family="Inter,sans-serif" font-weight="300" font-size="20" fill="white" letter-spacing="2">XI</text>
+        </svg>
+      </a>
+
+      <div class="navbar__links-right">
+        <div class="navbar__item">
+          <a href="calendrier.html" class="navbar__link" style="color:#4EAAD4;">Calendrier</a>
+        </div>
+        <div class="navbar__item">
+          <a href="../index.html#partenaires" class="navbar__link">Partenaires</a>
+        </div>
+        <div class="navbar__item">
+          <a href="../index.html#contact" class="navbar__link">Contact</a>
+        </div>
+        <a href="../index.html#contact" class="navbar__cta">S'inscrire</a>
+      </div>
+
+      <button class="navbar__burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu">
+    <div class="mobile-menu__item">
+      <a href="../index.html#hero" class="mobile-menu__link">Accueil</a>
+    </div>
+    <div class="mobile-menu__item">
+      <a href="../index.html#a-propos" class="mobile-menu__link">À propos</a>
+    </div>
+    <div class="mobile-menu__item">
+      <a href="../index.html#equipes" class="mobile-menu__link">Équipes</a>
+    </div>
+    <div class="mobile-menu__item">
+      <a href="../index.html#medias" class="mobile-menu__link">Médias</a>
+    </div>
+    <div class="mobile-menu__item">
+      <a href="calendrier.html" class="mobile-menu__link" style="color:#4EAAD4;">Calendrier</a>
+    </div>
+    <div class="mobile-menu__item">
+      <a href="../index.html#partenaires" class="mobile-menu__link">Partenaires</a>
+    </div>
+    <div class="mobile-menu__item">
+      <a href="../index.html#contact" class="mobile-menu__link">Contact</a>
+    </div>
+    <a href="../index.html#contact" class="mobile-menu__cta">S'inscrire</a>
   </div>
+
+  <!-- CALENDAR APP -->
+  <div class="cal-iframe-wrap">
+    <iframe src="calendrier-app/index.html" title="Calendrier Starting XI"></iframe>
+  </div>
+
+  <script src="../js/main.js"></script>
 </body>
 </html>

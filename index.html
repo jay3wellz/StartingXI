@@ -12,6 +12,75 @@
     /* ===== ONE-PAGE EXTRAS ===== */
     html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
+    /* ===== HERO SOCCER FIELD ===== */
+    .field-wrap {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      perspective: 900px;
+    }
+    .field-svg {
+      width: 85%;
+      max-width: 1100px;
+      height: auto;
+      transform: rotateX(35deg);
+      transform-origin: center center;
+      opacity: 0.18;
+      animation: fieldBreathe 6s ease-in-out infinite;
+    }
+    .field-logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -65%);
+      z-index: 2;
+      filter: drop-shadow(0 0 30px rgba(255,255,255,0.15));
+      animation: logoPulse 4s ease-in-out infinite, logoFadeIn 1s ease 1.5s both;
+      opacity: 0;
+    }
+    /* Line draw animation */
+    .field-line {
+      stroke-dasharray: 3000;
+      stroke-dashoffset: 3000;
+    }
+    .field-line--outer { animation: drawLine 1.5s ease forwards 0s; }
+    .field-line--mid { stroke-dasharray: 700; stroke-dashoffset: 700; animation: drawLine 1s ease forwards 0.3s; }
+    .field-line--circle { stroke-dasharray: 600; stroke-dashoffset: 600; animation: drawLine 1.2s ease forwards 0.5s; }
+    .field-line--penalty { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: drawLine 1s ease forwards 0.6s; }
+    .field-line--goal { stroke-dasharray: 600; stroke-dashoffset: 600; animation: drawLine 0.8s ease forwards 0.9s; }
+    .field-line--arc { stroke-dasharray: 200; stroke-dashoffset: 200; animation: drawLine 0.6s ease forwards 1s; }
+    .field-line--penalty2 { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: drawLine 1s ease forwards 0.6s; }
+    .field-line--goal2 { stroke-dasharray: 600; stroke-dashoffset: 600; animation: drawLine 0.8s ease forwards 0.9s; }
+    .field-line--arc2 { stroke-dasharray: 200; stroke-dashoffset: 200; animation: drawLine 0.6s ease forwards 1s; }
+    .field-line--corner { stroke-dasharray: 20; stroke-dashoffset: 20; animation: drawLine 0.4s ease forwards 1.2s; }
+
+    @keyframes drawLine {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes fieldBreathe {
+      0%, 100% { opacity: 0.18; }
+      50% { opacity: 0.25; }
+    }
+    @keyframes logoPulse {
+      0%, 100% { transform: translate(-50%, -65%) scale(1); }
+      50% { transform: translate(-50%, -65%) scale(1.05); }
+    }
+    @keyframes logoFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .field-line { animation: none !important; stroke-dashoffset: 0; }
+      .field-svg { animation: none !important; }
+      .field-logo { animation: none !important; opacity: 1; }
+    }
+    @media (max-width: 768px) {
+      .field-svg { width: 140%; transform: rotateX(35deg) scale(1.2); }
+    }
+
     /* ===== EQUIPES CAT-CARDS (from equipes.html) ===== */
     .cat-grid {
       display: grid;
@@ -259,7 +328,7 @@
     .part-card li { padding: 3px 0; padding-left: 16px; position: relative; }
     .part-card li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: #111; }
     .part-photos { display: flex; gap: 12px; }
-    .part-photos img { flex: 1; height: 280px; object-fit: cover; border-radius: 8px; transform: rotate(-2deg); box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+    .part-photos img { width: 320px; height: 420px; flex-shrink: 0; object-fit: cover; border-radius: 8px; transform: rotate(-2deg); box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
     .part-photos img:nth-child(2) { transform: rotate(2deg); margin-top: 20px; }
     .part-promo__code { display: inline-block; margin-top: 16px; padding: 14px 40px; background: rgba(255,255,255,0.1); border: 2px dashed rgba(255,255,255,0.3); font-family: 'Bebas Neue',sans-serif; font-size: 2.5rem; letter-spacing: 0.15em; color: #fff; border-radius: 8px; }
     .part-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
@@ -272,7 +341,7 @@
     @media (max-width: 480px) {
       .part-grid-4 { grid-template-columns: 1fr; }
       .part-photos { flex-direction: column; }
-      .part-photos img { height: 200px; transform: none !important; margin-top: 0 !important; }
+      .part-photos img { height: 200px; }
       .part-hero__content { padding: 60px 24px; }
     }
 
@@ -286,8 +355,8 @@
       position: relative;
       border-radius: 12px;
       overflow: hidden;
-      height: 560px;
-      cursor: default;
+      height: 480px;
+      cursor: pointer;
     }
     .prog-card__img {
       position: absolute;
@@ -318,21 +387,21 @@
     }
     .prog-card__content {
       position: absolute;
-      inset: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
       z-index: 2;
       padding: 28px 24px;
-      display: flex;
-      flex-direction: column;
     }
     .prog-card__title {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: clamp(1.4rem, 2vw, 1.8rem);
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
       color: #fff;
       text-transform: uppercase;
       letter-spacing: 0.02em;
       line-height: 1.05;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
     .prog-card__sub {
       font-family: 'Montserrat', sans-serif;
@@ -341,44 +410,209 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.4);
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
-    .prog-card__level {
-      font-size: 13px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.7);
-      margin-top: auto;
-      margin-bottom: 12px;
-    }
+    .prog-card__level { display: none; }
     .prog-card__list {
       list-style: none;
       padding: 0;
       margin: 0;
     }
     .prog-card__list li {
-      font-size: 12px;
-      line-height: 1.5;
-      color: rgba(255,255,255,0.5);
-      padding: 3px 0 3px 14px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.55);
+      padding: 3px 0 3px 16px;
       position: relative;
     }
     .prog-card__list li::before {
       content: '';
       position: absolute;
       left: 0;
-      top: 9px;
-      width: 4px;
-      height: 4px;
+      top: 11px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       border: 1px solid rgba(255,255,255,0.3);
     }
+    .prog-card__list li:nth-child(n+4) { display: none; }
+    .prog-card__more {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      transition: color 0.3s;
+    }
+    .prog-card:hover .prog-card__more { color: rgba(255,255,255,0.7); }
+    .prog-card__more-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: rgba(255,255,255,0.5);
+      transition: all 0.3s;
+    }
+    .prog-card:hover .prog-card__more-btn {
+      border-color: rgba(255,255,255,0.5);
+      color: #fff;
+    }
+    /* Modal */
+    .prog-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .prog-modal-backdrop.active { opacity: 1; pointer-events: all; }
+    .prog-modal {
+      position: fixed;
+      z-index: 10001;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: 700px;
+      max-width: 95vw;
+      max-height: 85vh;
+      background: #111;
+      border-radius: 16px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.4s cubic-bezier(0.25,0.8,0.25,1), opacity 0.35s ease;
+    }
+    .prog-modal.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      pointer-events: all;
+    }
+    .prog-modal__hero {
+      position: relative;
+      height: 300px;
+      overflow: hidden;
+    }
+    .prog-modal__hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .prog-modal__hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #111 0%, rgba(17,17,17,0.4) 50%, transparent 100%);
+    }
+    .prog-modal__hero-text {
+      position: absolute;
+      bottom: 24px;
+      left: 32px;
+      z-index: 2;
+    }
+    .prog-modal__hero-text h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: #fff;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .prog-modal__hero-text p {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-top: 8px;
+    }
+    .prog-modal__accent {
+      height: 3px;
+      width: 100%;
+    }
+    .prog-modal__body {
+      padding: 32px;
+      max-height: calc(85vh - 303px);
+      overflow-y: auto;
+    }
+    .prog-modal__level {
+      font-size: 18px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 24px;
+    }
+    .prog-modal__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .prog-modal__list li {
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.6);
+      padding: 6px 0 6px 20px;
+      position: relative;
+    }
+    .prog-modal__list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 14px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+    .prog-modal__close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 10;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+    .prog-modal__close:hover { background: rgba(0,0,0,0.8); }
     @media (max-width: 1024px) {
       .prog-grid { grid-template-columns: repeat(2, 1fr); }
-      .prog-card { height: 500px; }
     }
     @media (max-width: 768px) {
       .prog-grid { grid-template-columns: 1fr; }
-      .prog-card { height: 450px; }
+      .prog-card { height: 400px; }
+      .prog-modal { max-height: 90vh; }
+      .prog-modal__hero { height: 220px; }
+      .prog-modal__body { max-height: calc(90vh - 223px); padding: 24px; }
+      .prog-modal__list li { font-size: 14px; }
+    }
+
+    /* ===== AVANTAGE CARDS GLOW ===== */
+    .avantage-card {
+      padding: 28px 0;
+      border-top: 2px solid rgba(255,255,255,0.15);
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+      cursor: default;
+    }
+    .avantage-card:hover {
+      border-top-color: #fff;
+      box-shadow: 0 -4px 20px rgba(255,255,255,0.15);
     }
 
     /* ===== CONTACT DARK MODE ===== */
@@ -419,7 +653,7 @@
     .ct-social-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
     .ct-social-handle { font-size: 15px; color: #fff; font-weight: 500; }
     .ct-map { margin-top: 20px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
-    .ct-map iframe { width: 100%; height: 280px; border: 0; display: block; filter: grayscale(1) invert(1) brightness(0.6) contrast(1.2); }
+    .ct-map iframe { width: 100%; height: 280px; border: 0; display: block; }
     .ct-directions { display: inline-block; margin-top: 10px; font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.15); transition: color 0.2s; }
     .ct-directions:hover { color: #fff; }
     @media (max-width: 768px) {
@@ -732,18 +966,57 @@
   <!-- ============================================================ -->
   <!-- 1. HERO                                                       -->
   <!-- ============================================================ -->
-  <section id="hero" class="hero">
-    <div class="hero__bg">
-      <img src="images/hero/Lacamz-618.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-      <div class="hero__grid"></div>
+  <section id="hero" class="hero" style="background:#0A0A0A;position:relative;overflow:hidden;">
+
+    <!-- Soccer Field SVG -->
+    <div class="field-wrap">
+      <svg class="field-svg" viewBox="0 0 1050 680" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer boundary -->
+        <rect class="field-line field-line--outer" x="25" y="25" width="1000" height="630" rx="0" stroke="white" stroke-width="2"/>
+        <!-- Halfway line -->
+        <line class="field-line field-line--mid" x1="525" y1="25" x2="525" y2="655" stroke="white" stroke-width="2"/>
+        <!-- Center circle -->
+        <circle class="field-line field-line--circle" cx="525" cy="340" r="91.5" stroke="white" stroke-width="2"/>
+        <!-- Left penalty area -->
+        <rect class="field-line field-line--penalty" x="25" y="138" width="165" height="404" stroke="white" stroke-width="2"/>
+        <!-- Left goal area -->
+        <rect class="field-line field-line--goal" x="25" y="228" width="55" height="224" stroke="white" stroke-width="2"/>
+        <!-- Left penalty arc -->
+        <path class="field-line field-line--arc" d="M190 282 A 60 60 0 0 1 190 398" stroke="white" stroke-width="2"/>
+        <!-- Right penalty area -->
+        <rect class="field-line field-line--penalty2" x="860" y="138" width="165" height="404" stroke="white" stroke-width="2"/>
+        <!-- Right goal area -->
+        <rect class="field-line field-line--goal2" x="970" y="228" width="55" height="224" stroke="white" stroke-width="2"/>
+        <!-- Right penalty arc -->
+        <path class="field-line field-line--arc2" d="M860 282 A 60 60 0 0 0 860 398" stroke="white" stroke-width="2"/>
+        <!-- Corner arcs -->
+        <path class="field-line field-line--corner" d="M25 35 A 10 10 0 0 0 35 25" stroke="white" stroke-width="2"/>
+        <path class="field-line field-line--corner" d="M1015 25 A 10 10 0 0 0 1025 35" stroke="white" stroke-width="2"/>
+        <path class="field-line field-line--corner" d="M35 655 A 10 10 0 0 0 25 645" stroke="white" stroke-width="2"/>
+        <path class="field-line field-line--corner" d="M1025 645 A 10 10 0 0 0 1015 655" stroke="white" stroke-width="2"/>
+        <!-- Center spot -->
+        <circle cx="525" cy="340" r="3" fill="white" opacity="0.3"/>
+      </svg>
+
+      <!-- Logo at center of field -->
+      <div class="field-logo">
+        <svg width="130" height="130" viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="60" r="58" stroke="white" stroke-width="2" fill="rgba(0,0,0,0.4)"/>
+          <text x="28" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">S</text>
+          <text x="55" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">T</text>
+          <text x="82" y="78" font-family="Inter,sans-serif" font-weight="300" font-size="20" fill="white" letter-spacing="2">XI</text>
+        </svg>
+      </div>
     </div>
-    <div class="hero__overlay"></div>
-    <div class="hero__content" style="text-align:center;">
-      <p style="font-family:'Montserrat',sans-serif;font-weight:400;font-size:clamp(16px,2.5vw,22px);color:#fff;margin-bottom:8px;opacity:0;animation:fadeInUp 0.8s ease forwards;">Bienvenue chez</p>
-      <h1 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(3.5rem,10vw,7rem);color:#fff;text-transform:uppercase;letter-spacing:0.04em;line-height:0.95;margin-bottom:20px;opacity:0;animation:fadeInUp 0.8s ease 0.15s forwards;">STARTING XI</h1>
-      <p style="font-family:'Montserrat',sans-serif;font-weight:400;font-size:clamp(13px,1.8vw,16px);color:rgba(255,255,255,0.7);line-height:1.6;opacity:0;animation:fadeInUp 0.8s ease 0.3s forwards;">L'école de foot où chaque séance<br>te rapproche du sommet.</p>
+
+    <!-- Hero content -->
+    <div class="hero__content" style="text-align:center;position:relative;z-index:3;">
+      <p style="font-family:'Montserrat',sans-serif;font-weight:400;font-size:clamp(16px,2.5vw,22px);color:#fff;margin-bottom:8px;opacity:0;animation:fadeInUp 0.8s ease 2s forwards;">Bienvenue chez</p>
+      <h1 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(3.5rem,10vw,7rem);color:#fff;text-transform:uppercase;letter-spacing:0.04em;line-height:0.95;margin-bottom:20px;opacity:0;animation:fadeInUp 0.8s ease 2.15s forwards;">STARTING XI</h1>
+      <p style="font-family:'Montserrat',sans-serif;font-weight:400;font-size:clamp(13px,1.8vw,16px);color:rgba(255,255,255,0.7);line-height:1.6;opacity:0;animation:fadeInUp 0.8s ease 2.3s forwards;">L'école de foot où chaque séance<br>te rapproche du sommet.</p>
     </div>
-    <div class="hero__scroll">
+
+    <div class="hero__scroll" style="z-index:3;">
       <span class="hero__scroll-text">Défiler</span>
       <div class="hero__scroll-line"></div>
     </div>
@@ -1125,16 +1398,16 @@
       <div style="position:absolute;inset:0;background:rgba(0,0,0,0.85);"></div>
       <div style="position:relative;z-index:2;padding:80px 24px;">
         <div style="display:flex;align-items:center;justify-content:center;gap:40px;margin-bottom:40px;">
-          <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+          <svg width="180" height="180" viewBox="0 0 120 120" fill="none">
             <circle cx="60" cy="60" r="58" stroke="white" stroke-width="2.5" fill="rgba(0,0,0,0.3)"/>
             <text x="28" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">S</text>
             <text x="55" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">T</text>
             <text x="82" y="78" font-family="Inter,sans-serif" font-weight="300" font-size="20" fill="white" letter-spacing="2">XI</text>
           </svg>
-          <span style="font-size:2.5rem;color:rgba(255,255,255,0.35);font-weight:300;">&#x2715;</span>
-          <img src="images/logo/CS_Saint-Laurent.png" alt="CS Saint-Laurent" loading="lazy" style="height:120px;width:auto;">
+          <span style="font-size:3rem;color:rgba(255,255,255,0.35);font-weight:300;">&#x2715;</span>
+          <img src="images/logo/CS_Saint-Laurent.png" alt="CS Saint-Laurent" loading="lazy" style="height:180px;width:auto;">
         </div>
-        <h2 class="part-title" style="color:#fff;font-size:clamp(2.5rem,6vw,4rem);">Partenariat<br>CS St-Laurent</h2>
+        <h2 class="part-title" style="color:#fff;font-size:clamp(3rem,7vw,5rem);">Partenariat<br>CS St-Laurent</h2>
         <p style="font-size:16px;color:rgba(255,255,255,0.5);max-width:500px;margin:0 auto;">Favoriser le développement des jeunes joueurs québécois en leur offrant un encadrement de qualité et des valeurs sportives solides.</p>
       </div>
     </div>
@@ -1166,8 +1439,8 @@
     </div>
 
     <!-- Mission + Photos -->
-    <div style="background:#DDD9D4;padding:60px 24px;max-width:100%;">
-      <div style="max-width:1200px;margin:0 auto;">
+    <div style="background:#DDD9D4;padding:60px 24px;max-width:100%;overflow:hidden;">
+      <div style="max-width:1400px;margin:0 auto;">
         <div class="part-grid-2">
           <div>
             <div class="part-divider"></div>
@@ -1175,8 +1448,8 @@
             <p class="part-body" style="margin-top:16px;">Ces valeurs s'harmonisent naturellement avec celles du CS St-Laurent, un club reconnu pour son engagement envers le développement des jeunes talents et la promotion d'un soccer accessible, compétitif et formateur.</p>
           </div>
           <div class="part-photos">
-            <img src="images/staff/Lacamz-671.jpg" alt="Coach Starting XI" loading="lazy">
-            <img src="images/staff/Lacamz-202.jpg" alt="Entraînement Starting XI" loading="lazy">
+            <img src="images/galerie/Lacamz-673.jpg" alt="Coach Starting XI" loading="lazy">
+            <img src="images/equipes-feminin/Lacamz-4056.jpg" alt="Entraînement Starting XI" loading="lazy">
           </div>
         </div>
       </div>
@@ -1195,7 +1468,7 @@
 
           <!-- PRO -->
           <div class="prog-card">
-            <img src="images/equipes-pro/Lacamz-577.jpg" alt="Starting XI Pro" loading="lazy" class="prog-card__img">
+            <img src="images/equipes-pro/3c624358130d72aeb20b14169026d98b.jpg" alt="Starting XI Pro" loading="lazy" class="prog-card__img">
             <div class="prog-card__overlay"></div>
             <div class="prog-card__accent" style="background:#c9a84c;"></div>
             <div class="prog-card__content">
@@ -1211,6 +1484,7 @@
                 <li>Maintenir le rythme des joueurs pros avant la pré-saison</li>
                 <li>Matchs intersquad de haut niveau</li>
               </ul>
+              <div class="prog-card__more"><span class="prog-card__more-btn">+</span> Voir le programme</div>
             </div>
           </div>
 
@@ -1234,6 +1508,7 @@
                 <li>Matchs intersquad</li>
                 <li>Possibilité de surclassement au Groupe PRO</li>
               </ul>
+              <div class="prog-card__more"><span class="prog-card__more-btn">+</span> Voir le programme</div>
             </div>
           </div>
 
@@ -1257,6 +1532,7 @@
                 <li>Mixte (masculin et féminin)</li>
                 <li>Possibilité de surclassement au U18</li>
               </ul>
+              <div class="prog-card__more"><span class="prog-card__more-btn">+</span> Voir le programme</div>
             </div>
           </div>
 
@@ -1278,6 +1554,7 @@
                 <li>Mixte (masculin et féminin)</li>
                 <li>Possibilité de surclassement au U15</li>
               </ul>
+              <div class="prog-card__more"><span class="prog-card__more-btn">+</span> Voir le programme</div>
             </div>
           </div>
 
@@ -1285,25 +1562,44 @@
       </div>
     </div>
 
+    <!-- Programme Modal -->
+    <div class="prog-modal-backdrop" id="prog-backdrop"></div>
+    <div class="prog-modal" id="prog-modal">
+      <button class="prog-modal__close" id="prog-modal-close">&times;</button>
+      <div class="prog-modal__hero">
+        <img id="prog-modal-img" src="" alt="" loading="lazy">
+        <div class="prog-modal__hero-overlay"></div>
+        <div class="prog-modal__hero-text">
+          <h3 id="prog-modal-title"></h3>
+          <p id="prog-modal-sub"></p>
+        </div>
+      </div>
+      <div class="prog-modal__accent" id="prog-modal-accent"></div>
+      <div class="prog-modal__body">
+        <p class="prog-modal__level" id="prog-modal-level"></p>
+        <ul class="prog-modal__list" id="prog-modal-list"></ul>
+      </div>
+    </div>
+
     <!-- Avantages -->
-    <div style="background:#111;padding:80px 24px;">
-      <div style="max-width:1200px;margin:0 auto;">
+    <div style="background:#111;padding:80px 40px;">
+      <div style="max-width:1400px;margin:0 auto;">
         <h2 class="part-title" style="color:#fff;font-size:clamp(2rem,5vw,3.5rem);margin-bottom:12px;">Avantages pour les joueurs<br>au sein du CS St-Laurent</h2>
         <div style="width:60px;height:3px;background:#fff;margin:0 0 48px;"></div>
         <div class="part-grid-4">
-          <div style="padding:28px 0;border-top:1px solid rgba(255,255,255,0.15);">
+          <div class="avantage-card">
             <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">20% de rabais</h3>
             <p style="font-size:14px;line-height:1.7;color:rgba(255,255,255,0.6);">Les joueurs du CS Saint-Laurent bénéficient d'un rabais de 20 % sur les séances à la carte proposées par Starting XI.</p>
           </div>
-          <div style="padding:28px 0;border-top:1px solid rgba(255,255,255,0.15);">
+          <div class="avantage-card">
             <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Accès prioritaire</h3>
             <p style="font-size:14px;line-height:1.7;color:rgba(255,255,255,0.6);">Accès prioritaire aux entraînements, programmes et événements organisés par Starting XI.</p>
           </div>
-          <div style="padding:28px 0;border-top:1px solid rgba(255,255,255,0.15);">
+          <div class="avantage-card">
             <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Opportunités de progression</h3>
             <p style="font-size:14px;line-height:1.7;color:rgba(255,255,255,0.6);">Accès aux niveaux élite, semi-professionnels et professionnels pour une progression structurée.</p>
           </div>
-          <div style="padding:28px 0;border-top:1px solid rgba(255,255,255,0.15);">
+          <div class="avantage-card">
             <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Environnement compétitif</h3>
             <p style="font-size:14px;line-height:1.7;color:rgba(255,255,255,0.6);">Les joueurs évoluent dans un environnement regroupant des athlètes motivés et ambitieux.</p>
           </div>
@@ -1594,6 +1890,61 @@
         document.body.style.overflow = '';
       }
     });
+
+    // ===== PROGRAMME MODAL =====
+    (function() {
+      const backdrop = document.getElementById('prog-backdrop');
+      const modal = document.getElementById('prog-modal');
+      const modalImg = document.getElementById('prog-modal-img');
+      const modalTitle = document.getElementById('prog-modal-title');
+      const modalSub = document.getElementById('prog-modal-sub');
+      const modalLevel = document.getElementById('prog-modal-level');
+      const modalList = document.getElementById('prog-modal-list');
+      const modalAccent = document.getElementById('prog-modal-accent');
+      const closeBtn = document.getElementById('prog-modal-close');
+
+      document.querySelectorAll('.prog-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const img = card.querySelector('.prog-card__img');
+          const title = card.querySelector('.prog-card__title');
+          const sub = card.querySelector('.prog-card__sub');
+          const level = card.querySelector('.prog-card__level');
+          const items = card.querySelectorAll('.prog-card__list li');
+          const accent = card.querySelector('.prog-card__accent');
+
+          modalImg.src = img.src;
+          modalTitle.innerHTML = title.innerHTML;
+          modalSub.textContent = sub.textContent;
+          modalLevel.textContent = level.textContent;
+          modalAccent.style.background = accent.style.background;
+          modalList.innerHTML = '';
+          items.forEach(li => {
+            const newLi = document.createElement('li');
+            newLi.textContent = li.textContent;
+            newLi.style.cssText = '--accent:' + accent.style.background;
+            newLi.innerHTML = '<span style="position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:' + accent.style.background + ';"></span>' + li.textContent;
+            newLi.style.position = 'relative';
+            modalList.appendChild(newLi);
+          });
+
+          backdrop.classList.add('active');
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      function closeModal() {
+        backdrop.classList.remove('active');
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      closeBtn.addEventListener('click', closeModal);
+      backdrop.addEventListener('click', closeModal);
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+      });
+    })();
 
     // ===== STAFF HORIZONTAL SCROLL =====
     (function() {

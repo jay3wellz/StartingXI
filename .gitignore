@@ -9,3 +9,6 @@ Thumbs.db
 
 # Photos workflow — local only, never commit
 _photos-workflow/
+
+# Archive backup — local only
+_archive/
