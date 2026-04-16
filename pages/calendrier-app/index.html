@@ -7,6 +7,14 @@
     <title>Calendrier — Starting XI</title>
     <script type="module" crossorigin src="assets/index-D1dazxtO.js"></script>
     <link rel="stylesheet" crossorigin href="assets/index-DWGr_wgd.css">
+    <style>
+      /* Hide React navbar when embedded in iframe — parent page has its own */
+      .cal-navbar { display: none !important; }
+      .cal-mobile-menu { display: none !important; }
+      /* Remove the top padding/margin that the navbar was occupying */
+      body { padding-top: 0 !important; margin-top: 0 !important; }
+      #root > div:first-child { padding-top: 0 !important; }
+    </style>
   </head>
   <body>
     <div id="root"></div>

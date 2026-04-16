@@ -12,73 +12,183 @@
     /* ===== ONE-PAGE EXTRAS ===== */
     html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
-    /* ===== HERO SOCCER FIELD ===== */
-    .field-wrap {
+    /* ===== HERO — FULLSCREEN FIELD BACKGROUND ===== */
+
+    /* Field background layer */
+    .hero__field {
+      position: absolute;
+      top: 90px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeIn 0.6s ease 0.2s forwards;
+    }
+    .hero__field-svg {
       position: absolute;
       inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.18;
+    }
+    .hfl { stroke: #fff; stroke-width: 2; fill: none; }
+
+    /* Players layer */
+    .hero__players { position: absolute; inset: 0; z-index: 1; }
+    .plr {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 0 10px rgba(255,255,255,0.5);
+      opacity: 0;
+      animation: plrIn 0.4s ease forwards var(--d);
+      transform: translate(-50%, -50%);
+      transition: left 1.5s cubic-bezier(0.4,0,0.2,1), top 1.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    .plr--gk {
+      width: 14px;
+      height: 14px;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.6);
+      box-shadow: 0 0 12px rgba(255,255,255,0.4);
+    }
+    @keyframes plrIn {
+      from { opacity: 0; transform: translate(-50%,-50%) scale(0); }
+      to   { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+    }
+    .formation-name {
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.35);
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    /* Vignette behind text — shifted to right half */
+    .hero__vignette {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: radial-gradient(ellipse 50% 60% at 50% 50%, rgba(0,0,0,0.5) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Text content — centered at ~73% of viewport width */
+    .hero__content {
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      max-width: 700px;
+      height: calc(100vh - 90px);
+      z-index: 3;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 1;
-      perspective: 900px;
+      text-align: center;
+      padding: 0 24px;
     }
-    .field-svg {
-      width: 85%;
-      max-width: 1100px;
-      height: auto;
-      transform: rotateX(35deg);
-      transform-origin: center center;
-      opacity: 0.18;
-      animation: fieldBreathe 6s ease-in-out infinite;
-    }
-    .field-logo {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -65%);
-      z-index: 2;
-      filter: drop-shadow(0 0 30px rgba(255,255,255,0.15));
-      animation: logoPulse 4s ease-in-out infinite, logoFadeIn 1s ease 1.5s both;
+    .hero__welcome {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.8);
       opacity: 0;
+      animation: fadeInUp 0.8s ease 1.5s forwards;
     }
-    /* Line draw animation */
-    .field-line {
-      stroke-dasharray: 3000;
-      stroke-dashoffset: 3000;
+    .hero__main-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(42px, 5.5vw, 80px);
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 0.9;
+      white-space: nowrap;
+      text-shadow: 0 4px 40px rgba(0,0,0,0.9), 0 0 80px rgba(0,0,0,0.5);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 1.7s forwards;
     }
-    .field-line--outer { animation: drawLine 1.5s ease forwards 0s; }
-    .field-line--mid { stroke-dasharray: 700; stroke-dashoffset: 700; animation: drawLine 1s ease forwards 0.3s; }
-    .field-line--circle { stroke-dasharray: 600; stroke-dashoffset: 600; animation: drawLine 1.2s ease forwards 0.5s; }
-    .field-line--penalty { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: drawLine 1s ease forwards 0.6s; }
-    .field-line--goal { stroke-dasharray: 600; stroke-dashoffset: 600; animation: drawLine 0.8s ease forwards 0.9s; }
-    .field-line--arc { stroke-dasharray: 200; stroke-dashoffset: 200; animation: drawLine 0.6s ease forwards 1s; }
-    .field-line--penalty2 { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: drawLine 1s ease forwards 0.6s; }
-    .field-line--goal2 { stroke-dasharray: 600; stroke-dashoffset: 600; animation: drawLine 0.8s ease forwards 0.9s; }
-    .field-line--arc2 { stroke-dasharray: 200; stroke-dashoffset: 200; animation: drawLine 0.6s ease forwards 1s; }
-    .field-line--corner { stroke-dasharray: 20; stroke-dashoffset: 20; animation: drawLine 0.4s ease forwards 1.2s; }
+    .hero__main-title-xi {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+    }
+    .hero__slogan {
+      margin-top: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(14px, 1.5vw, 17px);
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 1.9s forwards;
+    }
+    .hero__cta-row {
+      margin-top: 36px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 2.1s forwards;
+    }
+    .hero__cta {
+      display: inline-block;
+      padding: 14px 36px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+    .hero__cta:hover { transform: translateY(-2px); }
+    .hero__cta--primary { background: #4EAAD4; color: #fff; box-shadow: 0 4px 20px rgba(78,170,212,0.3); }
+    .hero__cta--primary:hover { background: #3a95bf; box-shadow: 0 8px 30px rgba(78,170,212,0.5); }
+    .hero__cta--secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.35); }
+    .hero__cta--secondary:hover { border-color: #fff; }
 
-    @keyframes drawLine {
-      to { stroke-dashoffset: 0; }
-    }
-    @keyframes fieldBreathe {
-      0%, 100% { opacity: 0.18; }
-      50% { opacity: 0.25; }
-    }
-    @keyframes logoPulse {
-      0%, 100% { transform: translate(-50%, -65%) scale(1); }
-      50% { transform: translate(-50%, -65%) scale(1.05); }
-    }
-    @keyframes logoFadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
     @media (prefers-reduced-motion: reduce) {
-      .field-line { animation: none !important; stroke-dashoffset: 0; }
-      .field-svg { animation: none !important; }
-      .field-logo { animation: none !important; opacity: 1; }
+      .plr, .hero__field { animation: none !important; opacity: 1; }
     }
     @media (max-width: 768px) {
-      .field-svg { width: 140%; transform: rotateX(35deg) scale(1.2); }
+      .hero__content {
+        left: 50%;
+        width: 90%;
+        max-width: none;
+      }
+      .hero__vignette {
+        background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.6) 0%, transparent 60%);
+      }
+      .hero__main-title { font-size: clamp(36px, 10vw, 60px); white-space: normal; }
+      .plr { width: 7px; height: 7px; opacity: 0.4; }
+      .plr--gk { width: 9px; height: 9px; }
+      .hero__field-svg { opacity: 0.1; }
+    }
+    @media (max-width: 480px) {
+      .hero__welcome { display: none; }
+      .hero__main-title { font-size: clamp(32px, 12vw, 48px); }
     }
 
     /* ===== EQUIPES CAT-CARDS (from equipes.html) ===== */
@@ -192,7 +302,11 @@
 
     /* ===== MEDIAS CAROUSEL ===== */
     .medias-section {
-      background: #0A0A0A;
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(78,170,212,0.04) 0%, transparent 60%),
+        radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        #0A0A0A;
+      background-size: 100% 100%, 30px 30px, 100% 100%;
       position: relative;
       overflow: hidden;
       padding: 100px 0 120px;
@@ -203,31 +317,33 @@
       z-index: 0;
     }
     .medias-section .swiper {
-      padding: 60px 0 80px;
+      padding: 60px 0 40px;
     }
     .medias-section .swiper-slide {
-      width: 360px;
+      width: 380px;
       height: 540px;
-      border-radius: 16px;
+      border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 16px 50px rgba(0,0,0,0.5);
       cursor: pointer;
       transition: transform 0.5s cubic-bezier(0.25,0.8,0.25,1), box-shadow 0.5s cubic-bezier(0.25,0.8,0.25,1), filter 0.5s ease;
-      filter: brightness(0.7);
+      filter: brightness(0.55);
     }
     .medias-section .swiper-slide-active {
-      transform: scale(1.12);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+      transform: scale(1.08);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.7);
       z-index: 10;
       filter: brightness(1);
     }
     .medias-section .swiper-slide-prev,
     .medias-section .swiper-slide-next {
-      filter: brightness(0.8);
+      filter: brightness(0.7);
     }
     .medias-section .swiper-slide:hover {
+      filter: brightness(0.9);
+    }
+    .medias-section .swiper-slide-active:hover {
       filter: brightness(1);
-      box-shadow: 0 28px 70px rgba(0,0,0,0.8);
     }
     .medias-section .swiper-slide img {
       width: 100%;
@@ -238,22 +354,33 @@
     .medias-section .swiper-button-prev,
     .medias-section .swiper-button-next {
       color: #fff;
-      width: 48px;
-      height: 48px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
+      width: 52px;
+      height: 52px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 50%;
-      transition: background 0.3s, transform 0.3s;
+      transition: background 0.3s, border-color 0.3s, transform 0.3s;
     }
     .medias-section .swiper-button-prev:hover,
     .medias-section .swiper-button-next:hover {
-      background: rgba(255,255,255,0.2);
+      background: #4EAAD4;
+      border-color: #4EAAD4;
       transform: scale(1.1);
     }
     .medias-section .swiper-button-prev::after,
     .medias-section .swiper-button-next::after {
       font-size: 18px;
       font-weight: 700;
+    }
+    .medias-counter {
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.1em;
+      padding-top: 24px;
+      position: relative;
+      z-index: 1;
     }
     @media (max-width: 768px) {
       .medias-section { padding: 60px 0 80px; }
@@ -284,25 +411,70 @@
       pointer-events: all;
     }
     .lightbox img {
-      max-width: 90vw;
-      max-height: 90vh;
+      max-width: 85vw;
+      max-height: 85vh;
       object-fit: contain;
       border-radius: 8px;
       cursor: default;
+      transform: scale(0.85);
+      transition: transform 0.3s ease;
+    }
+    .lightbox.active img {
+      transform: scale(1);
     }
     .lightbox__close {
       position: absolute;
       top: 24px;
       right: 32px;
+      width: 48px;
+      height: 48px;
       background: none;
-      border: none;
-      color: rgba(255,255,255,0.6);
-      font-size: 36px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      color: rgba(255,255,255,0.7);
+      font-size: 24px;
       cursor: pointer;
       z-index: 10;
-      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
     }
-    .lightbox__close:hover { color: #fff; }
+    .lightbox__close:hover { color: #fff; border-color: #4EAAD4; background: rgba(78,170,212,0.15); }
+    .lightbox__nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      background: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      z-index: 10;
+    }
+    .lightbox__nav:hover { color: #fff; border-color: #4EAAD4; background: rgba(78,170,212,0.15); }
+    .lightbox__nav--prev { left: 24px; }
+    .lightbox__nav--next { right: 24px; }
+    .lightbox__counter {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.1em;
+      z-index: 10;
+    }
+    @media (max-width: 768px) {
+      .lightbox__nav { display: none; }
+    }
 
     /* ===== PARTENAIRES (from partenaires.html) ===== */
     .part-section { max-width: 1400px; margin: 0 auto; padding: 80px 24px; }
@@ -315,25 +487,18 @@
     .part-hero__logos img { height: 130px; width: auto; }
     .part-hero__logos svg { width: 80px; height: 80px; }
     .part-hero__logos span { font-size: 2rem; color: rgba(255,255,255,0.5); }
-    .part-title { font-family: 'Bebas Neue','Montserrat',sans-serif; font-size: clamp(3rem,7vw,5rem); line-height: 0.95; letter-spacing: 0.02em; text-transform: uppercase; margin-bottom: 16px; color: #111; }
-    .part-subtitle { font-family: 'Montserrat',sans-serif; font-weight: 600; font-size: clamp(1.2rem,3vw,1.6rem); line-height: 1.4; margin-bottom: 12px; color: #111; }
-    .part-body { font-size: 15px; line-height: 1.8; color: #555; max-width: 700px; }
-    .part-body--light { color: rgba(255,255,255,0.8); }
+    .part-title { font-family: 'Bebas Neue','Montserrat',sans-serif; font-size: clamp(3rem,7vw,5rem); line-height: 0.95; letter-spacing: 0.02em; text-transform: uppercase; margin-bottom: 16px; color: #fff; }
+    .part-subtitle { font-family: 'Montserrat',sans-serif; font-weight: 600; font-size: clamp(1.2rem,3vw,1.6rem); line-height: 1.4; margin-bottom: 12px; color: rgba(255,255,255,0.7); }
+    .part-body { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.5); max-width: 700px; }
     .part-label { font-family: 'Montserrat',sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #999; margin-bottom: 12px; }
     .part-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
     .part-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .part-card { background: #fff; border-radius: 12px; padding: 32px; }
-    .part-card h3 { font-family: 'Montserrat',sans-serif; font-weight: 800; font-size: 16px; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 12px; color: #111; }
-    .part-card p, .part-card li { font-size: 14px; line-height: 1.7; color: #666; }
-    .part-card li { padding: 3px 0; padding-left: 16px; position: relative; }
-    .part-card li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: #111; }
     .part-photos { display: flex; gap: 12px; }
     .part-photos img { width: 320px; height: 420px; flex-shrink: 0; object-fit: cover; border-radius: 8px; transform: rotate(-2deg); box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
     .part-photos img:nth-child(2) { transform: rotate(2deg); margin-top: 20px; }
-    .part-promo__code { display: inline-block; margin-top: 16px; padding: 14px 40px; background: rgba(255,255,255,0.1); border: 2px dashed rgba(255,255,255,0.3); font-family: 'Bebas Neue',sans-serif; font-size: 2.5rem; letter-spacing: 0.15em; color: #fff; border-radius: 8px; }
     .part-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
     .part-tag { padding: 10px 20px; background: #111; color: #fff; border-radius: 8px; font-family: 'Montserrat',sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
-    .part-divider { width: 60px; height: 3px; background: #111; margin: 0 0 24px; }
+    .part-divider { width: 60px; height: 3px; background: rgba(255,255,255,0.2); margin: 0 0 24px; }
     @media (max-width: 768px) {
       .part-grid-2 { grid-template-columns: 1fr; gap: 32px; }
       .part-grid-4 { grid-template-columns: repeat(2, 1fr); }
@@ -355,8 +520,13 @@
       position: relative;
       border-radius: 12px;
       overflow: hidden;
-      height: 480px;
+      height: 520px;
       cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.25,0.8,0.25,1), box-shadow 0.4s ease;
+    }
+    .prog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5);
     }
     .prog-card__img {
       position: absolute;
@@ -369,12 +539,12 @@
     }
     .prog-card:hover .prog-card__img {
       filter: brightness(0.5) grayscale(0%);
-      transform: scale(1.05);
+      transform: scale(1.03);
     }
     .prog-card__overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 35%, rgba(0,0,0,0.2) 100%);
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.15) 100%);
       z-index: 1;
     }
     .prog-card__accent {
@@ -391,17 +561,21 @@
       left: 0;
       right: 0;
       z-index: 2;
-      padding: 28px 24px;
+      padding: 24px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 0;
+      height: 300px;
     }
     .prog-card__title {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-size: clamp(1.5rem, 2.2vw, 1.8rem);
       color: #fff;
       text-transform: uppercase;
       letter-spacing: 0.02em;
       line-height: 1.05;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .prog-card__sub {
       font-family: 'Montserrat', sans-serif;
@@ -410,19 +584,20 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.4);
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     .prog-card__level { display: none; }
     .prog-card__list {
       list-style: none;
       padding: 0;
       margin: 0;
+      overflow: hidden;
     }
     .prog-card__list li {
-      font-size: 15px;
+      font-size: 13px;
       line-height: 1.6;
       color: rgba(255,255,255,0.55);
-      padding: 3px 0 3px 16px;
+      padding: 3px 0 3px 18px;
       position: relative;
     }
     .prog-card__list li::before {
@@ -430,17 +605,18 @@
       position: absolute;
       left: 0;
       top: 11px;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.3);
+      width: 10px;
+      height: 2px;
+      border-radius: 1px;
+      background: rgba(255,255,255,0.25);
     }
     .prog-card__list li:nth-child(n+4) { display: none; }
     .prog-card__more {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-top: 20px;
+      margin-top: auto;
+      padding-top: 12px;
       font-family: 'Montserrat', sans-serif;
       font-size: 12px;
       font-weight: 600;
@@ -449,7 +625,7 @@
       color: rgba(255,255,255,0.4);
       transition: color 0.3s;
     }
-    .prog-card:hover .prog-card__more { color: rgba(255,255,255,0.7); }
+    .prog-card:hover .prog-card__more { color: rgba(255,255,255,0.8); }
     .prog-card__more-btn {
       width: 32px;
       height: 32px;
@@ -463,8 +639,9 @@
       transition: all 0.3s;
     }
     .prog-card:hover .prog-card__more-btn {
-      border-color: rgba(255,255,255,0.5);
+      border-color: rgba(255,255,255,0.6);
       color: #fff;
+      background: rgba(255,255,255,0.08);
     }
     /* Modal */
     .prog-modal-backdrop {
@@ -501,7 +678,7 @@
     }
     .prog-modal__hero {
       position: relative;
-      height: 300px;
+      height: 260px;
       overflow: hidden;
     }
     .prog-modal__hero img {
@@ -523,7 +700,7 @@
     .prog-modal__hero-text h3 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
       color: #fff;
       text-transform: uppercase;
       line-height: 1;
@@ -537,18 +714,22 @@
       margin-top: 8px;
     }
     .prog-modal__accent {
-      height: 3px;
+      height: 4px;
       width: 100%;
     }
     .prog-modal__body {
       padding: 32px;
-      max-height: calc(85vh - 303px);
+      max-height: calc(85vh - 264px);
       overflow-y: auto;
     }
+    .prog-modal__body::-webkit-scrollbar { width: 4px; }
+    .prog-modal__body::-webkit-scrollbar-track { background: transparent; }
+    .prog-modal__body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
     .prog-modal__level {
+      font-family: 'Montserrat', sans-serif;
       font-size: 18px;
       font-weight: 700;
-      color: rgba(255,255,255,0.8);
+      color: rgba(255,255,255,0.85);
       margin-bottom: 24px;
     }
     .prog-modal__list {
@@ -557,30 +738,30 @@
       margin: 0;
     }
     .prog-modal__list li {
-      font-size: 16px;
-      line-height: 1.7;
+      font-size: 15px;
+      line-height: 1.8;
       color: rgba(255,255,255,0.6);
-      padding: 6px 0 6px 20px;
+      padding: 6px 0 6px 24px;
       position: relative;
     }
     .prog-modal__list li::before {
       content: '';
       position: absolute;
       left: 0;
-      top: 14px;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
+      top: 15px;
+      width: 12px;
+      height: 2px;
+      border-radius: 1px;
     }
     .prog-modal__close {
       position: absolute;
       top: 16px;
       right: 16px;
       z-index: 10;
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      border: none;
+      border: 1px solid rgba(255,255,255,0.2);
       background: rgba(0,0,0,0.5);
       color: #fff;
       font-size: 24px;
@@ -588,31 +769,20 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.3s;
+      transition: background 0.3s, border-color 0.3s;
     }
-    .prog-modal__close:hover { background: rgba(0,0,0,0.8); }
+    .prog-modal__close:hover { background: rgba(180,50,50,0.4); border-color: rgba(180,50,50,0.6); }
     @media (max-width: 1024px) {
       .prog-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 768px) {
       .prog-grid { grid-template-columns: 1fr; }
-      .prog-card { height: 400px; }
+      .prog-card { height: 420px; }
       .prog-modal { max-height: 90vh; }
-      .prog-modal__hero { height: 220px; }
-      .prog-modal__body { max-height: calc(90vh - 223px); padding: 24px; }
+      .prog-modal__hero { height: 200px; }
+      .prog-modal__body { max-height: calc(90vh - 204px); padding: 24px; }
       .prog-modal__list li { font-size: 14px; }
-    }
-
-    /* ===== AVANTAGE CARDS GLOW ===== */
-    .avantage-card {
-      padding: 28px 0;
-      border-top: 2px solid rgba(255,255,255,0.15);
-      transition: border-color 0.4s ease, box-shadow 0.4s ease;
-      cursor: default;
-    }
-    .avantage-card:hover {
-      border-top-color: #fff;
-      box-shadow: 0 -4px 20px rgba(255,255,255,0.15);
+      .prog-modal__close { width: 56px; height: 56px; }
     }
 
     /* ===== CONTACT DARK MODE ===== */
@@ -702,53 +872,96 @@
     }
 
     /* ===== STAFF HORIZONTAL SCROLL ===== */
-    /* Pattern */
-    .staff-pattern {
-      position: absolute;
-      inset: -120px;
-      z-index: 0;
-      opacity: 0.055;
-      background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='240' viewBox='0 0 360 240'%3E%3Ccircle cx='60' cy='60' r='48' stroke='white' stroke-width='2' fill='none'/%3E%3Ctext x='32' y='70' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ES%3C/text%3E%3Ctext x='55' y='70' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ET%3C/text%3E%3Ctext x='78' y='74' font-family='sans-serif' font-weight='300' font-size='16' fill='white'%3EXI%3C/text%3E%3Ccircle cx='240' cy='60' r='48' stroke='white' stroke-width='2' fill='none'/%3E%3Ctext x='212' y='70' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ES%3C/text%3E%3Ctext x='235' y='70' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ET%3C/text%3E%3Ctext x='258' y='74' font-family='sans-serif' font-weight='300' font-size='16' fill='white'%3EXI%3C/text%3E%3Ccircle cx='150' cy='180' r='48' stroke='white' stroke-width='2' fill='none'/%3E%3Ctext x='122' y='190' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ES%3C/text%3E%3Ctext x='145' y='190' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ET%3C/text%3E%3Ctext x='168' y='194' font-family='sans-serif' font-weight='300' font-size='16' fill='white'%3EXI%3C/text%3E%3Ccircle cx='330' cy='180' r='48' stroke='white' stroke-width='2' fill='none'/%3E%3Ctext x='302' y='190' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ES%3C/text%3E%3Ctext x='325' y='190' font-family='sans-serif' font-weight='800' font-size='36' fill='white'%3ET%3C/text%3E%3Ctext x='348' y='194' font-family='sans-serif' font-weight='300' font-size='16' fill='white'%3EXI%3C/text%3E%3C/svg%3E");
-      background-size: 360px 240px;
-    }
-    @media (max-width: 768px) {
-      .staff-pattern { background-size: 80px 80px; opacity: 0.08; }
-    }
 
-    .staff-scroll {
+    .staff-carousel {
       position: relative;
       z-index: 2;
+    }
+    .staff-scroll {
+      position: relative;
       overflow-x: auto;
       overflow-y: hidden;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       cursor: grab;
-      padding: 0 0 0 max(24px, calc((100vw - 1400px) / 2 + 24px));
+      padding: 0 60px;
+      mask-image: linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent);
     }
     .staff-scroll::-webkit-scrollbar { display: none; }
     .staff-scroll:active { cursor: grabbing; }
     .staff-track {
       display: flex;
       gap: 24px;
-      padding-right: 48px;
       width: max-content;
+      padding: 20px 0;
     }
     .staff-card {
       position: relative;
-      width: 380px;
-      height: 530px;
+      width: 340px;
+      height: 500px;
       border-radius: 12px;
       overflow: hidden;
       flex-shrink: 0;
-      scroll-snap-align: start;
+      scroll-snap-align: center;
       will-change: transform;
-      transition: transform 0.4s cubic-bezier(0.25,0.8,0.25,1), box-shadow 0.4s ease;
+      transition: transform 0.5s cubic-bezier(0.25,0.8,0.25,1), box-shadow 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+      cursor: pointer;
+      opacity: 0.5;
+      filter: grayscale(30%);
+    }
+    .staff-card.staff-card--active {
+      opacity: 1;
+      filter: none;
+      transform: scale(1);
+      box-shadow: 0 20px 60px rgba(78,170,212,0.15);
     }
     .staff-card--featured {
-      width: 380px;
-      height: 530px;
+      width: 360px;
+      height: 540px;
+    }
+    /* Side arrows — overlaid on carousel */
+    .staff-arrow-side {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(10,10,10,0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, border-color 0.3s, transform 0.3s, opacity 0.3s;
+    }
+    .staff-arrow-side:hover {
+      background: #4EAAD4;
+      border-color: #4EAAD4;
+      color: #fff;
+      transform: translateY(-50%) scale(1.1);
+    }
+    .staff-arrow-side--left { left: 16px; }
+    .staff-arrow-side--right { right: 16px; }
+    .staff-arrow-side--hidden { opacity: 0; pointer-events: none; }
+    .staff-card--featured .staff-card__badge {
+      display: inline-block;
+      background: rgba(218,165,32,0.2);
+      color: #DAA520;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-bottom: 10px;
     }
     .staff-card__img {
       position: absolute;
@@ -832,46 +1045,38 @@
       50% { transform: translateX(6px); opacity: 0.8; }
     }
     .staff-hint.hidden { opacity: 0; transition: opacity 0.5s; pointer-events: none; }
-    /* Indicators */
-    .staff-indicators { display: flex; gap: 8px; align-items: center; }
+    /* Indicators — bar style */
+    .staff-indicators { display: flex; gap: 8px; align-items: center; justify-content: center; }
     .staff-indicator {
       display: block;
-      width: 24px;
-      height: 3px;
+      width: 20px;
+      height: 2px;
       background: rgba(255,255,255,0.15);
-      border-radius: 2px;
-      transition: width 0.3s, background 0.3s;
+      border-radius: 1px;
+      transition: width 0.4s cubic-bezier(0.4,0,0.2,1), background 0.3s;
       cursor: pointer;
     }
     .staff-indicator.active {
       width: 40px;
-      background: #fff;
-    }
-    /* Arrow buttons */
-    .staff-arrow {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: none;
-      color: rgba(255,255,255,0.5);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: border-color 0.3s, color 0.3s, background 0.3s;
-    }
-    .staff-arrow:hover {
-      border-color: #fff;
-      color: #fff;
-      background: rgba(78,170,212,0.08);
+      background: #4EAAD4;
     }
     @media (max-width: 768px) {
       .staff-card { width: 280px; height: 420px; }
       .staff-card--featured { width: 300px; height: 450px; }
-      .staff-card__bio { max-height: 200px; opacity: 1; }
-      .staff-scroll { padding-left: 20px; }
-      .staff-track { padding-right: 20px; }
+      .staff-card__bio {
+        max-height: 200px;
+        opacity: 1;
+        font-size: 12px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .staff-scroll { padding: 0 24px; mask-image: none; -webkit-mask-image: none; }
+      .staff-arrow-side { width: 40px; height: 40px; }
+      .staff-arrow-side--left { left: 4px; }
+      .staff-arrow-side--right { right: 4px; }
     }
 
     /* ===== ACTIVE NAV LINK ===== */
@@ -884,49 +1089,34 @@
   <!-- ============================================================ -->
   <!-- NAVBAR                                                        -->
   <!-- ============================================================ -->
-  <nav class="navbar">
+  <nav class="navbar" id="main-navbar">
     <div class="navbar__inner">
       <div class="navbar__links-left">
-        <div class="navbar__item">
-          <a href="#hero" class="navbar__link">Accueil</a>
-        </div>
-        <div class="navbar__item">
-          <a href="#a-propos" class="navbar__link">À propos</a>
-        </div>
-        <div class="navbar__item">
-          <a href="#staff" class="navbar__link">Staff</a>
-        </div>
-        <div class="navbar__item">
-          <a href="#equipes" class="navbar__link">Équipes</a>
-        </div>
-        <div class="navbar__item">
-          <a href="#medias" class="navbar__link">Médias</a>
-        </div>
+        <a href="#hero" class="navbar__link" data-section="hero">Accueil</a>
+        <a href="#a-propos" class="navbar__link" data-section="a-propos">À propos</a>
+        <a href="#staff" class="navbar__link" data-section="staff">Staff</a>
+        <a href="#equipes" class="navbar__link" data-section="equipes">Équipes</a>
+        <a href="#medias" class="navbar__link" data-section="medias">Médias</a>
       </div>
 
-      <!-- CENTER LOGO -->
       <a href="#hero" class="navbar__logo">
-        <svg width="48" height="48" viewBox="0 0 120 120" fill="none">
-          <circle cx="60" cy="60" r="58" stroke="white" stroke-width="2.5" fill="#000"/>
+        <svg viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="60" r="58" stroke="white" stroke-width="2.5" fill="rgba(0,0,0,0.4)"/>
           <text x="28" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">S</text>
           <text x="55" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">T</text>
           <text x="82" y="78" font-family="Inter,sans-serif" font-weight="300" font-size="20" fill="white" letter-spacing="2">XI</text>
         </svg>
       </a>
 
-      <!-- RIGHT LINKS -->
       <div class="navbar__links-right">
-        <div class="navbar__item">
-          <a href="pages/calendrier.html" class="navbar__link" style="color:#fff;">Calendrier</a>
-        </div>
-        <div class="navbar__item">
-          <a href="#partenaires" class="navbar__link">Partenaires</a>
-        </div>
-        <div class="navbar__item">
-          <a href="#contact" class="navbar__link">Contact</a>
-        </div>
-        <a href="#contact" class="navbar__cta">S'inscrire</a>
+        <a href="pages/calendrier.html" class="navbar__link">Calendrier</a>
+        <a href="#partenaires" class="navbar__link" data-section="partenaires">Partenaires</a>
+        <a href="#contact" class="navbar__link" data-section="contact">Contact</a>
       </div>
+
+      <!-- Indicator line + ghost -->
+      <div class="navbar__indicator" id="nav-indicator"></div>
+      <div class="navbar__indicator-ghost" id="nav-ghost"></div>
 
       <button class="navbar__burger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -968,58 +1158,155 @@
   <!-- ============================================================ -->
   <section id="hero" class="hero" style="background:#0A0A0A;position:relative;overflow:hidden;">
 
-    <!-- Soccer Field SVG -->
-    <div class="field-wrap">
-      <svg class="field-svg" viewBox="0 0 1050 680" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Outer boundary -->
-        <rect class="field-line field-line--outer" x="25" y="25" width="1000" height="630" rx="0" stroke="white" stroke-width="2"/>
-        <!-- Halfway line -->
-        <line class="field-line field-line--mid" x1="525" y1="25" x2="525" y2="655" stroke="white" stroke-width="2"/>
-        <!-- Center circle -->
-        <circle class="field-line field-line--circle" cx="525" cy="340" r="91.5" stroke="white" stroke-width="2"/>
-        <!-- Left penalty area -->
-        <rect class="field-line field-line--penalty" x="25" y="138" width="165" height="404" stroke="white" stroke-width="2"/>
-        <!-- Left goal area -->
-        <rect class="field-line field-line--goal" x="25" y="228" width="55" height="224" stroke="white" stroke-width="2"/>
-        <!-- Left penalty arc -->
-        <path class="field-line field-line--arc" d="M190 282 A 60 60 0 0 1 190 398" stroke="white" stroke-width="2"/>
-        <!-- Right penalty area -->
-        <rect class="field-line field-line--penalty2" x="860" y="138" width="165" height="404" stroke="white" stroke-width="2"/>
-        <!-- Right goal area -->
-        <rect class="field-line field-line--goal2" x="970" y="228" width="55" height="224" stroke="white" stroke-width="2"/>
-        <!-- Right penalty arc -->
-        <path class="field-line field-line--arc2" d="M860 282 A 60 60 0 0 0 860 398" stroke="white" stroke-width="2"/>
-        <!-- Corner arcs -->
-        <path class="field-line field-line--corner" d="M25 35 A 10 10 0 0 0 35 25" stroke="white" stroke-width="2"/>
-        <path class="field-line field-line--corner" d="M1015 25 A 10 10 0 0 0 1025 35" stroke="white" stroke-width="2"/>
-        <path class="field-line field-line--corner" d="M35 655 A 10 10 0 0 0 25 645" stroke="white" stroke-width="2"/>
-        <path class="field-line field-line--corner" d="M1025 645 A 10 10 0 0 0 1015 655" stroke="white" stroke-width="2"/>
-        <!-- Center spot -->
-        <circle cx="525" cy="340" r="3" fill="white" opacity="0.3"/>
+    <!-- FIELD BACKGROUND — fullscreen landscape -->
+    <div class="hero__field" id="hero-field">
+      <svg class="hero__field-svg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <!-- Outer boundary — 60px horizontal padding, 40px vertical -->
+          <rect class="hfl" x="60" y="40" width="1080" height="620"/>
+          <!-- Halfway line (vertical, center) -->
+          <line class="hfl" x1="600" y1="40" x2="600" y2="660"/>
+          <!-- Center circle -->
+          <circle class="hfl" cx="600" cy="350" r="80"/>
+          <circle cx="600" cy="350" r="3" fill="#fff" opacity="0.15"/>
+          <!-- LEFT penalty area -->
+          <rect class="hfl" x="60" y="145" width="170" height="410"/>
+          <rect class="hfl" x="60" y="220" width="65" height="260"/>
+          <path class="hfl" d="M230 250 A65 80 0 0 1 230 450"/>
+          <circle cx="160" cy="350" r="2.5" fill="#fff" opacity="0.12"/>
+          <!-- RIGHT penalty area -->
+          <rect class="hfl" x="970" y="145" width="170" height="410"/>
+          <rect class="hfl" x="1075" y="220" width="65" height="260"/>
+          <path class="hfl" d="M970 250 A65 80 0 0 0 970 450"/>
+          <circle cx="1040" cy="350" r="2.5" fill="#fff" opacity="0.12"/>
+          <!-- Corner arcs -->
+          <path class="hfl" d="M60 50 A10 10 0 0 1 70 40"/>
+          <path class="hfl" d="M1130 40 A10 10 0 0 1 1140 50"/>
+          <path class="hfl" d="M70 660 A10 10 0 0 1 60 650"/>
+          <path class="hfl" d="M1140 650 A10 10 0 0 1 1130 660"/>
+        </g>
+        <!-- STXI logo in center circle -->
+        <g opacity="0.12">
+          <text x="567" y="358" font-family="Montserrat,sans-serif" font-weight="800" font-size="26" fill="#fff">ST</text>
+          <text x="608" y="358" font-family="Inter,sans-serif" font-weight="300" font-size="14" fill="#fff" letter-spacing="1">XI</text>
+        </g>
       </svg>
 
-      <!-- Logo at center of field -->
-      <div class="field-logo">
-        <svg width="130" height="130" viewBox="0 0 120 120" fill="none">
-          <circle cx="60" cy="60" r="58" stroke="white" stroke-width="2" fill="rgba(0,0,0,0.4)"/>
-          <text x="28" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">S</text>
-          <text x="55" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">T</text>
-          <text x="82" y="78" font-family="Inter,sans-serif" font-weight="300" font-size="20" fill="white" letter-spacing="2">XI</text>
-        </svg>
+      <!-- 11 players — 4-3-3 in left half, attacking right -->
+      <div class="hero__players" id="hero-players">
+        <div class="plr plr--gk" style="--d:0.8s"></div>
+        <div class="plr" style="--d:0.9s"></div>
+        <div class="plr" style="--d:1.0s"></div>
+        <div class="plr" style="--d:1.05s"></div>
+        <div class="plr" style="--d:1.1s"></div>
+        <div class="plr" style="--d:1.2s"></div>
+        <div class="plr" style="--d:1.25s"></div>
+        <div class="plr" style="--d:1.3s"></div>
+        <div class="plr" style="--d:1.4s"></div>
+        <div class="plr" style="--d:1.45s"></div>
+        <div class="plr" style="--d:1.5s"></div>
       </div>
     </div>
 
-    <!-- Hero content -->
-    <div class="hero__content" style="text-align:center;position:relative;z-index:3;">
-      <p style="font-family:'Montserrat',sans-serif;font-weight:400;font-size:clamp(16px,2.5vw,22px);color:#fff;margin-bottom:8px;opacity:0;animation:fadeInUp 0.8s ease 2s forwards;">Bienvenue chez</p>
-      <h1 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(3.5rem,10vw,7rem);color:#fff;text-transform:uppercase;letter-spacing:0.04em;line-height:0.95;margin-bottom:20px;opacity:0;animation:fadeInUp 0.8s ease 2.15s forwards;">STARTING XI</h1>
-      <p style="font-family:'Montserrat',sans-serif;font-weight:400;font-size:clamp(13px,1.8vw,16px);color:rgba(255,255,255,0.7);line-height:1.6;opacity:0;animation:fadeInUp 0.8s ease 2.3s forwards;">L'école de foot où chaque séance<br>te rapproche du sommet.</p>
+    <!-- Vignette for text readability -->
+    <div class="hero__vignette"></div>
+
+    <!-- Text overlay — centered -->
+    <div class="hero__content">
+      <p class="hero__welcome">Bienvenue chez</p>
+      <h1 class="hero__main-title">STARTING <span class="hero__main-title-xi">XI</span></h1>
+      <p class="hero__slogan">L'école de foot où chaque séance<br>te rapproche du sommet.</p>
+      <div class="hero__cta-row">
+        <a href="#a-propos" class="hero__cta hero__cta--primary">Découvrir STXI</a>
+        <a href="#contact" class="hero__cta hero__cta--secondary">S'inscrire</a>
+      </div>
     </div>
 
-    <div class="hero__scroll" style="z-index:3;">
-      <span class="hero__scroll-text">Défiler</span>
-      <div class="hero__scroll-line"></div>
-    </div>
+    <!-- Formation name -->
+    <div class="formation-name" id="formation-name">4-3-3</div>
+
+    <script>
+    (function() {
+      var field = document.getElementById('hero-field');
+      var dots = document.querySelectorAll('#hero-players .plr');
+      var label = document.getElementById('formation-name');
+      if (!field || !dots.length) return;
+
+      // 10 formations — all in LEFT half (x: 5-42%, y: 10-90%)
+      var formations = [
+        { name:'4-3-3',   pos:[[3,50],[10,15],[10,38],[10,62],[10,85],[18,28],[18,50],[18,72],[27,22],[29,50],[27,78]] },
+        { name:'4-4-2',   pos:[[3,50],[10,15],[10,38],[10,62],[10,85],[18,15],[18,38],[18,62],[18,85],[28,35],[28,65]] },
+        { name:'3-5-2',   pos:[[3,50],[10,28],[9,50],[10,72],[18,10],[17,30],[16,50],[17,70],[18,90],[28,35],[28,65]] },
+        { name:'4-2-3-1', pos:[[3,50],[10,15],[10,38],[10,62],[10,85],[16,35],[16,65],[24,22],[25,50],[24,78],[30,50]] },
+        { name:'3-4-3',   pos:[[3,50],[10,28],[9,50],[10,72],[18,15],[18,38],[18,62],[18,85],[27,22],[29,50],[27,78]] },
+        { name:'5-3-2',   pos:[[3,50],[10,10],[9,30],[8,50],[9,70],[10,90],[18,28],[17,50],[18,72],[28,35],[28,65]] },
+        { name:'4-1-4-1', pos:[[3,50],[10,15],[10,38],[10,62],[10,85],[16,50],[22,15],[22,38],[22,62],[22,85],[30,50]] },
+        { name:'4-5-1',   pos:[[3,50],[10,15],[10,38],[10,62],[10,85],[18,12],[17,32],[16,50],[17,68],[18,88],[30,50]] },
+        { name:'4-3-2-1', pos:[[3,50],[10,15],[10,38],[10,62],[10,85],[16,28],[15,50],[16,72],[24,38],[24,62],[30,50]] },
+        { name:'4-4-1-1', pos:[[3,50],[10,15],[10,38],[10,62],[10,85],[18,15],[18,38],[18,62],[18,85],[26,50],[30,50]] }
+      ];
+
+      var currentF = 0;
+
+      // Clamp to left half of field
+      function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+
+      function getFieldRect() {
+        var box = field.getBoundingClientRect();
+        var svgAR = 1200 / 700;
+        var contAR = box.width / box.height;
+        var svgW, svgH, svgX, svgY;
+        if (contAR > svgAR) {
+          svgH = box.height; svgW = svgH * svgAR;
+          svgX = (box.width - svgW) / 2; svgY = 0;
+        } else {
+          svgW = box.width; svgH = svgW / svgAR;
+          svgX = 0; svgY = (box.height - svgH) / 2;
+        }
+        return {
+          fL: svgX + (60/1200)*svgW,
+          fT: svgY + (40/700)*svgH,
+          fW: (1080/1200)*svgW,
+          fH: (620/700)*svgH,
+          cW: box.width,
+          cH: box.height
+        };
+      }
+
+      function applyFormation(idx) {
+        var f = getFieldRect();
+        var p = formations[idx].pos;
+        for (var i = 0; i < dots.length && i < p.length; i++) {
+          var tx = clamp(p[i][0], 3, 32);
+          var ty = clamp(p[i][1], 5, 95);
+          var px = f.fL + (tx/100) * f.fW;
+          var py = f.fT + (ty/100) * f.fH;
+          dots[i].style.left = (px / f.cW * 100) + '%';
+          dots[i].style.top = (py / f.cH * 100) + '%';
+        }
+      }
+
+      // Initial placement
+      applyFormation(0);
+
+      // Recalc on resize
+      window.addEventListener('resize', function() { applyFormation(currentF); });
+
+      // Rotate every 6 seconds
+      setInterval(function() {
+        currentF = (currentF + 1) % formations.length;
+        // Fade label
+        label.style.opacity = '0';
+        setTimeout(function() {
+          label.textContent = formations[currentF].name;
+          label.style.opacity = '1';
+        }, 300);
+        // Move players (CSS transition handles the animation)
+        applyFormation(currentF);
+      }, 6000);
+
+    })();
+    </script>
   </section>
 
   <!-- ============================================================ -->
@@ -1057,8 +1344,9 @@
       <div class="reveal">
         <p class="label">Notre mission</p>
         <h2 class="section-title">À propos</h2>
+        <p style="font-family:'Montserrat',sans-serif;font-weight:500;font-style:italic;font-size:clamp(18px,2.5vw,24px);color:rgba(255,255,255,0.75);line-height:1.5;margin-bottom:28px;">Allier une structure de formation reconnue à une expertise pointue en performance.</p>
         <p>Starting XI a pour mission de contribuer activement à l'évolution du soccer au Québec en accompagnant les jeunes athlètes dans leur progression technique, tactique et humaine. L'académie met l'accent sur la discipline, le travail, le respect et la passion du jeu afin de former non seulement de meilleurs joueurs, mais aussi de meilleures personnes. L'académie regroupe plusieurs jeunes joueurs motivés et ambitieux, ce qui favorise la création d'un environnement stimulant, compétitif et propice à la progression.</p>
-        <p style="margin-top:16px;">Une communication constante sera maintenue entre Starting XI et le CS St-Laurent afin d'assurer un suivi efficace des joueurs et de favoriser leur progression à travers les différentes catégories du club.</p>
+        <p style="margin-top:16px;">Une communication constante sera maintenue entre Starting XI et le CS St-Laurent afin d'assurer un suivi efficace des joueurs et de favoriser leur progression à travers les différentes catégories du club. Avec des coachs spécialisés et expérimentés, Starting XI apporte une dimension individuelle et exigeante au développement des joueurs.</p>
       </div>
       <div class="reveal" style="position:relative;width:100%;max-width:520px;margin:0 auto;">
         <!-- TODO: remplacer par photo d'ambiance dans images/media/ quand disponible -->
@@ -1083,16 +1371,14 @@
   <!-- STAFF — Horizontal Scroll Cards                               -->
   <!-- ============================================================ -->
   <section id="staff" style="background:#050507;padding:100px 0 80px;overflow:hidden;position:relative;">
+    <!-- Section number watermark -->
+    <span style="position:absolute;top:40px;left:40px;font-family:'Bebas Neue',sans-serif;font-size:120px;color:rgba(255,255,255,0.04);line-height:1;pointer-events:none;z-index:0;">02</span>
 
-    <!-- Step-and-repeat logo pattern -->
-    <div class="staff-pattern" aria-hidden="true"></div>
-    <!-- Vignette overlay -->
-    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center, transparent 30%, rgba(5,5,7,0.7) 100%);"></div>
 
     <!-- Header -->
     <div style="max-width:1400px;margin:0 auto;padding:0 24px 48px;position:relative;z-index:2;">
       <p class="label">L'équipe</p>
-      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,3.5rem);color:#fff;letter-spacing:0.04em;">Derrière l'académie</h2>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,3.5rem);color:#fff;letter-spacing:0.04em;">Derrière Starting XI</h2>
       <div style="width:60px;height:3px;background:#fff;margin:16px 0 0;"></div>
       <p style="font-size:15px;color:rgba(255,255,255,0.4);margin-top:16px;">Les personnes qui façonnent Starting XI au quotidien.</p>
     </div>
@@ -1103,6 +1389,15 @@
       <svg class="staff-hint__arrow" width="20" height="12" viewBox="0 0 20 12" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"><path d="M0 6h16M12 1l5 5-5 5"/></svg>
     </div>
 
+    <!-- Carousel wrapper -->
+    <div class="staff-carousel">
+    <!-- Side arrows -->
+    <button class="staff-arrow-side staff-arrow-side--left staff-arrow-side--hidden" id="staff-prev" aria-label="Précédent">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l6-6M5 12l6 6"/></svg>
+    </button>
+    <button class="staff-arrow-side staff-arrow-side--right" id="staff-next" aria-label="Suivant">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M19 12l-6-6M19 12l-6 6"/></svg>
+    </button>
     <!-- Scroll container -->
     <div class="staff-scroll" id="staff-scroll">
       <div class="staff-track">
@@ -1112,69 +1407,113 @@
           <img src="images/staff/Lacamz-4081.jpg" alt="Chakib Hocine" loading="lazy" class="staff-card__img" style="object-position:center 20%;">
           <div class="staff-card__overlay"></div>
           <div class="staff-card__content">
+            <span class="staff-card__badge">Président</span>
             <span class="staff-card__num">01</span>
-            <p class="staff-card__role">Fondateur & Directeur Général</p>
+            <p class="staff-card__role">Président & Coach Principal</p>
             <h3 class="staff-card__name">Chakib<br>Hocine</h3>
-            <p class="staff-card__bio">Défenseur central passé par la CPL (HFX Wanderers, Valour FC), la USL (FC Montreal) et la Finlande. Formé à l'Impact de Montréal, il a fondé Starting XI avec la vision de créer une académie d'excellence.</p>
+            <p class="staff-card__bio">Pilier du projet sportif, coach principal U18 en championnat. Supervise l'ensemble des séances du senior au professionnel, incluant le féminin pro. Responsable de la vision sportive globale et des décisions stratégiques.</p>
           </div>
         </div>
 
-        <!-- 02 Jems -->
+        <!-- 02 James -->
         <div class="staff-card" data-index="1">
-          <img src="images/staff/Lacamz-671.jpg" alt="Jems Geffrard" loading="lazy" class="staff-card__img">
+          <img src="images/staff/Lacamz-201.jpg" alt="James Geffrard" loading="lazy" class="staff-card__img" style="object-position:center 25%;">
           <div class="staff-card__overlay"></div>
           <div class="staff-card__content">
             <span class="staff-card__num">02</span>
-            <p class="staff-card__role">Préparateur physique & Entraîneur</p>
-            <h3 class="staff-card__name">Jems<br>Geffrard</h3>
-            <p class="staff-card__bio">International haïtien (19 sélections), demi-finaliste Gold Cup 2019. Formé à l'Académie de l'Impact, passé par la CPL et la Finlande. Il apporte son expertise de haut niveau au développement des joueurs.</p>
+            <p class="staff-card__role">Directeur de l'Académie</p>
+            <h3 class="staff-card__name">James<br>Geffrard</h3>
+            <p class="staff-card__bio">Supervise le développement des catégories U10, U12 et U15. Coach principal U15 et assistant U18. Joue un rôle clé dans la formation des coachs et participe aux séances senior et pro.</p>
           </div>
         </div>
 
-        <!-- 03 Kevin -->
+        <!-- 03 Michael -->
         <div class="staff-card" data-index="2">
-          <img src="images/galerie/a76dc5241afe3e9331c951344e361386.jpg" alt="Kevin" loading="lazy" class="staff-card__img">
+          <img src="images/staff/Lacamz-217.jpg" alt="Michael" loading="lazy" class="staff-card__img" style="object-position:center 30%;">
           <div class="staff-card__overlay"></div>
           <div class="staff-card__content">
             <span class="staff-card__num">03</span>
-            <p class="staff-card__role">Réseaux sociaux</p>
-            <h3 class="staff-card__name">Kevin</h3>
-            <p class="staff-card__bio">Responsable de la présence numérique et de la création de contenu pour Starting XI.</p>
+            <p class="staff-card__role">Physiothérapeute</p>
+            <h3 class="staff-card__name">Michael</h3>
+            <p class="staff-card__bio">Responsable de la gestion physique des joueurs. Assure la récupération, la prévention des blessures et le suivi individuel. Intervient dans les processus de retour au jeu.</p>
           </div>
         </div>
 
-        <!-- 04 Alex -->
+        <!-- 04 Darryl -->
         <div class="staff-card" data-index="3">
-          <img src="images/staff/1cf03701643174ba44bf12bef036ac71.jpg" alt="Alex" loading="lazy" class="staff-card__img">
+          <img src="images/staff/Lacamz-217.jpg" alt="Darryl Guerrier" loading="lazy" class="staff-card__img" style="object-position:center 40%;">
           <div class="staff-card__overlay"></div>
           <div class="staff-card__content">
             <span class="staff-card__num">04</span>
-            <p class="staff-card__role">Entraîneur</p>
-            <h3 class="staff-card__name">Alex</h3>
-            <p class="staff-card__bio">Entraîneur au sein de l'académie Starting XI, contribuant au développement des joueurs.</p>
+            <p class="staff-card__role">Coach U10</p>
+            <h3 class="staff-card__name">Darryl<br>Guerrier</h3>
+            <p class="staff-card__bio">Encadre les jeunes joueurs U10 dans leur développement technique, éducatif et comportemental. Met en place un environnement structuré favorisant l'apprentissage et la discipline.</p>
+          </div>
+        </div>
+
+        <!-- 05 Kevin -->
+        <div class="staff-card" data-index="4">
+          <img src="images/galerie/a76dc5241afe3e9331c951344e361386.jpg" alt="Kevin Zhou" loading="lazy" class="staff-card__img">
+          <div class="staff-card__overlay"></div>
+          <div class="staff-card__content">
+            <span class="staff-card__num">05</span>
+            <p class="staff-card__role">Responsable Média & Image</p>
+            <h3 class="staff-card__name">Kevin<br>Zhou</h3>
+            <p class="staff-card__bio">Gère les communications officielles et la création de contenus vidéo. Coordonne les photographes pour assurer une représentation professionnelle et cohérente de l'académie.</p>
+          </div>
+        </div>
+
+        <!-- 06 Joseph -->
+        <div class="staff-card" data-index="5">
+          <img src="images/staff/Lacamz-217.jpg" alt="Joseph Espinosa" loading="lazy" class="staff-card__img" style="object-position:center 35%;">
+          <div class="staff-card__overlay"></div>
+          <div class="staff-card__content">
+            <span class="staff-card__num">06</span>
+            <p class="staff-card__role">Logistique & Équipement</p>
+            <h3 class="staff-card__name">Joseph<br>Espinosa</h3>
+            <p class="staff-card__bio">En charge de l'équipement et de l'inventaire. Veille à la disponibilité et la qualité du matériel pour les entraînements et matchs. Assure l'organisation logistique des activités sportives.</p>
+          </div>
+        </div>
+
+        <!-- 07 Alexandre -->
+        <div class="staff-card" data-index="6">
+          <img src="images/staff/1cf03701643174ba44bf12bef036ac71.jpg" alt="Alexandre Casqueiro" loading="lazy" class="staff-card__img" style="object-position:center 15%;">
+          <div class="staff-card__overlay"></div>
+          <div class="staff-card__content">
+            <span class="staff-card__num">07</span>
+            <p class="staff-card__role">Administration & Coaching</p>
+            <h3 class="staff-card__name">Alexandre<br>Casqueiro</h3>
+            <p class="staff-card__bio">Assistant coach U15 et U18, responsable des séances U12. Contribue à la gestion administrative pour assurer le bon fonctionnement des opérations de l'académie.</p>
+          </div>
+        </div>
+
+        <!-- 08 Stephen -->
+        <div class="staff-card" data-index="7">
+          <img src="images/staff/Lacamz-217.jpg" alt="Stephen" loading="lazy" class="staff-card__img" style="object-position:center 30%;">
+          <div class="staff-card__overlay"></div>
+          <div class="staff-card__content">
+            <span class="staff-card__num">08</span>
+            <p class="staff-card__role">Commandes & Fournisseurs</p>
+            <h3 class="staff-card__name">Stephen</h3>
+            <p class="staff-card__bio">Responsable de la gestion des commandes d'équipements et d'uniformes. Assure les relations avec les fournisseurs et veille à la qualité et au respect des délais de livraison.</p>
           </div>
         </div>
 
       </div>
     </div>
+    </div><!-- end .staff-carousel -->
 
-    <!-- Navigation -->
-    <div style="max-width:1400px;margin:0 auto;padding:32px 24px 0;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2;">
-      <!-- Indicators -->
+    <!-- Indicators -->
+    <div style="max-width:1400px;margin:0 auto;padding:32px 24px 0;position:relative;z-index:2;">
       <div class="staff-indicators" id="staff-indicators">
         <span class="staff-indicator active" data-i="0"></span>
         <span class="staff-indicator" data-i="1"></span>
         <span class="staff-indicator" data-i="2"></span>
         <span class="staff-indicator" data-i="3"></span>
-      </div>
-      <!-- Arrows -->
-      <div style="display:flex;gap:12px;">
-        <button class="staff-arrow" id="staff-prev" aria-label="Précédent">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l6-6M5 12l6 6"/></svg>
-        </button>
-        <button class="staff-arrow" id="staff-next" aria-label="Suivant">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M19 12l-6-6M19 12l-6 6"/></svg>
-        </button>
+        <span class="staff-indicator" data-i="4"></span>
+        <span class="staff-indicator" data-i="5"></span>
+        <span class="staff-indicator" data-i="6"></span>
+        <span class="staff-indicator" data-i="7"></span>
       </div>
     </div>
   </section>
@@ -1189,7 +1528,7 @@
     </div>
     <div class="cat-grid">
       <div class="cat-card">
-        <img src="images/media/Lacamz-228.jpg" alt="Junior" class="cat-card__img" loading="lazy">
+        <img src="images/equipes-masculin/879a4adf-33e6-4bda-8af8-d485d37bebeb.jpg" alt="Junior" class="cat-card__img" loading="lazy">
         <div class="cat-card__overlay"></div>
         <div class="cat-card__arrow">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
@@ -1243,6 +1582,8 @@
   <!-- 4. MÉDIAS — Carrousel 3D Coverflow                            -->
   <!-- ============================================================ -->
   <section id="medias" class="medias-section">
+    <!-- Section number watermark -->
+    <span style="position:absolute;top:40px;left:40px;font-family:'Bebas Neue',sans-serif;font-size:120px;color:rgba(255,255,255,0.04);line-height:1;pointer-events:none;z-index:0;">04</span>
     <!-- Starfield background -->
     <svg class="medias-section__stars" viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="120" cy="80" r="1.2" fill="rgba(255,255,255,0.15)"/>
@@ -1268,8 +1609,10 @@
     </svg>
 
     <div style="position:relative;z-index:1;text-align:center;padding:0 24px;">
-      <p class="label">Médias</p>
+      <p class="label" style="color:#4EAAD4;">Médias</p>
       <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,3.5rem);color:#fff;letter-spacing:0.04em;">Nos moments</h2>
+      <div style="width:40px;height:2px;background:#4EAAD4;margin:16px auto 0;"></div>
+      <p style="font-family:'Montserrat',sans-serif;font-size:14px;color:rgba(255,255,255,0.45);font-style:italic;margin-top:16px;">L'intensité de nos séances capturée en images.</p>
     </div>
 
     <div class="swiper medias-swiper" style="position:relative;z-index:1;">
@@ -1286,6 +1629,7 @@
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
     </div>
+    <div class="medias-counter" id="medias-counter">1 / 8</div>
   </section>
 
   <!-- ============================================================ -->
@@ -1382,86 +1726,58 @@
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox">
     <button class="lightbox__close">&times;</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lb-prev">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l6-6M5 12l6 6"/></svg>
+    </button>
+    <button class="lightbox__nav lightbox__nav--next" id="lb-next">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M19 12l-6-6M19 12l-6 6"/></svg>
+    </button>
     <img src="" alt="Photo Starting XI" id="lightbox-img">
+    <span class="lightbox__counter" id="lb-counter"></span>
   </div>
 
   <!-- ============================================================ -->
   <!-- 5. PARTENAIRES                                                -->
   <!-- ============================================================ -->
-  <section id="partenaires" style="background:#E8E4DF;">
+  <section id="partenaires" style="background:linear-gradient(135deg,rgba(232,115,74,0.02) 0%,transparent 50%),#0A0A0A;position:relative;">
+    <!-- Section watermark -->
+    <span style="position:absolute;top:40px;left:40px;font-family:'Bebas Neue',sans-serif;font-size:120px;color:rgba(255,255,255,0.04);line-height:1;pointer-events:none;z-index:0;">05</span>
 
     <!-- Hero partenariat -->
     <div class="part-hero" style="min-height:70vh;display:flex;align-items:center;justify-content:center;text-align:center;">
       <div class="part-hero__bg">
-        <img src="images/media/52b67d7f60453f004394eff9eb886784.jpg" alt="Équipe Starting XI" loading="lazy" style="opacity:0.15;">
+        <img src="images/media/52b67d7f60453f004394eff9eb886784.jpg" alt="Équipe Starting XI" loading="lazy" style="opacity:0.12;">
       </div>
       <div style="position:absolute;inset:0;background:rgba(0,0,0,0.85);"></div>
       <div style="position:relative;z-index:2;padding:80px 24px;">
-        <div style="display:flex;align-items:center;justify-content:center;gap:40px;margin-bottom:40px;">
-          <svg width="180" height="180" viewBox="0 0 120 120" fill="none">
-            <circle cx="60" cy="60" r="58" stroke="white" stroke-width="2.5" fill="rgba(0,0,0,0.3)"/>
+        <div style="display:flex;align-items:center;justify-content:center;gap:48px;margin-bottom:48px;flex-wrap:wrap;">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none" style="flex-shrink:0;">
+            <circle cx="60" cy="60" r="58" stroke="white" stroke-width="2" fill="rgba(0,0,0,0.3)"/>
             <text x="28" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">S</text>
             <text x="55" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">T</text>
             <text x="82" y="78" font-family="Inter,sans-serif" font-weight="300" font-size="20" fill="white" letter-spacing="2">XI</text>
           </svg>
-          <span style="font-size:3rem;color:rgba(255,255,255,0.35);font-weight:300;">&#x2715;</span>
-          <img src="images/logo/CS_Saint-Laurent.png" alt="CS Saint-Laurent" loading="lazy" style="height:180px;width:auto;">
-        </div>
-        <h2 class="part-title" style="color:#fff;font-size:clamp(3rem,7vw,5rem);">Partenariat<br>CS St-Laurent</h2>
-        <p style="font-size:16px;color:rgba(255,255,255,0.5);max-width:500px;margin:0 auto;">Favoriser le développement des jeunes joueurs québécois en leur offrant un encadrement de qualité et des valeurs sportives solides.</p>
-      </div>
-    </div>
-
-    <!-- Vision Commune -->
-    <div class="part-section">
-      <div class="part-grid-2">
-        <div>
-          <h2 class="part-title" style="font-size:clamp(2.5rem,6vw,4.5rem);">Vision<br>Commune</h2>
-          <p class="part-subtitle">Allier une structure de formation reconnue à une expertise pointue en performance.</p>
-          <p class="part-body">Avec des coachs spécialisés et expérimentés, Starting XI apporte une dimension individuelle et exigeante au développement des joueurs du CS Saint-Laurent.</p>
-        </div>
-        <div>
-          <svg viewBox="0 0 500 400" style="width:100%;height:auto;display:block;">
-            <defs>
-              <clipPath id="clip-x2">
-                <polygon points="10,10 90,10 175,180 90,370 10,370 95,180"/>
-                <polygon points="180,10 260,10 175,180 260,370 180,370 95,180"/>
-              </clipPath>
-              <clipPath id="clip-i2">
-                <rect x="310" y="10" width="140" height="360" rx="4"/>
-              </clipPath>
-            </defs>
-            <image href="images/galerie/Lacamz-195.jpg" x="-30" y="-20" width="340" height="440" clip-path="url(#clip-x2)" preserveAspectRatio="xMidYMid slice"/>
-            <image href="images/equipes-pro/Lacamz-577.jpg" x="250" y="-20" width="280" height="440" clip-path="url(#clip-i2)" preserveAspectRatio="xMidYMid slice"/>
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="flex-shrink:0;transition:filter 0.3s;" onmouseover="this.style.filter='drop-shadow(0 0 8px #4EAAD4)'" onmouseout="this.style.filter='none'">
+            <line x1="4" y1="4" x2="24" y2="24" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+            <line x1="24" y1="4" x2="4" y2="24" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
           </svg>
+          <img src="images/logo/CS_Saint-Laurent.png" alt="CS Saint-Laurent" loading="lazy" style="height:120px;width:auto;flex-shrink:0;">
         </div>
-      </div>
-    </div>
-
-    <!-- Mission + Photos -->
-    <div style="background:#DDD9D4;padding:60px 24px;max-width:100%;overflow:hidden;">
-      <div style="max-width:1400px;margin:0 auto;">
-        <div class="part-grid-2">
-          <div>
-            <div class="part-divider"></div>
-            <p class="part-body">Starting XI a pour mission de contribuer activement à l'évolution du soccer au Québec en accompagnant les jeunes athlètes dans leur progression technique, tactique et humaine. L'académie met l'accent sur la discipline, le travail, le respect et la passion du jeu.</p>
-            <p class="part-body" style="margin-top:16px;">Ces valeurs s'harmonisent naturellement avec celles du CS St-Laurent, un club reconnu pour son engagement envers le développement des jeunes talents et la promotion d'un soccer accessible, compétitif et formateur.</p>
-          </div>
-          <div class="part-photos">
-            <img src="images/galerie/Lacamz-673.jpg" alt="Coach Starting XI" loading="lazy">
-            <img src="images/equipes-feminin/Lacamz-4056.jpg" alt="Entraînement Starting XI" loading="lazy">
-          </div>
-        </div>
+        <h2 class="part-title" style="color:#fff;font-size:clamp(2.5rem,6vw,4.5rem);">Partenariat<br>CS St-Laurent</h2>
+        <div style="width:40px;height:2px;background:#4EAAD4;margin:20px auto 24px;"></div>
+        <p style="font-family:'Montserrat',sans-serif;font-size:clamp(15px,2vw,18px);color:rgba(255,255,255,0.55);max-width:600px;margin:0 auto;line-height:1.7;">Favoriser le développement des jeunes joueurs québécois en leur offrant un encadrement de qualité et des valeurs sportives solides.</p>
       </div>
     </div>
 
     <!-- Programmes -->
-    <div style="background:#111;padding:80px 24px;">
-      <div style="max-width:1400px;margin:0 auto;">
+    <div style="background:#111;padding:100px 24px;position:relative;">
+      <span style="position:absolute;top:40px;left:40px;font-family:'Bebas Neue',sans-serif;font-size:120px;color:rgba(255,255,255,0.04);line-height:1;pointer-events:none;z-index:0;">06</span>
+      <div style="max-width:1400px;margin:0 auto;position:relative;z-index:1;">
         <div style="margin-bottom:48px;">
-          <p class="part-label" style="color:rgba(255,255,255,0.4);">Nos programmes</p>
-          <h2 style="font-family:'Bebas Neue','Montserrat',sans-serif;font-size:clamp(2rem,5vw,3.5rem);color:#fff;letter-spacing:0.02em;text-transform:uppercase;line-height:0.95;margin-bottom:16px;">Un parcours adapté<br>à chaque niveau</h2>
-          <p style="font-size:15px;color:rgba(255,255,255,0.5);max-width:600px;">Starting XI offre un encadrement spécialisé et personnalisé aux joueurs souhaitant progresser.</p>
+          <p class="part-label" style="color:#4EAAD4;">Nos programmes</p>
+          <h2 style="font-family:'Bebas Neue','Montserrat',sans-serif;font-size:clamp(2rem,5vw,3.5rem);color:#fff;letter-spacing:0.02em;text-transform:uppercase;line-height:0.95;margin-bottom:12px;">Un parcours adapté<br>à chaque niveau</h2>
+          <div style="width:40px;height:2px;background:#4EAAD4;margin-bottom:16px;"></div>
+          <p style="font-size:15px;color:rgba(255,255,255,0.45);max-width:600px;line-height:1.7;">Starting XI offre un encadrement spécialisé et personnalisé aux joueurs souhaitant progresser.</p>
         </div>
 
         <div class="prog-grid">
@@ -1472,7 +1788,7 @@
             <div class="prog-card__overlay"></div>
             <div class="prog-card__accent" style="background:#c9a84c;"></div>
             <div class="prog-card__content">
-              <h3 class="prog-card__title">Starting XI<br>Pro</h3>
+              <h3 class="prog-card__title">STXI Pro</h3>
               <p class="prog-card__sub">Masculin / Féminin</p>
               <p class="prog-card__level">Niveau élite et professionnel</p>
               <ul class="prog-card__list">
@@ -1494,7 +1810,7 @@
             <div class="prog-card__overlay"></div>
             <div class="prog-card__accent" style="background:#fff;"></div>
             <div class="prog-card__content">
-              <h3 class="prog-card__title">Starting XI<br>SR</h3>
+              <h3 class="prog-card__title">STXI SR</h3>
               <p class="prog-card__sub">Masculin / Féminin</p>
               <p class="prog-card__level">Pour les joueurs et joueuses adultes engagés</p>
               <ul class="prog-card__list">
@@ -1514,11 +1830,11 @@
 
           <!-- JR U15 -->
           <div class="prog-card">
-            <img src="images/galerie/Lacamz-253.jpg" alt="Starting XI Junior U15" loading="lazy" class="prog-card__img">
+            <img src="images/equipes-masculin/bcfc8717-f2ea-4173-bd90-85bcda753a46.jpg" alt="Starting XI Junior U15" loading="lazy" class="prog-card__img">
             <div class="prog-card__overlay"></div>
             <div class="prog-card__accent" style="background:#10b981;"></div>
             <div class="prog-card__content">
-              <h3 class="prog-card__title">Starting XI<br>JR</h3>
+              <h3 class="prog-card__title">STXI JR</h3>
               <p class="prog-card__sub">Catégorie U15</p>
               <p class="prog-card__level">Niveau intermédiaire à avancé</p>
               <ul class="prog-card__list">
@@ -1538,11 +1854,11 @@
 
           <!-- JR U12 -->
           <div class="prog-card">
-            <img src="images/galerie/Lacamz-672.jpg" alt="Starting XI Junior U12" loading="lazy" class="prog-card__img">
+            <img src="images/equipes-masculin/baec3b84-e296-4427-8f5d-9165c16154dc.jpg" alt="Starting XI Junior U12" loading="lazy" class="prog-card__img" style="object-position:center 15%;">
             <div class="prog-card__overlay"></div>
             <div class="prog-card__accent" style="background:#f59e0b;"></div>
             <div class="prog-card__content">
-              <h3 class="prog-card__title">Starting XI<br>JR</h3>
+              <h3 class="prog-card__title">STXI JR</h3>
               <p class="prog-card__sub">Catégorie U12</p>
               <p class="prog-card__level">Groupe en pleine progression</p>
               <ul class="prog-card__list">
@@ -1581,99 +1897,76 @@
       </div>
     </div>
 
-    <!-- Avantages -->
-    <div style="background:#111;padding:80px 40px;">
-      <div style="max-width:1400px;margin:0 auto;">
-        <h2 class="part-title" style="color:#fff;font-size:clamp(2rem,5vw,3.5rem);margin-bottom:12px;">Avantages pour les joueurs<br>au sein du CS St-Laurent</h2>
-        <div style="width:60px;height:3px;background:#fff;margin:0 0 48px;"></div>
-        <div class="part-grid-4">
-          <div class="avantage-card">
-            <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">20% de rabais</h3>
-            <p style="font-size:14px;line-height:1.7;color:rgba(255,255,255,0.6);">Les joueurs du CS Saint-Laurent bénéficient d'un rabais de 20 % sur les séances à la carte proposées par Starting XI.</p>
-          </div>
-          <div class="avantage-card">
-            <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Accès prioritaire</h3>
-            <p style="font-size:14px;line-height:1.7;color:rgba(255,255,255,0.6);">Accès prioritaire aux entraînements, programmes et événements organisés par Starting XI.</p>
-          </div>
-          <div class="avantage-card">
-            <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Opportunités de progression</h3>
-            <p style="font-size:14px;line-height:1.7;color:rgba(255,255,255,0.6);">Accès aux niveaux élite, semi-professionnels et professionnels pour une progression structurée.</p>
-          </div>
-          <div class="avantage-card">
-            <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Environnement compétitif</h3>
-            <p style="font-size:14px;line-height:1.7;color:rgba(255,255,255,0.6);">Les joueurs évoluent dans un environnement regroupant des athlètes motivés et ambitieux.</p>
-          </div>
-        </div>
-        <div style="margin-top:48px;text-align:center;">
-          <p style="font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:12px;">Code promotionnel</p>
-          <div class="part-promo__code">CSSTL20</div>
-          <p style="font-size:14px;color:rgba(255,255,255,0.4);margin-top:12px;">Rabais de 20 % pour les membres du CS St-Laurent</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Programmes PRO -->
-    <div class="part-section">
-      <div class="part-grid-2">
-        <div>
-          <p class="part-label">Élite</p>
-          <h2 class="part-title" style="font-size:clamp(2rem,5vw,3.5rem);margin-bottom:24px;">Programmes PRO</h2>
-          <p class="part-body">Les programmes PRO féminin et masculin de Starting XI ont pour objectif principal de soutenir et valoriser le développement des joueurs et joueuses du CS St-Laurent.</p>
-          <ul style="margin-top:20px;list-style:none;">
-            <li style="padding:8px 0;font-size:15px;color:#555;display:flex;align-items:center;gap:10px;">
-              <span style="width:8px;height:8px;border-radius:50%;background:#111;flex-shrink:0;"></span>
-              Encadrement spécialisé complémentaire
-            </li>
-            <li style="padding:8px 0;font-size:15px;color:#555;display:flex;align-items:center;gap:10px;">
-              <span style="width:8px;height:8px;border-radius:50%;background:#111;flex-shrink:0;"></span>
-              Progression technique et tactique accélérée
-            </li>
-            <li style="padding:8px 0;font-size:15px;color:#555;display:flex;align-items:center;gap:10px;">
-              <span style="width:8px;height:8px;border-radius:50%;background:#111;flex-shrink:0;"></span>
-              Environnement compétitif et structuré
-            </li>
-            <li style="padding:8px 0;font-size:15px;color:#555;display:flex;align-items:center;gap:10px;">
-              <span style="width:8px;height:8px;border-radius:50%;background:#111;flex-shrink:0;"></span>
-              Préparation aux niveaux de jeu plus élevés
-            </li>
-          </ul>
-        </div>
-        <div>
-          <img src="images/equipes-pro/Lacamz-577.jpg" alt="Starting XI Pro" loading="lazy" style="width:100%;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,0.3);">
-        </div>
-      </div>
-    </div>
-
-    <!-- Collaboration -->
-    <div style="background:#DDD9D4;padding:80px 24px;">
+    <!-- Collaboration + Avantages -->
+    <div style="background:#0A0A0A;padding:100px 24px;">
       <div style="max-width:1200px;margin:0 auto;">
-        <h2 class="part-title" style="font-size:clamp(2rem,5vw,3.5rem);margin-bottom:48px;">Collaboration</h2>
-        <div class="part-grid-4">
-          <div class="part-card">
-            <h3>Valeurs fondatrices</h3>
-            <ul style="list-style:none;">
-              <li>Confiance mutuelle</li>
-              <li>Communication constante</li>
-              <li>Transparence totale</li>
-              <li>Développement des joueurs</li>
-            </ul>
+
+        <!-- Collaboration pillars -->
+        <p style="font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#E8734A;margin-bottom:12px;">Notre collaboration</p>
+        <h2 style="font-family:'Bebas Neue','Montserrat',sans-serif;font-size:clamp(2rem,5vw,3rem);color:#fff;letter-spacing:0.02em;text-transform:uppercase;line-height:0.95;margin-bottom:48px;">Les piliers<br>du partenariat</h2>
+
+        <div class="part-grid-4" style="gap:32px;">
+          <!-- Valeurs -->
+          <div style="border-left:2px solid #E8734A;padding-left:16px;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E8734A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:14px;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;">Valeurs fondatrices</h3>
+            <p style="font-size:15px;line-height:1.7;color:rgba(255,255,255,0.5);">Confiance mutuelle, communication constante, transparence totale et développement des joueurs.</p>
           </div>
-          <div class="part-card">
-            <h3>Accès aux installations</h3>
-            <p>Accès aux terrains du CS St-Laurent pour l'organisation de séances d'entraînement et d'activités.</p>
+          <!-- Installations -->
+          <div style="border-left:2px solid #E8734A;padding-left:16px;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E8734A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:14px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;">Installations</h3>
+            <p style="font-size:15px;line-height:1.7;color:rgba(255,255,255,0.5);">Accès aux terrains du CS St-Laurent pour les séances d'entraînement et activités.</p>
           </div>
-          <div class="part-card">
-            <h3>Visibilité</h3>
-            <ul style="list-style:none;">
-              <li>Logo Starting XI sur les équipements</li>
-              <li>Mention sur les plateformes du club</li>
-            </ul>
+          <!-- Visibilité -->
+          <div style="border-left:2px solid #E8734A;padding-left:16px;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E8734A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:14px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;">Visibilité</h3>
+            <p style="font-size:15px;line-height:1.7;color:rgba(255,255,255,0.5);">Logo Starting XI sur les équipements et mention sur les plateformes du club.</p>
           </div>
-          <div class="part-card">
-            <h3>Événements</h3>
-            <p>Participation au tournoi OFFSZN Canada et autres événements Starting XI.</p>
+          <!-- Événements -->
+          <div style="border-left:2px solid #E8734A;padding-left:16px;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E8734A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:14px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;">Événements</h3>
+            <p style="font-size:15px;line-height:1.7;color:rgba(255,255,255,0.5);">Participation au tournoi OFFSZN Canada et autres événements Starting XI.</p>
           </div>
         </div>
+
+        <!-- Divider -->
+        <div style="width:100%;height:1px;background:rgba(255,255,255,0.08);margin:64px 0;"></div>
+
+        <!-- Avantages exclusifs -->
+        <p style="font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:12px;">Avantages exclusifs</p>
+        <h2 style="font-family:'Bebas Neue','Montserrat',sans-serif;font-size:clamp(1.8rem,4vw,2.5rem);color:#fff;letter-spacing:0.02em;text-transform:uppercase;line-height:0.95;margin-bottom:40px;">Pour les joueurs CS St-Laurent</h2>
+
+        <div class="part-grid-4" style="gap:32px;">
+          <div style="border-left:2px solid rgba(255,255,255,0.15);padding-left:16px;">
+            <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:8px;">20% de rabais</h3>
+            <p style="font-size:15px;line-height:1.7;color:rgba(255,255,255,0.45);">Sur les séances à la carte proposées par Starting XI.</p>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.15);padding-left:16px;">
+            <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:8px;">Accès prioritaire</h3>
+            <p style="font-size:15px;line-height:1.7;color:rgba(255,255,255,0.45);">Aux entraînements, programmes et événements organisés par Starting XI.</p>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.15);padding-left:16px;">
+            <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:8px;">Progression</h3>
+            <p style="font-size:15px;line-height:1.7;color:rgba(255,255,255,0.45);">Accès aux niveaux élite, semi-pro et pro pour une progression structurée.</p>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.15);padding-left:16px;">
+            <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:8px;">Environnement</h3>
+            <p style="font-size:15px;line-height:1.7;color:rgba(255,255,255,0.45);">Un cadre compétitif regroupant des athlètes motivés et ambitieux.</p>
+          </div>
+        </div>
+
+        <!-- Promo code badge -->
+        <div style="margin-top:48px;text-align:center;">
+          <div style="display:inline-block;padding:12px 28px;background:rgba(232,115,74,0.08);border:1px solid rgba(232,115,74,0.25);border-radius:8px;">
+            <span style="font-family:'Montserrat',sans-serif;font-size:15px;color:rgba(255,255,255,0.6);">Code: </span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:0.1em;color:#E8734A;">CSSTL20</span>
+            <span style="font-family:'Montserrat',sans-serif;font-size:15px;color:rgba(255,255,255,0.4);"> — 20% pour les membres CS St-Laurent</span>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -1681,7 +1974,7 @@
     <div style="background:#111;padding:80px 24px;text-align:center;">
       <h2 class="part-title" style="color:#fff;font-size:clamp(2rem,5vw,3rem);margin-bottom:16px;">Devenez partenaire</h2>
       <p style="font-size:15px;color:rgba(255,255,255,0.5);max-width:500px;margin:0 auto 32px;">Contactez-nous pour découvrir comment nous pouvons collaborer.</p>
-      <a href="#contact" style="display:inline-block;padding:14px 40px;background:#fff;color:#111;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;border-radius:4px;text-decoration:none;">Nous contacter</a>
+      <a href="#contact" style="display:inline-block;padding:14px 40px;background:#E8734A;color:#fff;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;border-radius:4px;text-decoration:none;transition:box-shadow 0.3s;" onmouseover="this.style.boxShadow='0 8px 30px rgba(232,115,74,0.4)'" onmouseout="this.style.boxShadow='none'">Nous contacter</a>
     </div>
   </section>
 
@@ -1776,20 +2069,31 @@
     </div>
   </section>
 
+  <!-- Separator -->
+  <div style="height:1px;max-width:600px;margin:0 auto;background:linear-gradient(90deg,transparent,rgba(78,170,212,0.25),transparent);"></div>
+
   <!-- ============================================================ -->
   <!-- FOOTER                                                        -->
   <!-- ============================================================ -->
   <footer class="footer">
+
+    <!-- CTA final -->
+    <div class="footer__cta">
+      <h3>Prêt à rejoindre l'académie?</h3>
+      <p>Rejoins Starting XI et développe ton plein potentiel.</p>
+      <a href="#contact">S'inscrire maintenant</a>
+    </div>
+
     <div class="footer__grid">
       <div class="footer__brand">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <svg width="36" height="36" viewBox="0 0 120 120" fill="none">
-            <circle cx="60" cy="60" r="58" stroke="white" stroke-width="2.5" fill="#000"/>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <svg width="44" height="44" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="58" stroke="white" stroke-width="2.5" fill="#0c0c0c"/>
             <text x="28" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">S</text>
             <text x="55" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">T</text>
             <text x="82" y="78" font-family="Inter,sans-serif" font-weight="300" font-size="20" fill="white" letter-spacing="2">XI</text>
           </svg>
-          <span style="font-family:'Bebas Neue','Montserrat',sans-serif;font-weight:900;font-size:18px;letter-spacing:0.15em;">STARTING XI</span>
+          <span style="font-family:'Bebas Neue','Montserrat',sans-serif;font-weight:900;font-size:22px;letter-spacing:0.15em;">STARTING XI</span>
         </div>
         <p>L'académie de football d'excellence à Montréal. Programmes pour tous les niveaux, du junior au professionnel.</p>
         <a href="mailto:contact@starting11.ca">contact@starting11.ca</a>
@@ -1809,6 +2113,7 @@
         <h4>Liens rapides</h4>
         <a href="#hero">Accueil</a>
         <a href="#a-propos">À propos</a>
+        <a href="#staff">Staff</a>
         <a href="#contact">Contact</a>
         <a href="#contact">S'inscrire</a>
       </div>
@@ -1829,6 +2134,11 @@
     </div>
     <div class="footer__bottom">
       <p>&copy; 2026 Starting XI. Tous droits réservés.</p>
+      <div class="footer__bottom-right">
+        <a href="https://viteweb.ca" target="_blank" rel="noopener" class="footer__credit">Réalisé par viteweb.ca</a>
+        <!-- TODO: implémenter le switch FR/EN -->
+        <button>FR / EN</button>
+      </div>
     </div>
   </footer>
 
@@ -1848,14 +2158,14 @@
       loop: true,
       speed: 600,
       autoplay: {
-        delay: 1200,
+        delay: 4000,
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
       },
       coverflowEffect: {
-        rotate: 25,
-        stretch: 40,
-        depth: 300,
+        rotate: 20,
+        stretch: 50,
+        depth: 280,
         modifier: 1,
         slideShadows: true,
       },
@@ -1865,30 +2175,160 @@
       },
     });
 
+    // Counter update
+    const mediasCounter = document.getElementById('medias-counter');
+    const totalSlides = document.querySelectorAll('.medias-swiper .swiper-slide:not(.swiper-slide-duplicate)').length;
+    function updateMediasCounter() {
+      if (mediasCounter) {
+        mediasCounter.textContent = (mediasSwiper.realIndex + 1) + ' / ' + totalSlides;
+      }
+    }
+    mediasSwiper.on('slideChange', updateMediasCounter);
+    updateMediasCounter();
+
+    // Pause autoplay when section not visible
+    const mediasSection = document.getElementById('medias');
+    const mediasObs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        mediasSwiper.autoplay.start();
+      } else {
+        mediasSwiper.autoplay.stop();
+      }
+    }, { threshold: 0.2 });
+    mediasObs.observe(mediasSection);
+
+    // ===== MEDIA EDGE HOVER AUTO-SCROLL =====
+    (function() {
+      if ('ontouchstart' in window || window.matchMedia('(hover: none)').matches) return;
+
+      var swiperEl = document.querySelector('.medias-swiper');
+      if (!swiperEl) return;
+
+      var EDGE_PCT = 0.15;
+      var edgeDir = 0; // -1 left, 0 none, 1 right
+      var edgeInterval = null;
+
+      // Create gradient overlays
+      var gL = document.createElement('div');
+      var gR = document.createElement('div');
+      var gs = 'position:absolute;top:0;bottom:0;width:100px;z-index:20;pointer-events:none;opacity:0;transition:opacity 0.2s;';
+      gL.style.cssText = gs + 'left:0;background:linear-gradient(to right,rgba(78,170,212,0.15),transparent);';
+      gR.style.cssText = gs + 'right:0;background:linear-gradient(to left,rgba(78,170,212,0.15),transparent);';
+      swiperEl.style.position = 'relative';
+      swiperEl.appendChild(gL);
+      swiperEl.appendChild(gR);
+
+      function startEdge(dir, intensity) {
+        if (edgeInterval) clearInterval(edgeInterval);
+        // Slide speed: faster intensity = shorter interval between slides
+        var delay = Math.max(300, 1200 - intensity * 900); // 1200ms slow → 300ms fast
+        mediasSwiper.autoplay.stop();
+        edgeInterval = setInterval(function() {
+          if (dir > 0) mediasSwiper.slideNext(400);
+          else mediasSwiper.slidePrev(400);
+        }, delay);
+      }
+
+      function stopEdge() {
+        if (edgeInterval) { clearInterval(edgeInterval); edgeInterval = null; }
+        edgeDir = 0;
+        gL.style.opacity = 0;
+        gR.style.opacity = 0;
+        swiperEl.style.cursor = '';
+        // Resume autoplay after 3s
+        setTimeout(function() {
+          if (!edgeInterval) mediasSwiper.autoplay.start();
+        }, 3000);
+      }
+
+      swiperEl.addEventListener('mousemove', function(e) {
+        var rect = swiperEl.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var w = rect.width;
+        var zone = w * EDGE_PCT;
+
+        if (x < zone) {
+          var t = 1 - (x / zone);
+          gL.style.opacity = Math.min(t * 1.5, 1);
+          gR.style.opacity = 0;
+          swiperEl.style.cursor = 'w-resize';
+          if (edgeDir !== -1) { edgeDir = -1; startEdge(-1, t); }
+        } else if (x > w - zone) {
+          var t = 1 - ((w - x) / zone);
+          gR.style.opacity = Math.min(t * 1.5, 1);
+          gL.style.opacity = 0;
+          swiperEl.style.cursor = 'e-resize';
+          if (edgeDir !== 1) { edgeDir = 1; startEdge(1, t); }
+        } else {
+          if (edgeDir !== 0) stopEdge();
+          swiperEl.style.cursor = '';
+        }
+      });
+
+      swiperEl.addEventListener('mouseleave', stopEdge);
+    })();
+
     // ===== LIGHTBOX =====
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
+    const lbPrev = document.getElementById('lb-prev');
+    const lbNext = document.getElementById('lb-next');
+    const lbCounter = document.getElementById('lb-counter');
+
+    // Collect all lightbox-able images
+    const lbImages = [];
+    document.querySelectorAll('.medias-swiper .swiper-slide:not(.swiper-slide-duplicate) img').forEach(img => {
+      lbImages.push(img.src);
+    });
+    document.querySelectorAll('.marquee-track img').forEach(img => {
+      if (!lbImages.includes(img.src)) lbImages.push(img.src);
+    });
+    let lbIndex = 0;
+
+    function openLightbox(src) {
+      lbIndex = lbImages.indexOf(src);
+      if (lbIndex === -1) { lbImages.push(src); lbIndex = lbImages.length - 1; }
+      lightboxImg.src = lbImages[lbIndex];
+      lbCounter.textContent = (lbIndex + 1) + ' / ' + lbImages.length;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function lbNav(dir) {
+      lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+      lightboxImg.src = lbImages[lbIndex];
+      lbCounter.textContent = (lbIndex + 1) + ' / ' + lbImages.length;
+    }
 
     document.querySelectorAll('.medias-swiper .swiper-slide img, .marquee-track img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      });
+      img.addEventListener('click', () => openLightbox(img.src));
     });
 
     lightbox.addEventListener('click', (e) => {
-      if (e.target !== lightboxImg) {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-      }
+      if (e.target === lightbox) closeLightbox();
     });
+    document.querySelector('.lightbox__close').addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', (e) => { e.stopPropagation(); lbNav(-1); });
+    lbNext.addEventListener('click', (e) => { e.stopPropagation(); lbNav(1); });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-      }
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lbNav(-1);
+      if (e.key === 'ArrowRight') lbNav(1);
+    });
+
+    // Touch swipe in lightbox
+    let lbTouchX = 0;
+    lightboxImg.addEventListener('touchstart', (e) => { lbTouchX = e.touches[0].clientX; }, { passive: true });
+    lightboxImg.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - lbTouchX;
+      if (Math.abs(dx) > 50) lbNav(dx < 0 ? 1 : -1);
     });
 
     // ===== PROGRAMME MODAL =====
@@ -1920,9 +2360,7 @@
           modalList.innerHTML = '';
           items.forEach(li => {
             const newLi = document.createElement('li');
-            newLi.textContent = li.textContent;
-            newLi.style.cssText = '--accent:' + accent.style.background;
-            newLi.innerHTML = '<span style="position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:' + accent.style.background + ';"></span>' + li.textContent;
+            newLi.innerHTML = '<span style="position:absolute;left:0;top:15px;width:12px;height:2px;border-radius:1px;background:' + accent.style.background + ';"></span>' + li.textContent;
             newLi.style.position = 'relative';
             modalList.appendChild(newLi);
           });
@@ -1946,114 +2384,281 @@
       });
     })();
 
-    // ===== STAFF HORIZONTAL SCROLL =====
+    // ===== STAFF CAROUSEL =====
     (function() {
-      const scroll = document.getElementById('staff-scroll');
-      const cards = scroll.querySelectorAll('.staff-card');
-      const indicators = document.querySelectorAll('.staff-indicator');
-      const prevBtn = document.getElementById('staff-prev');
-      const nextBtn = document.getElementById('staff-next');
-      const hint = document.querySelector('.staff-hint');
-      let currentIndex = 0;
-      let isDragging = false, startX, scrollLeft;
+      var scroll = document.getElementById('staff-scroll');
+      var cards = scroll.querySelectorAll('.staff-card');
+      var indicators = document.querySelectorAll('.staff-indicator');
+      var prevBtn = document.getElementById('staff-prev');
+      var nextBtn = document.getElementById('staff-next');
+      var hint = document.querySelector('.staff-hint');
+      var currentIndex = 0;
+      var isDragging = false, startX, scrollLeft;
 
       function scrollToCard(i) {
         i = Math.max(0, Math.min(i, cards.length - 1));
         currentIndex = i;
-        cards[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-        updateIndicators();
+        // Center the card in the scroll container
+        var card = cards[i];
+        var scrollRect = scroll.getBoundingClientRect();
+        var cardRect = card.getBoundingClientRect();
+        var offset = cardRect.left - scrollRect.left + scroll.scrollLeft - (scrollRect.width / 2) + (cardRect.width / 2);
+        scroll.scrollTo({ left: offset, behavior: 'smooth' });
+        updateUI();
       }
 
-      function updateIndicators() {
-        indicators.forEach((ind, j) => ind.classList.toggle('active', j === currentIndex));
+      function updateUI() {
+        // Indicators
+        indicators.forEach(function(ind, j) { ind.classList.toggle('active', j === currentIndex); });
+        // Arrows visibility
+        prevBtn.classList.toggle('staff-arrow-side--hidden', currentIndex === 0);
+        nextBtn.classList.toggle('staff-arrow-side--hidden', currentIndex === cards.length - 1);
+        // Active card styling
+        cards.forEach(function(c, j) { c.classList.toggle('staff-card--active', j === currentIndex); });
       }
 
       function detectActive() {
-        const rect = scroll.getBoundingClientRect();
-        let closest = 0, minDist = Infinity;
-        cards.forEach((card, i) => {
-          const cr = card.getBoundingClientRect();
-          const dist = Math.abs(cr.left - rect.left - 24);
+        var scrollCenter = scroll.getBoundingClientRect().left + scroll.getBoundingClientRect().width / 2;
+        var closest = 0, minDist = Infinity;
+        cards.forEach(function(card, i) {
+          var cr = card.getBoundingClientRect();
+          var cardCenter = cr.left + cr.width / 2;
+          var dist = Math.abs(cardCenter - scrollCenter);
           if (dist < minDist) { minDist = dist; closest = i; }
         });
-        if (closest !== currentIndex) { currentIndex = closest; updateIndicators(); }
+        if (closest !== currentIndex) { currentIndex = closest; updateUI(); }
       }
 
-      // Arrow buttons
-      prevBtn.addEventListener('click', () => scrollToCard(currentIndex - 1));
-      nextBtn.addEventListener('click', () => scrollToCard(currentIndex + 1));
+      // Init
+      updateUI();
+
+      // Arrow clicks
+      prevBtn.addEventListener('click', function() { scrollToCard(currentIndex - 1); });
+      nextBtn.addEventListener('click', function() { scrollToCard(currentIndex + 1); });
 
       // Indicator clicks
-      indicators.forEach(ind => {
-        ind.addEventListener('click', () => scrollToCard(parseInt(ind.dataset.i)));
+      indicators.forEach(function(ind) {
+        ind.addEventListener('click', function() { scrollToCard(parseInt(ind.dataset.i)); });
       });
 
-      // Mouse drag
-      scroll.addEventListener('mousedown', (e) => {
+      // Card click → center it (only if not a drag)
+      var dragDist = 0;
+      cards.forEach(function(card, i) {
+        card.addEventListener('click', function() {
+          if (dragDist < 5 && i !== currentIndex) scrollToCard(i);
+        });
+      });
+
+      // Mouse drag — disables edge hover while dragging
+      scroll.addEventListener('mousedown', function(e) {
         isDragging = true;
+        dragDist = 0;
         startX = e.pageX - scroll.offsetLeft;
         scrollLeft = scroll.scrollLeft;
+        edgeSpeed = 0; // kill edge scroll
         scroll.style.cursor = 'grabbing';
       });
-      document.addEventListener('mousemove', (e) => {
+      document.addEventListener('mousemove', function(e) {
         if (!isDragging) return;
         e.preventDefault();
-        const x = e.pageX - scroll.offsetLeft;
-        scroll.scrollLeft = scrollLeft - (x - startX);
+        var dx = e.pageX - scroll.offsetLeft - startX;
+        dragDist = Math.abs(dx);
+        scroll.scrollLeft = scrollLeft - dx;
       });
-      document.addEventListener('mouseup', () => {
+      document.addEventListener('mouseup', function() {
         if (isDragging) { isDragging = false; scroll.style.cursor = 'grab'; detectActive(); }
       });
 
-      // Wheel → horizontal scroll
-      scroll.addEventListener('wheel', (e) => {
-        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      // Wheel: only convert horizontal wheel (e.g. trackpad) to carousel scroll
+      // Vertical wheel is NOT hijacked — let the page scroll normally
+      scroll.addEventListener('wheel', function(e) {
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 5) {
           e.preventDefault();
-          scroll.scrollLeft += e.deltaY;
+          scroll.scrollLeft += e.deltaX;
         }
       }, { passive: false });
 
-      // Scroll end detection
-      let scrollTimer;
-      scroll.addEventListener('scroll', () => {
+      // Scroll end → detect active
+      var scrollTimer;
+      scroll.addEventListener('scroll', function() {
         if (hint) hint.classList.add('hidden');
         clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(detectActive, 100);
+        scrollTimer = setTimeout(detectActive, 80);
       });
 
+      // ===== EDGE HOVER AUTO-SCROLL =====
+      var edgeRAF = null;
+      var edgeSpeed = 0;
+      var EDGE_PCT = 0.15; // 15% from each side
+      var MAX_SPEED = 10;
+      var isTouchDevice = 'ontouchstart' in window || window.matchMedia('(hover: none)').matches;
+
+      // Create gradient overlays for visual feedback
+      var glowL = document.createElement('div');
+      var glowR = document.createElement('div');
+      var glowStyle = 'position:absolute;top:0;bottom:0;width:100px;z-index:4;pointer-events:none;opacity:0;transition:opacity 0.2s;';
+      glowL.style.cssText = glowStyle + 'left:0;background:linear-gradient(to right,rgba(78,170,212,0.15),transparent);';
+      glowR.style.cssText = glowStyle + 'right:0;background:linear-gradient(to left,rgba(78,170,212,0.15),transparent);';
+      var carousel = document.querySelector('.staff-carousel');
+      if (carousel) { carousel.appendChild(glowL); carousel.appendChild(glowR); }
+
+      if (!isTouchDevice) {
+        scroll.addEventListener('mousemove', function(e) {
+          if (isDragging) { edgeSpeed = 0; return; }
+          var rect = scroll.getBoundingClientRect();
+          var x = e.clientX - rect.left;
+          var w = rect.width;
+          var zone = w * EDGE_PCT;
+
+          if (x < zone) {
+            var t = 1 - (x / zone); // 0 at zone edge, 1 at viewport edge
+            edgeSpeed = -(t * MAX_SPEED);
+            glowL.style.opacity = Math.min(t * 1.5, 1);
+            glowR.style.opacity = 0;
+            scroll.style.cursor = 'w-resize';
+          } else if (x > w - zone) {
+            var t = 1 - ((w - x) / zone);
+            edgeSpeed = t * MAX_SPEED;
+            glowR.style.opacity = Math.min(t * 1.5, 1);
+            glowL.style.opacity = 0;
+            scroll.style.cursor = 'e-resize';
+          } else {
+            edgeSpeed = 0;
+            glowL.style.opacity = 0;
+            glowR.style.opacity = 0;
+            scroll.style.cursor = 'grab';
+          }
+
+          // Clamp at scroll bounds
+          if (edgeSpeed < 0 && scroll.scrollLeft <= 0) edgeSpeed = 0;
+          if (edgeSpeed > 0 && scroll.scrollLeft >= scroll.scrollWidth - scroll.clientWidth) edgeSpeed = 0;
+
+          if (edgeSpeed !== 0 && !edgeRAF) {
+            (function tick() {
+              if (edgeSpeed === 0) { edgeRAF = null; return; }
+              scroll.scrollLeft += edgeSpeed;
+              // Stop at bounds
+              if (scroll.scrollLeft <= 0 || scroll.scrollLeft >= scroll.scrollWidth - scroll.clientWidth) {
+                edgeSpeed = 0; glowL.style.opacity = 0; glowR.style.opacity = 0;
+                edgeRAF = null;
+                detectActive();
+                return;
+              }
+              edgeRAF = requestAnimationFrame(tick);
+            })();
+          }
+        });
+
+        scroll.addEventListener('mouseleave', function() {
+          edgeSpeed = 0;
+          glowL.style.opacity = 0;
+          glowR.style.opacity = 0;
+          scroll.style.cursor = 'grab';
+          if (edgeRAF) { cancelAnimationFrame(edgeRAF); edgeRAF = null; }
+          detectActive();
+        });
+      }
+
       // Keyboard
-      const staffSection = document.getElementById('staff');
-      const staffObserver = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-          document.addEventListener('keydown', staffKeyHandler);
+      var staffSection = document.getElementById('staff');
+      var staffObs = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          document.addEventListener('keydown', staffKey);
         } else {
-          document.removeEventListener('keydown', staffKeyHandler);
+          document.removeEventListener('keydown', staffKey);
         }
       }, { threshold: 0.3 });
-      staffObserver.observe(staffSection);
+      staffObs.observe(staffSection);
 
-      function staffKeyHandler(e) {
+      function staffKey(e) {
         if (e.key === 'ArrowRight') { e.preventDefault(); scrollToCard(currentIndex + 1); }
         if (e.key === 'ArrowLeft') { e.preventDefault(); scrollToCard(currentIndex - 1); }
       }
     })();
 
-    // ===== ACTIVE SECTION HIGHLIGHT =====
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.navbar__link[href^="#"], .mobile-menu__link[href^="#"]');
+    // ===== NAVBAR MORPHING + INDICATOR =====
+    (function() {
+      var navbar = document.getElementById('main-navbar');
+      var indicator = document.getElementById('nav-indicator');
+      var ghost = document.getElementById('nav-ghost');
+      var links = document.querySelectorAll('.navbar__link[data-section]');
+      var mobileLinks = document.querySelectorAll('.mobile-menu__link[href^="#"]');
+      var activeLink = null;
 
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          navLinks.forEach(link => {
-            link.classList.toggle('active-section', link.getAttribute('href') === '#' + id);
-          });
-        }
+      // 1. Morphing on scroll
+      var lastScroll = 0;
+      function onScroll() {
+        var y = window.scrollY;
+        if (y > 50 && lastScroll <= 50) navbar.classList.add('navbar--scrolled');
+        else if (y <= 50 && lastScroll > 50) navbar.classList.remove('navbar--scrolled');
+        lastScroll = y;
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // 2. Move indicator to a link
+      function moveIndicator(link, el) {
+        if (!link || !el) return;
+        var r = link.getBoundingClientRect();
+        var p = navbar.querySelector('.navbar__inner').getBoundingClientRect();
+        el.style.left = (r.left - p.left) + 'px';
+        el.style.width = r.width + 'px';
+        el.classList.add('visible');
+      }
+
+      // 3. IntersectionObserver for active section
+      var sections = document.querySelectorAll('section[id]');
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var id = entry.target.id;
+            var link = document.querySelector('.navbar__link[data-section="' + id + '"]');
+            if (link) {
+              links.forEach(function(l) { l.classList.remove('active-section'); });
+              link.classList.add('active-section');
+              activeLink = link;
+              moveIndicator(link, indicator);
+              // Also update mobile menu
+              mobileLinks.forEach(function(ml) {
+                ml.classList.toggle('active-section', ml.getAttribute('href') === '#' + id);
+              });
+            }
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '-80px 0px -40% 0px' });
+      sections.forEach(function(s) { obs.observe(s); });
+
+      // 4. Hover on links
+      links.forEach(function(link) {
+        link.addEventListener('mouseenter', function() {
+          if (activeLink && link !== activeLink) {
+            moveIndicator(activeLink, ghost);
+          }
+          moveIndicator(link, indicator);
+          indicator.classList.add('navbar__indicator--hover');
+        });
+        link.addEventListener('mouseleave', function() {
+          indicator.classList.remove('navbar__indicator--hover');
+          ghost.classList.remove('visible');
+          if (activeLink) moveIndicator(activeLink, indicator);
+        });
       });
-    }, { rootMargin: '-40% 0px -55% 0px' });
 
-    sections.forEach(s => sectionObserver.observe(s));
+      // 5. Init
+      setTimeout(function() {
+        var first = document.querySelector('.navbar__link.active-section') || links[0];
+        if (first) {
+          first.classList.add('active-section');
+          activeLink = first;
+          moveIndicator(first, indicator);
+        }
+      }, 200);
+
+      // 6. Recalc on resize
+      window.addEventListener('resize', function() {
+        if (activeLink) moveIndicator(activeLink, indicator);
+      });
+    })();
   </script>
 </body>
 </html>

@@ -1,10 +1,5 @@
 // ===== NAVBAR SCROLL =====
-const navbar = document.querySelector('.navbar');
-if (navbar) {
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-  });
-}
+// Morphing is handled by inline script with navbar--scrolled class
 
 // ===== DROPDOWN CLICK =====
 let activeDropdown = null;
