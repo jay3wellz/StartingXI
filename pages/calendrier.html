@@ -659,30 +659,22 @@
             var isPractice = cats.length > 0;
 
             if (currentFilter === 'all') {
-              // show all
+              // show all with their colors
             } else if (currentFilter === 'starting') {
-              if (isPractice && cats.indexOf('starting') === -1) {
-                dimmed = true;
-              } else if (cats.length === 2) {
+              if (s) {
                 colorClass = 'color-starting';
+                isPractice = true;
+              } else {
+                isPractice = false;
+                colorClass = '';
               }
             } else if (currentFilter === 'junior') {
-              if (isPractice && cats.indexOf('junior') === -1) {
-                dimmed = true;
-              } else if (cats.length === 2) {
+              if (j) {
                 colorClass = 'color-junior';
-              }
-            } else if (currentFilter === 'multi') {
-              var showS = multiState.starting && s;
-              var showJ = multiState.junior && j;
-              if (isPractice && !showS && !showJ) {
-                dimmed = true;
-              } else if (showS && showJ) {
-                colorClass = 'color-dual';
-              } else if (showS && !showJ && cats.length === 2) {
-                colorClass = 'color-starting';
-              } else if (showJ && !showS && cats.length === 2) {
-                colorClass = 'color-junior';
+                isPractice = true;
+              } else {
+                isPractice = false;
+                colorClass = '';
               }
             }
 
