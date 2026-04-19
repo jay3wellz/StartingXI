@@ -6,47 +6,489 @@
   <title>Calendrier des pratiques — Starting XI</title>
   <meta name="description" content="Calendrier officiel des pratiques Starting XI — Saison Printemps-Été 2026.">
   <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    .cal-iframe-wrap {
-      margin-top: 80px;
-      width: 100%;
-      height: calc(100vh - 80px);
-      background: #111;
+    body {
+      background: #0A0A0A;
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      color: #fff;
     }
-    .cal-iframe-wrap iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
+
+    /* --- Category color palette --- */
+    :root {
+      --col-starting: 78,170,210;
+      --col-junior: 239,159,39;
+      --col-senior: 133,183,235;
+      --col-pro: 237,147,177;
+      --col-day: 78,170,210;
+    }
+
+    .cal-page {
+      margin-top: 80px;
+      min-height: calc(100vh - 80px);
+      background: #0A0A0A;
+      padding-bottom: 100px;
+    }
+
+    /* --- Header --- */
+    .cal-header {
+      text-align: center;
+      padding: 60px 24px 0;
+    }
+    .cal-season-badge {
+      display: inline-block;
+      background: rgba(78,170,210,0.08);
+      border: 1px solid rgba(78,170,210,0.25);
+      color: rgba(78,170,210,0.9);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 8px 24px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+    }
+    .cal-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(42px, 6vw, 72px);
+      letter-spacing: 0.06em;
+      line-height: 1;
+      margin: 0 0 16px;
+      color: #fff;
+    }
+    .cal-subtitle {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      margin: 0 0 12px;
+    }
+    .cal-schedule {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.05em;
+      margin: 0 0 36px;
+    }
+
+    /* --- Divider --- */
+    .cal-divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      margin: 36px auto;
+    }
+
+    /* --- Filters --- */
+    .cal-filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 0 24px;
+      margin-bottom: 28px;
+    }
+    .cal-filter-btn {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 11px 24px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent;
+      color: rgba(255,255,255,0.45);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .cal-filter-btn:hover {
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.7);
+      border-color: rgba(255,255,255,0.2);
+    }
+    /* "TOUTES" active — blue filled */
+    .cal-filter-btn.active[data-filter="all"] {
+      background: rgb(var(--col-day));
+      border-color: rgb(var(--col-day));
+      color: #0A0A0A;
+    }
+    /* Category active states */
+    .cal-filter-btn.active[data-filter="starting"] {
+      background: rgba(var(--col-starting), 0.15);
+      border-color: rgba(var(--col-starting), 0.5);
+      color: rgb(var(--col-starting));
+    }
+    .cal-filter-btn.active[data-filter="junior"] {
+      background: rgba(var(--col-junior), 0.15);
+      border-color: rgba(var(--col-junior), 0.5);
+      color: #EF9F27;
+    }
+    .cal-filter-btn.active[data-filter="multi"] {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.3);
+      color: #fff;
+    }
+
+    /* --- Legend --- */
+    .cal-legend {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 28px;
+      padding: 0 24px;
+      margin-bottom: 48px;
+    }
+    .cal-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+    }
+    .cal-legend-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+    }
+    .cal-legend-swatch--starting { background: rgba(var(--col-starting), 0.5); }
+    .cal-legend-swatch--junior { background: rgba(var(--col-junior), 0.5); }
+    .cal-legend-swatch--senior { background: rgba(var(--col-senior), 0.5); }
+    .cal-legend-swatch--pro { background: rgba(var(--col-pro), 0.5); }
+
+    /* --- Multi-select chips --- */
+    .cal-multi-panel {
+      display: none;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0 24px;
+      margin-bottom: 20px;
+    }
+    .cal-multi-panel.visible { display: flex; }
+    .cal-multi-chip {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent;
+      color: rgba(255,255,255,0.35);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .cal-multi-chip.on[data-cat="starting"] {
+      background: rgba(var(--col-day), 0.15);
+      border-color: rgba(var(--col-day), 0.5);
+      color: rgb(var(--col-day));
+    }
+    .cal-multi-chip.on[data-cat="junior"] {
+      background: rgba(var(--col-junior), 0.15);
+      border-color: rgba(var(--col-junior), 0.5);
+      color: #EF9F27;
+    }
+
+    /* --- Month Grid Layout --- */
+    .cal-months {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    @media (max-width: 1024px) {
+      .cal-months { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .cal-months { grid-template-columns: 1fr; }
+    }
+
+    /* --- Month Card --- */
+    .cal-month-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+    }
+    .cal-month-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .cal-month-name {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 24px;
+      letter-spacing: 0.06em;
+      color: #fff;
+    }
+    .cal-month-confirm {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 6px;
+      border: 1px solid rgba(var(--col-day),0.4);
+      background: rgba(var(--col-day),0.1);
+      color: rgb(var(--col-day));
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .cal-month-confirm:hover {
+      background: rgba(var(--col-day),0.2);
+      border-color: rgba(var(--col-day),0.6);
+      color: rgb(var(--col-day));
+    }
+    .cal-month-count {
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 16px;
+    }
+
+    /* --- Day Grid --- */
+    .cal-day-labels {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .cal-day-label {
+      text-align: center;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.2);
+      padding: 4px 0;
+    }
+    .cal-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    /* --- Day Cell --- */
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 8px;
+      color: rgba(255,255,255,0.18);
+      position: relative;
+      transition: all 0.2s ease;
+      overflow: hidden;
+    }
+
+    /* Practice day base */
+    .cal-day.practice {
+      cursor: pointer;
+      font-weight: 700;
+      color: #fff;
+    }
+    .cal-day.practice:hover {
+      transform: scale(1.12);
+      z-index: 5;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+
+    /* --- Category colors — each has its own --- */
+    .cal-day.color-starting {
+      background: rgba(var(--col-starting), 0.35);
+      color: #fff;
+    }
+    .cal-day.color-starting:hover {
+      background: rgba(var(--col-starting), 0.5);
+    }
+    .cal-day.color-junior {
+      background: rgba(var(--col-junior), 0.35);
+      color: #fff;
+    }
+    .cal-day.color-junior:hover {
+      background: rgba(var(--col-junior), 0.5);
+    }
+    .cal-day.color-senior {
+      background: rgba(var(--col-senior), 0.35);
+      color: #fff;
+    }
+    .cal-day.color-senior:hover {
+      background: rgba(var(--col-senior), 0.5);
+    }
+    .cal-day.color-pro {
+      background: rgba(var(--col-pro), 0.35);
+      color: #fff;
+    }
+    .cal-day.color-pro:hover {
+      background: rgba(var(--col-pro), 0.5);
+    }
+
+    /* Dual category — diagonal split */
+    .cal-day.color-dual {
+      background: transparent;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .cal-day.color-dual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(var(--col-starting),0.35) 50%, rgba(var(--col-junior),0.35) 50%);
+      border-radius: inherit;
+    }
+    .cal-day.color-dual:hover::before {
+      background: linear-gradient(135deg, rgba(var(--col-starting),0.5) 50%, rgba(var(--col-junior),0.5) 50%);
+    }
+    .cal-day.color-dual .day-number {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* --- Dimmed state --- */
+    .cal-day.dimmed {
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+
+    /* --- Tooltip --- */
+    .day-tooltip {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: #0D2137;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 10px 14px;
+      min-width: 175px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      z-index: 20;
+      text-align: left;
+      white-space: nowrap;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .cal-day.practice:hover .day-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .day-tooltip__date {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 6px;
+    }
+    .day-tooltip__cat {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .day-tooltip__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .day-tooltip__time {
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.3);
+      margin-top: 5px;
+      padding-top: 5px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .day-tooltip.flip-left {
+      left: 0;
+      transform: translateX(0) translateY(4px);
+    }
+    .cal-day.practice:hover .day-tooltip.flip-left {
+      transform: translateX(0) translateY(0);
+    }
+    .day-tooltip.flip-right {
+      left: auto;
+      right: 0;
+      transform: translateX(0) translateY(4px);
+    }
+    .cal-day.practice:hover .day-tooltip.flip-right {
+      transform: translateX(0) translateY(0);
+    }
+
+    /* --- Floating confirm button --- */
+    .cal-confirm-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      padding: 14px 32px;
+      background: rgb(var(--col-day));
+      color: #0A0A0A;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 8px 30px rgba(var(--col-day),0.25);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .cal-confirm-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(var(--col-day),0.35);
+    }
+
+    @media (max-width: 640px) {
+      .cal-header { padding: 48px 16px 0; }
+      .cal-months { padding: 0 16px; }
+      .cal-confirm-btn {
+        bottom: 16px;
+        right: 16px;
+        padding: 12px 20px;
+        font-size: 11px;
+      }
+      .cal-filter-btn { padding: 8px 14px; font-size: 9px; }
+      .cal-multi-chip { padding: 7px 14px; font-size: 9px; }
+      .day-tooltip { display: none !important; }
     }
   </style>
 </head>
-<body style="background:#111;">
+<body style="background:#0A0A0A;">
 
   <!-- NAVBAR -->
-  <nav class="navbar">
+  <nav class="navbar" id="main-navbar">
     <div class="navbar__inner">
       <div class="navbar__links-left">
-        <div class="navbar__item">
-          <a href="../index.html#hero" class="navbar__link">Accueil</a>
-        </div>
-        <div class="navbar__item">
-          <a href="../index.html#a-propos" class="navbar__link">À propos</a>
-        </div>
-        <div class="navbar__item">
-          <a href="../index.html#staff" class="navbar__link">Staff</a>
-        </div>
-        <div class="navbar__item">
-          <a href="../index.html#equipes" class="navbar__link">Équipes</a>
-        </div>
-        <div class="navbar__item">
-          <a href="../index.html#medias" class="navbar__link">Médias</a>
-        </div>
+        <a href="../index.html#hero" class="navbar__link">Accueil</a>
+        <a href="../index.html#a-propos" class="navbar__link">À propos</a>
+        <a href="../index.html#staff" class="navbar__link">Staff</a>
+        <a href="../index.html#equipes" class="navbar__link">Équipes</a>
+        <a href="../index.html#medias" class="navbar__link">Médias</a>
       </div>
 
       <a href="../index.html" class="navbar__logo">
-        <svg width="48" height="48" viewBox="0 0 120 120" fill="none">
-          <circle cx="60" cy="60" r="58" stroke="white" stroke-width="2.5" fill="#000"/>
+        <svg viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="60" r="58" stroke="white" stroke-width="2.5" fill="rgba(0,0,0,0.4)"/>
           <text x="28" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">S</text>
           <text x="55" y="72" font-family="Montserrat,sans-serif" font-weight="800" font-size="42" fill="white">T</text>
           <text x="82" y="78" font-family="Inter,sans-serif" font-weight="300" font-size="20" fill="white" letter-spacing="2">XI</text>
@@ -54,17 +496,12 @@
       </a>
 
       <div class="navbar__links-right">
-        <div class="navbar__item">
-          <a href="calendrier.html" class="navbar__link" style="color:#4EAAD4;">Calendrier</a>
-        </div>
-        <div class="navbar__item">
-          <a href="../index.html#partenaires" class="navbar__link">Partenaires</a>
-        </div>
-        <div class="navbar__item">
-          <a href="../index.html#contact" class="navbar__link">Contact</a>
-        </div>
-        <a href="../index.html#contact" class="navbar__cta">S'inscrire</a>
+        <a href="calendrier.html" class="navbar__link" style="color:#fff;">Calendrier</a>
+        <a href="../index.html#partenaires" class="navbar__link">Partenaires</a>
+        <a href="../index.html#contact" class="navbar__link">Contact</a>
       </div>
+
+      <div class="navbar__indicator visible" id="nav-indicator"></div>
 
       <button class="navbar__burger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -74,38 +511,368 @@
 
   <!-- MOBILE MENU -->
   <div class="mobile-menu">
-    <div class="mobile-menu__item">
-      <a href="../index.html#hero" class="mobile-menu__link">Accueil</a>
-    </div>
-    <div class="mobile-menu__item">
-      <a href="../index.html#a-propos" class="mobile-menu__link">À propos</a>
-    </div>
-    <div class="mobile-menu__item">
-      <a href="../index.html#staff" class="mobile-menu__link">Staff</a>
-    </div>
-    <div class="mobile-menu__item">
-      <a href="../index.html#equipes" class="mobile-menu__link">Équipes</a>
-    </div>
-    <div class="mobile-menu__item">
-      <a href="../index.html#medias" class="mobile-menu__link">Médias</a>
-    </div>
-    <div class="mobile-menu__item">
-      <a href="calendrier.html" class="mobile-menu__link" style="color:#4EAAD4;">Calendrier</a>
-    </div>
-    <div class="mobile-menu__item">
-      <a href="../index.html#partenaires" class="mobile-menu__link">Partenaires</a>
-    </div>
-    <div class="mobile-menu__item">
-      <a href="../index.html#contact" class="mobile-menu__link">Contact</a>
-    </div>
+    <div class="mobile-menu__item"><a href="../index.html#hero" class="mobile-menu__link">Accueil</a></div>
+    <div class="mobile-menu__item"><a href="../index.html#a-propos" class="mobile-menu__link">À propos</a></div>
+    <div class="mobile-menu__item"><a href="../index.html#staff" class="mobile-menu__link">Staff</a></div>
+    <div class="mobile-menu__item"><a href="../index.html#equipes" class="mobile-menu__link">Équipes</a></div>
+    <div class="mobile-menu__item"><a href="../index.html#medias" class="mobile-menu__link">Médias</a></div>
+    <div class="mobile-menu__item"><a href="calendrier.html" class="mobile-menu__link" style="color:#fff;">Calendrier</a></div>
+    <div class="mobile-menu__item"><a href="../index.html#partenaires" class="mobile-menu__link">Partenaires</a></div>
+    <div class="mobile-menu__item"><a href="../index.html#contact" class="mobile-menu__link">Contact</a></div>
     <a href="../index.html#contact" class="mobile-menu__cta">S'inscrire</a>
   </div>
 
-  <!-- CALENDAR APP -->
-  <div class="cal-iframe-wrap">
-    <iframe src="calendrier-app/index.html" title="Calendrier Starting XI"></iframe>
+  <!-- CALENDAR PAGE -->
+  <div class="cal-page">
+
+    <!-- Header -->
+    <div class="cal-header">
+      <div class="cal-season-badge">SAISON PRINTEMPS-ÉTÉ 2026</div>
+      <h1 class="cal-title">CALENDRIER DES PRATIQUES</h1>
+      <p class="cal-subtitle">Horaire officiel 2026</p>
+      <p class="cal-schedule">Lundi · Mercredi · Vendredi &nbsp;|&nbsp; 9h00 à 14h00</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="cal-filters" id="cal-filters">
+      <button class="cal-filter-btn active" data-filter="all">TOUTES</button>
+      <button class="cal-filter-btn" data-filter="starting">SENIOR / SEMI-PRO</button>
+      <button class="cal-filter-btn" data-filter="junior">JUNIOR</button>
+    </div>
+
+
+    <!-- Legend -->
+    <div class="cal-legend" id="cal-legend">
+      <div class="cal-legend-item">
+        <span class="cal-legend-swatch cal-legend-swatch--starting"></span>
+        Senior / Semi-Pro
+      </div>
+      <div class="cal-legend-item">
+        <span class="cal-legend-swatch cal-legend-swatch--junior"></span>
+        Junior
+      </div>
+    </div>
+
+    <!-- Month Cards -->
+    <div class="cal-months" id="cal-months"></div>
   </div>
 
+
   <script src="../js/main.js"></script>
+  <script>
+    (function() {
+
+      // --- Practice dates (from official PDF) ---
+      // Senior / Semi-Pro : avril–octobre
+      var startingDates = {
+        3: [20,22,24,27,29],
+        4: [1,4,6,8,11,13,15,18,20,22,25,27,29],
+        5: [1,3,5,8,10,12,15,17,19,22,24,26,29],
+        6: [1,3,6,8,10,13,15,17,20,22,24,27,29,31],
+        7: [3,5,7,10,12,14,17,19,21,24,26,28,31],
+        8: [2,4,7,9,11,14,16,18,21,23,25,28,30],
+        9: [2]
+      };
+
+      // Junior : juin–août
+      var juniorDates = {
+        5: [22,24,26,29],
+        6: [1,3,6,8,10,13,15,17,20,22,24,27,29,31],
+        7: [3,5,7,10,12,14,17,19,21,24,26,28]
+      };
+
+      var MONTHS_FR = ['JANVIER','FÉVRIER','MARS','AVRIL','MAI','JUIN',
+                       'JUILLET','AOÛT','SEPTEMBRE','OCTOBRE','NOVEMBRE','DÉCEMBRE'];
+      var DAYS_FR = ['LUN','MAR','MER','JEU','VEN','SAM','DIM'];
+      var DAYS_FULL = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+      var MONTHS_FULL = ['janvier','février','mars','avril','mai','juin',
+                         'juillet','août','septembre','octobre','novembre','décembre'];
+
+      var FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeJ9AyRvMjqrydtdYvBeqWRugUb3m8JWBS6gwzNAAEQED2uFA/viewform';
+
+      var YEAR = 2026;
+      var MONTH_RANGE = [3, 4, 5, 6, 7, 8, 9];
+
+      var currentFilter = 'all';
+      var multiState = { starting: true, junior: true };
+
+      var today = new Date();
+      var todayYear = today.getFullYear();
+      var todayMonth = today.getMonth();
+      var todayDay = today.getDate();
+
+      function daysInMonth(year, month) {
+        return new Date(year, month + 1, 0).getDate();
+      }
+
+      function firstDayOfMonth(year, month) {
+        var d = new Date(year, month, 1).getDay();
+        return (d + 6) % 7;
+      }
+
+      function isStarting(month, day) {
+        return startingDates[month] && startingDates[month].indexOf(day) !== -1;
+      }
+
+      function isJunior(month, day) {
+        return juniorDates[month] && juniorDates[month].indexOf(day) !== -1;
+      }
+
+      function tooltipDate(year, month, day) {
+        var d = new Date(year, month, day);
+        var dayName = DAYS_FULL[d.getDay()];
+        return dayName.charAt(0).toUpperCase() + dayName.slice(1) + ' ' + day + ' ' + MONTHS_FULL[month] + ' ' + year;
+      }
+
+      function getDayColumn(month, day) {
+        var startDay = firstDayOfMonth(YEAR, month);
+        return (startDay + day - 1) % 7;
+      }
+
+      function render() {
+        var container = document.getElementById('cal-months');
+        container.innerHTML = '';
+
+        MONTH_RANGE.forEach(function(m) {
+          var totalDays = daysInMonth(YEAR, m);
+          var startDay = firstDayOfMonth(YEAR, m);
+
+          var dayData = [];
+          var practiceCount = 0;
+
+          for (var d = 1; d <= totalDays; d++) {
+            var s = isStarting(m, d);
+            var j = isJunior(m, d);
+            var cats = [];
+            var colorClass = '';
+            var dimmed = false;
+
+            if (s) cats.push('starting');
+            if (j) cats.push('junior');
+
+            if (cats.length === 2) {
+              colorClass = 'color-dual';
+            } else if (cats.length === 1) {
+              colorClass = 'color-' + cats[0];
+            }
+
+            var isPractice = cats.length > 0;
+
+            if (currentFilter === 'all') {
+              // show all
+            } else if (currentFilter === 'starting') {
+              if (isPractice && cats.indexOf('starting') === -1) {
+                dimmed = true;
+              } else if (cats.length === 2) {
+                colorClass = 'color-starting';
+              }
+            } else if (currentFilter === 'junior') {
+              if (isPractice && cats.indexOf('junior') === -1) {
+                dimmed = true;
+              } else if (cats.length === 2) {
+                colorClass = 'color-junior';
+              }
+            } else if (currentFilter === 'multi') {
+              var showS = multiState.starting && s;
+              var showJ = multiState.junior && j;
+              if (isPractice && !showS && !showJ) {
+                dimmed = true;
+              } else if (showS && showJ) {
+                colorClass = 'color-dual';
+              } else if (showS && !showJ && cats.length === 2) {
+                colorClass = 'color-starting';
+              } else if (showJ && !showS && cats.length === 2) {
+                colorClass = 'color-junior';
+              }
+            }
+
+            if (isPractice) practiceCount++;
+
+            dayData.push({
+              day: d,
+              isPractice: isPractice,
+              colorClass: colorClass,
+              dimmed: dimmed,
+              cats: cats
+            });
+          }
+
+          if (currentFilter === 'junior') {
+            var hasJunior = false;
+            for (var i = 0; i < dayData.length; i++) {
+              if (dayData[i].cats.indexOf('junior') !== -1) { hasJunior = true; break; }
+            }
+            if (!hasJunior) return;
+          }
+
+          var card = document.createElement('div');
+          card.className = 'cal-month-card';
+
+          var header = document.createElement('div');
+          header.className = 'cal-month-header';
+
+          var name = document.createElement('span');
+          name.className = 'cal-month-name';
+          name.textContent = MONTHS_FR[m] + ' ' + YEAR;
+
+          header.appendChild(name);
+          card.appendChild(header);
+
+          var count = document.createElement('div');
+          count.className = 'cal-month-count';
+          count.textContent = practiceCount + ' pratique' + (practiceCount !== 1 ? 's' : '');
+          card.appendChild(count);
+
+          var labels = document.createElement('div');
+          labels.className = 'cal-day-labels';
+          DAYS_FR.forEach(function(dl) {
+            var lbl = document.createElement('div');
+            lbl.className = 'cal-day-label';
+            lbl.textContent = dl;
+            labels.appendChild(lbl);
+          });
+          card.appendChild(labels);
+
+          var grid = document.createElement('div');
+          grid.className = 'cal-days';
+
+          for (var e = 0; e < startDay; e++) {
+            var empty = document.createElement('div');
+            empty.className = 'cal-day empty';
+            grid.appendChild(empty);
+          }
+
+          dayData.forEach(function(v) {
+            var cell = document.createElement('div');
+            cell.className = 'cal-day';
+
+
+            if (v.isPractice) {
+              cell.classList.add('practice');
+              cell.classList.add(v.colorClass);
+              if (v.dimmed) cell.classList.add('dimmed');
+
+              if (v.colorClass === 'color-dual') {
+                var dayNum = document.createElement('span');
+                dayNum.className = 'day-number';
+                dayNum.textContent = v.day;
+                cell.appendChild(dayNum);
+              } else {
+                cell.textContent = v.day;
+              }
+
+              // Tooltip
+              if (!v.dimmed) {
+                var tooltip = document.createElement('div');
+                tooltip.className = 'day-tooltip';
+
+                var col = getDayColumn(m, v.day);
+                if (col <= 1) tooltip.classList.add('flip-left');
+                else if (col >= 5) tooltip.classList.add('flip-right');
+
+                var dateDiv = document.createElement('div');
+                dateDiv.className = 'day-tooltip__date';
+                dateDiv.textContent = tooltipDate(YEAR, m, v.day);
+                tooltip.appendChild(dateDiv);
+
+                v.cats.forEach(function(cat) {
+                  var catDiv = document.createElement('div');
+                  catDiv.className = 'day-tooltip__cat';
+                  var dot = document.createElement('span');
+                  dot.className = 'day-tooltip__dot';
+                  if (cat === 'starting') {
+                    dot.style.background = 'rgb(78,170,210)';
+                    catDiv.appendChild(dot);
+                    catDiv.appendChild(document.createTextNode('Senior / Semi-Pro'));
+                  } else {
+                    dot.style.background = '#EF9F27';
+                    catDiv.appendChild(dot);
+                    catDiv.appendChild(document.createTextNode('Junior'));
+                  }
+                  tooltip.appendChild(catDiv);
+                });
+
+                var timeDiv = document.createElement('div');
+                timeDiv.className = 'day-tooltip__time';
+                timeDiv.textContent = '9h00 — 14h00';
+                tooltip.appendChild(timeDiv);
+
+                cell.appendChild(tooltip);
+              }
+
+            } else {
+              cell.textContent = v.day;
+            }
+
+            grid.appendChild(cell);
+          });
+
+          card.appendChild(grid);
+          container.appendChild(card);
+        });
+      }
+
+      // Filter handlers
+      var filterBtns = document.querySelectorAll('#cal-filters .cal-filter-btn');
+      var multiPanel = document.getElementById('cal-multi-panel');
+
+      filterBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var f = btn.getAttribute('data-filter');
+          filterBtns.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          currentFilter = f;
+          if (f === 'multi') {
+            multiPanel.classList.add('visible');
+          } else {
+            multiPanel.classList.remove('visible');
+          }
+          render();
+        });
+      });
+
+      document.querySelectorAll('.cal-multi-chip').forEach(function(chip) {
+        chip.addEventListener('click', function() {
+          var cat = chip.getAttribute('data-cat');
+          multiState[cat] = !multiState[cat];
+          chip.classList.toggle('on', multiState[cat]);
+          render();
+        });
+      });
+
+      render();
+
+      // Navbar
+      var navbar = document.getElementById('main-navbar');
+      var indicator = document.getElementById('nav-indicator');
+      if (navbar && indicator) {
+        window.addEventListener('scroll', function() {
+          navbar.classList.toggle('navbar--scrolled', window.scrollY > 50);
+        }, { passive: true });
+
+        function posIndicator() {
+          var calLink = document.querySelector('.navbar__link[href="calendrier.html"]');
+          if (!calLink) return;
+          var r = calLink.getBoundingClientRect();
+          var p = navbar.querySelector('.navbar__inner').getBoundingClientRect();
+          indicator.style.left = (r.left - p.left) + 'px';
+          indicator.style.width = r.width + 'px';
+        }
+        setTimeout(posIndicator, 100);
+        window.addEventListener('resize', posIndicator);
+
+        document.querySelectorAll('.navbar__links-left .navbar__link, .navbar__links-right .navbar__link').forEach(function(link) {
+          link.addEventListener('mouseenter', function() {
+            var r = link.getBoundingClientRect();
+            var p = navbar.querySelector('.navbar__inner').getBoundingClientRect();
+            indicator.style.left = (r.left - p.left) + 'px';
+            indicator.style.width = r.width + 'px';
+          });
+          link.addEventListener('mouseleave', posIndicator);
+        });
+      }
+
+    })();
+  </script>
 </body>
 </html>
