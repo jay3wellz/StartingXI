@@ -1670,15 +1670,15 @@
   <section class="stats">
     <div class="stats__grid">
       <div class="stats__item">
-        <div class="stats__number" data-target="5" data-suffix="">0</div>
+        <div class="stats__number" data-target="4" data-suffix="">0</div>
         <div class="stats__label" data-i18n="stats.categories">Catégories</div>
       </div>
       <div class="stats__item">
-        <div class="stats__number" data-target="200" data-suffix="+">0</div>
+        <div class="stats__number" data-target="80" data-suffix="+">0</div>
         <div class="stats__label" data-i18n="stats.players">Joueurs</div>
       </div>
       <div class="stats__item">
-        <div class="stats__number" data-target="2020" data-suffix="">0</div>
+        <div class="stats__number" data-target="2024" data-suffix="">0</div>
         <div class="stats__label" data-i18n="stats.since">Depuis</div>
       </div>
       <div class="stats__item">
@@ -1832,7 +1832,7 @@
 
         <!-- 07 Michael -->
         <div class="staff-card" data-index="6">
-          <img src="images/staff/Lacamz-217.jpg" alt="Michael" loading="lazy" class="staff-card__img" style="object-position:center 30%;">
+          <div class="staff-card__img" style="background:linear-gradient(135deg,#1a1a1a,#2c2c2c);display:flex;align-items:center;justify-content:center;"><span style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:rgba(255,255,255,0.06);letter-spacing:0.05em;">M</span></div>
           <div class="staff-card__overlay"></div>
           <div class="staff-card__content">
             <span class="staff-card__num">07</span>
@@ -1844,7 +1844,7 @@
 
         <!-- 08 Stephen -->
         <div class="staff-card" data-index="7">
-          <img src="images/staff/Lacamz-217.jpg" alt="Stephen" loading="lazy" class="staff-card__img" style="object-position:center 30%;">
+          <div class="staff-card__img" style="background:linear-gradient(135deg,#1a1a1a,#2c2c2c);display:flex;align-items:center;justify-content:center;"><span style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:rgba(255,255,255,0.06);letter-spacing:0.05em;">S</span></div>
           <div class="staff-card__overlay"></div>
           <div class="staff-card__content">
             <span class="staff-card__num">08</span>
@@ -1882,7 +1882,7 @@
       <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,3.5rem);color:#fff;letter-spacing:0.04em;text-shadow:0 0 20px rgba(255,255,255,0.2),0 0 40px rgba(255,255,255,0.1),0 0 80px rgba(255,255,255,0.05);" data-i18n="teams.title">Trouve ta catégorie</h2>
     </div>
     <div class="cat-grid">
-      <div class="cat-card">
+      <div class="cat-card" id="equipe-junior" style="scroll-margin-top:100px;">
         <img src="images/equipes-masculin/879a4adf-33e6-4bda-8af8-d485d37bebeb.jpg" alt="Junior" class="cat-card__img" loading="lazy">
         <div class="cat-card__overlay"></div>
         <div class="cat-card__arrow">
@@ -1894,7 +1894,7 @@
           <p class="cat-card__desc" data-i18n="teams.junior.desc">Développement technique et tactique pour les jeunes joueurs en quête de progression.</p>
         </div>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" id="equipe-masculin" style="scroll-margin-top:100px;">
         <img src="images/galerie/5f9e24bf4714671552525e9a9bd333e7.jpg" alt="Masculin" class="cat-card__img" loading="lazy">
         <div class="cat-card__overlay"></div>
         <div class="cat-card__arrow">
@@ -1906,7 +1906,7 @@
           <p class="cat-card__desc" data-i18n="teams.masculin.desc">Encadrement compétitif et structuré pour les joueurs seniors qui veulent se dépasser.</p>
         </div>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" id="equipe-feminin" style="scroll-margin-top:100px;">
         <img src="images/equipes-feminin/Lacamz-4073.jpg" alt="Féminin" class="cat-card__img" loading="lazy" style="object-position:center 25%;">
         <div class="cat-card__overlay"></div>
         <div class="cat-card__arrow">
@@ -1918,7 +1918,7 @@
           <p class="cat-card__desc" data-i18n="teams.feminin.desc">Un programme dédié au développement et à la valorisation du soccer féminin.</p>
         </div>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" id="equipe-pro" style="scroll-margin-top:100px;">
         <img src="images/equipes-pro/19351f7b63821ea0c9471989418cf48b.jpg" alt="Pro" class="cat-card__img" loading="lazy">
         <div class="cat-card__overlay"></div>
         <div class="cat-card__arrow">
@@ -2577,16 +2577,7 @@
             <p class="wiz-step__label">Étape 2 / 4</p>
             <h3 class="wiz-step__title">Catégorie d'âge</h3>
             <div class="wiz-options">
-              <div class="wiz-option" data-value="5 à 8 ans">
-                <div class="wiz-option__icon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><text x="6" y="16" font-family="Montserrat,sans-serif" font-weight="700" font-size="10" fill="currentColor" stroke="none">U8</text></svg>
-                </div>
-                <div class="wiz-option__text">
-                  <p class="wiz-option__title">5 à 8 ans</p>
-                  <p class="wiz-option__desc">Programme découverte</p>
-                </div>
-              </div>
-              <div class="wiz-option" data-value="9 à 12 ans">
+              <div class="wiz-option" data-value="U12 (9-12 ans)">
                 <div class="wiz-option__icon">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><text x="4" y="16" font-family="Montserrat,sans-serif" font-weight="700" font-size="10" fill="currentColor" stroke="none">U12</text></svg>
                 </div>
@@ -2595,22 +2586,40 @@
                   <p class="wiz-option__desc">Programme développement</p>
                 </div>
               </div>
-              <div class="wiz-option" data-value="13 à 16 ans">
+              <div class="wiz-option" data-value="U15 (13-15 ans)">
                 <div class="wiz-option__icon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><text x="4" y="16" font-family="Montserrat,sans-serif" font-weight="700" font-size="10" fill="currentColor" stroke="none">U16</text></svg>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><text x="4" y="16" font-family="Montserrat,sans-serif" font-weight="700" font-size="10" fill="currentColor" stroke="none">U15</text></svg>
                 </div>
                 <div class="wiz-option__text">
-                  <p class="wiz-option__title">13 à 16 ans</p>
+                  <p class="wiz-option__title">13 à 15 ans</p>
+                  <p class="wiz-option__desc">Programme intermédiaire à avancé</p>
+                </div>
+              </div>
+              <div class="wiz-option" data-value="U18 (16-18 ans)">
+                <div class="wiz-option__icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><text x="4" y="16" font-family="Montserrat,sans-serif" font-weight="700" font-size="10" fill="currentColor" stroke="none">U18</text></svg>
+                </div>
+                <div class="wiz-option__text">
+                  <p class="wiz-option__title">16 à 18 ans</p>
                   <p class="wiz-option__desc">Programme compétition</p>
                 </div>
               </div>
-              <div class="wiz-option" data-value="17 ans et plus">
+              <div class="wiz-option" data-value="Senior 18+">
                 <div class="wiz-option__icon">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><text x="3" y="16" font-family="Montserrat,sans-serif" font-weight="700" font-size="9" fill="currentColor" stroke="none">18+</text></svg>
                 </div>
                 <div class="wiz-option__text">
-                  <p class="wiz-option__title">17 ans et plus</p>
-                  <p class="wiz-option__desc">Programme adulte</p>
+                  <p class="wiz-option__title">18 ans et plus</p>
+                  <p class="wiz-option__desc">Programme masculin / féminin adulte</p>
+                </div>
+              </div>
+              <div class="wiz-option" data-value="Pro/Élite">
+                <div class="wiz-option__icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><text x="3" y="16" font-family="Montserrat,sans-serif" font-weight="700" font-size="8" fill="currentColor" stroke="none">PRO</text></svg>
+                </div>
+                <div class="wiz-option__text">
+                  <p class="wiz-option__title">Pro / Élite</p>
+                  <p class="wiz-option__desc">Niveau semi-pro et pro</p>
                 </div>
               </div>
             </div>
@@ -2811,10 +2820,10 @@
       </div>
       <div class="footer__col">
         <h4 data-i18n="footer.teams">Équipes</h4>
-        <a href="#equipes" data-i18n="teams.masculin.title">Masculin</a>
-        <a href="#equipes" data-i18n="teams.feminin.title">Féminin</a>
-        <a href="#equipes" data-i18n="teams.pro.title">Pro</a>
-        <a href="#equipes" data-i18n="teams.junior.title">Junior</a>
+        <a href="#equipe-masculin" data-i18n="teams.masculin.title">Masculin</a>
+        <a href="#equipe-feminin" data-i18n="teams.feminin.title">Féminin</a>
+        <a href="#equipe-pro" data-i18n="teams.pro.title">Pro</a>
+        <a href="#equipe-junior" data-i18n="teams.junior.title">Junior</a>
       </div>
       <div class="footer__col">
         <h4 data-i18n="footer.media">Médias</h4>
@@ -3937,6 +3946,35 @@
     if (lang !== 'fr') {
       applyLanguage(lang);
     }
+  })();
+  </script>
+  <script>
+  // ===== STATS COUNT-UP ANIMATION =====
+  (function() {
+    var statsSection = document.querySelector('.stats');
+    if (!statsSection) return;
+    var animated = false;
+    var observer = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting && !animated) {
+        animated = true;
+        document.querySelectorAll('.stats__number[data-target]').forEach(function(el) {
+          var target = parseInt(el.getAttribute('data-target'));
+          var suffix = el.getAttribute('data-suffix') || '';
+          var duration = 2000;
+          var start = performance.now();
+          function step(now) {
+            var elapsed = now - start;
+            var progress = Math.min(elapsed / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            var current = Math.round(eased * target);
+            el.textContent = current + suffix;
+            if (progress < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        });
+      }
+    }, { threshold: 0.3 });
+    observer.observe(statsSection);
   })();
   </script>
 </body>
